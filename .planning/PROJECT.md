@@ -12,17 +12,16 @@ At a glance, the homeowner can see how much solar energy is being produced right
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Total solar production (real-time power + cumulative energy) — Validated in Phase 1: Foundation & Overview Stats
+- [x] Grid import power (real-time from smart meter) — Validated in Phase 1: Foundation & Overview Stats
+- [x] House load calculation (solar production + grid import) — Validated in Phase 1: Foundation & Overview Stats
+- [x] Today/total energy production stats — Validated in Phase 1: Foundation & Overview Stats
 
 ### Active
 
-- [ ] Total solar production (real-time power + cumulative energy)
 - [ ] Per-inverter production breakdown (East vs West)
 - [ ] Module-level monitoring (8 individual panels with power, voltage, current)
 - [ ] Roof layout visualization showing panel positions with production heatmap
-- [ ] Grid import power (real-time from smart meter)
-- [ ] House load calculation (solar production + grid import - export)
-- [ ] Today/total energy production stats
 - [ ] Financial savings calculation using TOU rates
 - [ ] Inverter health monitoring (temperature, alarms, faults, state)
 - [ ] Grid quality monitoring (voltage, frequency, power factor)
@@ -104,9 +103,9 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Single dashboard (not multiple) | User wants everything at a glance in one place | — Pending |
-| JSON export delivery | Simple import, no provisioning infrastructure needed | — Pending |
-| SQL queries (InfluxDB v3) | InfluxDB 3 Core only supports SQL, not Flux/InfluxQL | — Pending |
+| Single dashboard (not multiple) | User wants everything at a glance in one place | Confirmed — Phase 1 delivers single importable JSON |
+| JSON export delivery | Simple import, no provisioning infrastructure needed | Confirmed — __inputs pattern works for datasource binding |
+| SQL queries (InfluxDB v3) | InfluxDB 3 Core only supports SQL, not Flux/InfluxQL | Confirmed — all queries use valid InfluxDB 3 SQL |
 | TOU-aware financial calculations | Peak solar production aligns with peak rates, maximizing tracked savings | — Pending |
 | Roof layout visualization | Module-level visual showing physical panel positions with production heatmap | — Pending |
 
@@ -128,4 +127,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after initialization*
+*Last updated: 2026-03-30 after Phase 1 completion — Foundation & Overview Stats*
