@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation & Overview Stats** - Dashboard skeleton with validated SQL queries, header stats showing real-time power/energy/status, and power flow layout
 - [ ] **Phase 2: Production Charts & Grid Monitoring** - Time-series production graphs, East vs West comparison, daily/weekly bars, and grid quality views
-- [ ] **Phase 3: Module-Level Detail & Inverter Health** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history
+- [ ] **Phase 3: Module-Level Detail, Inverter Health & Event Log** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history, grid backfeed event tracking
 - [ ] **Phase 4: Financial Savings, Canvas Layout & Polish** - TOU-aware savings calculations, roof layout heatmap visualization, calendar heatmap, unit/color consistency
 
 ## Phase Details
@@ -44,16 +44,18 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 3: Module-Level Detail & Inverter Health
-**Goal**: User can monitor individual panel performance and inverter health to diagnose issues at the component level
+### Phase 3: Module-Level Detail, Inverter Health & Event Log
+**Goal**: User can monitor individual panel performance, inverter health, and system anomalies (including grid backfeed events) to diagnose issues at the component level
 **Depends on**: Phase 2
-**Requirements**: MODL-01, MODL-02, MODL-03, HLTH-01, HLTH-02, HLTH-03, HLTH-04
+**Requirements**: MODL-01, MODL-02, MODL-03, HLTH-01, HLTH-02, HLTH-03, HLTH-04, EVNT-01, EVNT-02, EVNT-03
 **Success Criteria** (what must be TRUE):
   1. User can see power output (W) for all 8 individual panels (PV1-PV4 on East and West inverters)
   2. User can see voltage (V) and current (A) for all 8 panels, plus today's and total production per panel
   3. User can see inverter temperature for both micro inverters as gauges or stats with appropriate thresholds
   4. User can see device state, alarm, and fault status with color-coded indicators, plus a historical alarm/fault log table
   5. Dashboard displays inverter offline status at night as normal/expected (not as an error condition)
+  6. User can see a grid backfeed event log showing timestamp, power, and duration for all negative smart meter readings, plus today's backfeed count and max backfeed power as summary stats
+  7. User can see a unified event log combining grid backfeed, inverter alarms/faults, and state changes chronologically
 **Plans**: TBD
 **UI hint**: yes
 
@@ -79,5 +81,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation & Overview Stats | 0/TBD | Not started | - |
 | 2. Production Charts & Grid Monitoring | 0/TBD | Not started | - |
-| 3. Module-Level Detail & Inverter Health | 0/TBD | Not started | - |
+| 3. Module-Level Detail, Inverter Health & Event Log | 0/TBD | Not started | - |
 | 4. Financial Savings, Canvas Layout & Polish | 0/TBD | Not started | - |

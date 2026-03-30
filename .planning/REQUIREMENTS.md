@@ -53,6 +53,12 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **GRID-01**: User can see grid voltage (V) and frequency (Hz) from smart meter as stats
 - [ ] **GRID-02**: User can see smart meter detailed view including power factor, current, voltage, and frequency as time-series trends
 
+### Anomaly & Event Log
+
+- [ ] **EVNT-01**: User can see a grid backfeed event log table showing timestamp, power value (W), and duration for all instances where smart meter power_sensor < 0
+- [ ] **EVNT-02**: User can see today's backfeed event count and max backfeed power (W) as summary stats
+- [ ] **EVNT-03**: User can see a unified event log combining grid backfeed events, inverter alarm/fault events, and device state changes in chronological order
+
 ### Dashboard Infrastructure
 
 - [ ] **INFR-01**: Dashboard is delivered as a Grafana JSON export file importable via Grafana UI
@@ -129,6 +135,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HLTH-04 | Phase 3 | Pending |
 | GRID-01 | Phase 2 | Pending |
 | GRID-02 | Phase 2 | Pending |
+| EVNT-01 | Phase 3 | Pending |
+| EVNT-02 | Phase 3 | Pending |
+| EVNT-03 | Phase 3 | Pending |
 | INFR-01 | Phase 1 | Pending |
 | INFR-02 | Phase 1 | Pending |
 | INFR-03 | Phase 1 | Pending |
@@ -137,10 +146,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-06 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 34 total
-- Mapped to phases: 34
+- v1 requirements: 37 total
+- Mapped to phases: 37
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-30*
-*Last updated: 2026-03-30 after roadmap creation (traceability updated)*
+*Last updated: 2026-03-30 after adding anomaly/event log requirements*
