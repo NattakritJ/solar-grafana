@@ -4435,6 +4435,354 @@
       ]
     },
     {
+      "type": "stat",
+      "id": 41,
+      "title": "Peak kWh",
+      "description": "Energy produced during peak TOU hours (weekday 09-22, excluding holidays)",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 86
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(hourly_kwh) AS peak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT SUM(hourly_kwh) AS peak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.01,
+                "color": "green"
+              },
+              {
+                "value": 10,
+                "color": "dark-green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "id": 42,
+      "title": "Peak THB",
+      "description": "Savings from peak-hour production at 5.7982 THB/kWh",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 86
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(hourly_kwh * 5.7982) AS peak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT SUM(hourly_kwh * 5.7982) AS peak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: THB",
+          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.01,
+                "color": "green"
+              },
+              {
+                "value": 100,
+                "color": "dark-green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "id": 43,
+      "title": "Off-Peak kWh",
+      "description": "Energy produced during off-peak TOU hours (nights, weekends, holidays)",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 86
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(hourly_kwh) AS offpeak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT SUM(hourly_kwh) AS offpeak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.01,
+                "color": "light-blue"
+              },
+              {
+                "value": 5,
+                "color": "blue"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "id": 44,
+      "title": "Off-Peak THB",
+      "description": "Savings from off-peak production at 2.6369 THB/kWh",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 86
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(hourly_kwh * 2.6369) AS offpeak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT SUM(hourly_kwh * 2.6369) AS offpeak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: THB",
+          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.01,
+                "color": "light-blue"
+              },
+              {
+                "value": 50,
+                "color": "blue"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "type": "row",
       "id": 700,
       "title": "Event Log",
