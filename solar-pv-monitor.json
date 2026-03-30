@@ -39,6 +39,121 @@
       "panels": []
     },
     {
+      "type": "stat",
+      "id": 1,
+      "title": "Solar Power",
+      "description": "Current total solar production from both inverters",
+      "transparent": true,
+      "gridPos": { "h": 4, "w": 3, "x": 0, "y": 1 },
+      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(solar_kw) AS solar_kw FROM (SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1 UNION ALL SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1)",
+          "format": "table"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatt",
+          "decimals": 2,
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "dark-gray" },
+              { "value": 0.001, "color": "yellow" },
+              { "value": 1, "color": "green" },
+              { "value": 4, "color": "dark-green" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 2,
+      "title": "Today's Energy",
+      "description": "Total energy produced today from both inverters",
+      "transparent": true,
+      "gridPos": { "h": 4, "w": 3, "x": 3, "y": 1 },
+      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(today_energy) AS today_kwh FROM (SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_energy FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' UNION ALL SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_energy FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours')",
+          "format": "table"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 1,
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "dark-gray" },
+              { "value": 0.1, "color": "yellow" },
+              { "value": 10, "color": "green" },
+              { "value": 25, "color": "dark-green" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 3,
+      "title": "Lifetime Energy",
+      "description": "Total cumulative energy produced since system installation",
+      "transparent": true,
+      "gridPos": { "h": 4, "w": 3, "x": 6, "y": 1 },
+      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT SUM(total_energy) AS lifetime_kwh FROM (SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS total_energy FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 hour' UNION ALL SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS total_energy FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 hour')",
+          "format": "table"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 0,
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "dark-gray" },
+              { "value": 1, "color": "green" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "graphMode": "none",
+        "textMode": "auto",
+        "colorMode": "value"
+      }
+    },
+    {
       "type": "row",
       "id": 200,
       "title": "Production",
