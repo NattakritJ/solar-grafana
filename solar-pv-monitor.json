@@ -3568,7 +3568,7 @@
       "type": "row",
       "id": 700,
       "title": "Event Log",
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3576,6 +3576,576 @@
         "y": 64
       },
       "panels": []
+    },
+    {
+      "type": "stat",
+      "id": 33,
+      "title": "Today's Backfeed Count",
+      "description": "Number of grid backfeed events today (Smart Meter power < 0)",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 65
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT COUNT(*) AS \"Count\"\nFROM \"Smart Meter\"\nWHERE time >= now() - INTERVAL '1 day'\n  AND power_sensor < 0",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "green"
+              },
+              {
+                "value": 1,
+                "color": "yellow"
+              },
+              {
+                "value": 10,
+                "color": "orange"
+              },
+              {
+                "value": 50,
+                "color": "red"
+              }
+            ]
+          },
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 34,
+      "title": "Max Backfeed Power",
+      "description": "Maximum grid backfeed power today (absolute value)",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 65
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT ABS(MIN(power_sensor)) AS \"Max Export\"\nFROM \"Smart Meter\"\nWHERE time >= now() - INTERVAL '1 day'\n  AND power_sensor < 0",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "green"
+              },
+              {
+                "value": 100,
+                "color": "yellow"
+              },
+              {
+                "value": 500,
+                "color": "orange"
+              },
+              {
+                "value": 1000,
+                "color": "red"
+              }
+            ]
+          },
+          "noValue": "0 W"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background"
+      }
+    },
+    {
+      "type": "table",
+      "id": 35,
+      "title": "Grid Backfeed Log",
+      "description": "Instances where grid power went negative (export/backfeed)",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 65
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  ABS(power_sensor) AS \"Export Power (W)\",\n  voltage_sensor AS \"Voltage (V)\",\n  current_sensor AS \"Current (A)\"\nFROM \"Smart Meter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND power_sensor < 0\nORDER BY time DESC\nLIMIT 100",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Export Power (W)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "watt"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "value": null,
+                      "color": "green"
+                    },
+                    {
+                      "value": 100,
+                      "color": "yellow"
+                    },
+                    {
+                      "value": 500,
+                      "color": "red"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Voltage (V)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "volt"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Current (A)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "amp"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        },
+        "sortBy": [
+          {
+            "displayName": "Time",
+            "desc": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "id": 36,
+      "title": "Alarm / Fault History",
+      "description": "Historical inverter alarm and fault events",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 69
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "East",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  'East' AS \"Inverter\",\n  CASE\n    WHEN alarm_sensor != 0 AND fault_sensor != 0 THEN 'Alarm + Fault'\n    WHEN alarm_sensor != 0 THEN 'Alarm'\n    WHEN fault_sensor != 0 THEN 'Fault'\n    ELSE 'State Change'\n  END AS \"Type\",\n  COALESCE(alarm_sensor, 0) AS \"Alarm Code\",\n  COALESCE(fault_sensor, 0) AS \"Fault Code\",\n  device_state_sensor AS \"State\"\nFROM \"East Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND (alarm_sensor != 0 OR fault_sensor != 0)\nORDER BY time DESC\nLIMIT 50",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  'West' AS \"Inverter\",\n  CASE\n    WHEN alarm_sensor != 0 AND fault_sensor != 0 THEN 'Alarm + Fault'\n    WHEN alarm_sensor != 0 THEN 'Alarm'\n    WHEN fault_sensor != 0 THEN 'Fault'\n    ELSE 'State Change'\n  END AS \"Type\",\n  COALESCE(alarm_sensor, 0) AS \"Alarm Code\",\n  COALESCE(fault_sensor, 0) AS \"Fault Code\",\n  device_state_sensor AS \"State\"\nFROM \"West Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND (alarm_sensor != 0 OR fault_sensor != 0)\nORDER BY time DESC\nLIMIT 50",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "field": "Time",
+                "desc": true
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Alarm Code"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "value": null,
+                      "color": "green"
+                    },
+                    {
+                      "value": 1,
+                      "color": "red"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Fault Code"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "value": null,
+                      "color": "green"
+                    },
+                    {
+                      "value": 1,
+                      "color": "red"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Type"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "Alarm": {
+                        "color": "orange"
+                      },
+                      "Fault": {
+                        "color": "red"
+                      },
+                      "Alarm + Fault": {
+                        "color": "dark-red"
+                      },
+                      "State Change": {
+                        "color": "blue"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "type": "table",
+      "id": 37,
+      "title": "Event Log",
+      "description": "All system events \u2014 grid backfeed, inverter alarms, faults, and state changes",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 73
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "Backfeed",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  'Smart Meter' AS \"Source\",\n  'Backfeed' AS \"Event\",\n  ABS(power_sensor) AS \"Detail\"\nFROM \"Smart Meter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND power_sensor < 0\nORDER BY time DESC\nLIMIT 50",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "EastEvents",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  'East Inverter' AS \"Source\",\n  CASE\n    WHEN alarm_sensor != 0 THEN 'Alarm'\n    WHEN fault_sensor != 0 THEN 'Fault'\n    ELSE 'State Change'\n  END AS \"Event\",\n  CASE\n    WHEN alarm_sensor != 0 THEN alarm_sensor\n    WHEN fault_sensor != 0 THEN fault_sensor\n    ELSE device_state_sensor\n  END AS \"Detail\"\nFROM \"East Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND (alarm_sensor != 0 OR fault_sensor != 0 OR device_state_sensor != 2)\nORDER BY time DESC\nLIMIT 50",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "WestEvents",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  'West Inverter' AS \"Source\",\n  CASE\n    WHEN alarm_sensor != 0 THEN 'Alarm'\n    WHEN fault_sensor != 0 THEN 'Fault'\n    ELSE 'State Change'\n  END AS \"Event\",\n  CASE\n    WHEN alarm_sensor != 0 THEN alarm_sensor\n    WHEN fault_sensor != 0 THEN fault_sensor\n    ELSE device_state_sensor\n  END AS \"Detail\"\nFROM \"West Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND (alarm_sensor != 0 OR fault_sensor != 0 OR device_state_sensor != 2)\nORDER BY time DESC\nLIMIT 50",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "field": "Time",
+                "desc": true
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Event"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "Backfeed": {
+                        "color": "purple"
+                      },
+                      "Alarm": {
+                        "color": "orange"
+                      },
+                      "Fault": {
+                        "color": "red"
+                      },
+                      "State Change": {
+                        "color": "blue"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "Smart Meter": {
+                        "color": "purple"
+                      },
+                      "East Inverter": {
+                        "color": "#FF9830"
+                      },
+                      "West Inverter": {
+                        "color": "#5794F2"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
     }
   ],
   "templating": {
