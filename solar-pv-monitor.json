@@ -34,6 +34,24 @@
       "id": "row",
       "name": "Row",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
     }
   ],
   "id": null,
@@ -1097,14 +1115,390 @@
       "type": "row",
       "id": 200,
       "title": "Production",
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 9
       },
       "panels": []
+    },
+    {
+      "type": "timeseries",
+      "id": 12,
+      "title": "Solar Production",
+      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
+      "gridPos": {
+        "h": 10,
+        "w": 16,
+        "x": 0,
+        "y": 10
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "East",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "min": 0,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 20,
+            "gradientMode": "scheme",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 1000
+              },
+              {
+                "color": "dark-green",
+                "value": 3000
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "East"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF9830"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#5794F2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "type": "bargauge",
+      "id": 13,
+      "title": "Inverter Power",
+      "description": "Current power output per inverter",
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "East",
+          "rawSql": "SELECT power_sensor AS \"East\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT power_sensor AS \"West\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "min": 0,
+          "max": 2620,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "light-green",
+                "value": 500
+              },
+              {
+                "color": "green",
+                "value": 1500
+              },
+              {
+                "color": "dark-green",
+                "value": 2200
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "East"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF9830"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#5794F2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "minVizWidth": 75,
+        "minVizHeight": 75,
+        "valueMode": "color"
+      }
+    },
+    {
+      "type": "piechart",
+      "id": 14,
+      "title": "East / West Split",
+      "description": "Today's energy production split between East and West inverters",
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "East",
+          "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 day'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 day'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ],
+            "includeTimeField": false,
+            "mode": "seriesToRows"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "East"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF9830"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#5794F2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      }
     },
     {
       "type": "row",
@@ -1115,7 +1509,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 20
       },
       "panels": []
     },
@@ -1128,7 +1522,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 21
       },
       "panels": []
     },
@@ -1141,7 +1535,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 22
       },
       "panels": []
     },
@@ -1154,7 +1548,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 23
       },
       "panels": []
     },
@@ -1167,7 +1561,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 24
       },
       "panels": []
     }
