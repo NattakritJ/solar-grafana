@@ -1,0 +1,93 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB_SOLAR",
+      "label": "influxdb-solar",
+      "description": "InfluxDB 3 Core - Solar monitoring database",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    { "type": "grafana", "id": "grafana", "name": "Grafana", "version": "12.4.1" },
+    { "type": "datasource", "id": "influxdb", "name": "InfluxDB", "version": "1.0.0" },
+    { "type": "panel", "id": "stat", "name": "Stat", "version": "" },
+    { "type": "panel", "id": "row", "name": "Row", "version": "" }
+  ],
+  "id": null,
+  "uid": null,
+  "title": "Solar PV Monitor",
+  "description": "Residential solar PV monitoring - 5.24 kWp system with 2 micro inverters and 8 panels",
+  "tags": ["solar", "energy", "influxdb"],
+  "schemaVersion": 40,
+  "version": 1,
+  "timezone": "Asia/Bangkok",
+  "refresh": "10s",
+  "time": { "from": "now-24h", "to": "now" },
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "editable": true,
+  "panels": [
+    {
+      "type": "row",
+      "id": 100,
+      "title": "Overview",
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 200,
+      "title": "Production",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 20 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 300,
+      "title": "Module Level",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 21 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 400,
+      "title": "Grid & Consumption",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 22 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 500,
+      "title": "Inverter Health",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 600,
+      "title": "Financial Savings",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 24 },
+      "panels": []
+    },
+    {
+      "type": "row",
+      "id": 700,
+      "title": "Event Log",
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "panels": []
+    }
+  ],
+  "templating": { "list": [] },
+  "annotations": { "list": [] },
+  "links": []
+}
