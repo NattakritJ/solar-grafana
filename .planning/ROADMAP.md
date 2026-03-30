@@ -79,7 +79,11 @@ Plans:
   3. User can see a Canvas roof layout showing 8 panels in physical positions (East row: PV3-PV4-PV1-PV2, West row: PV3-PV4-PV1-PV2) with color-coded production heatmap
   4. User can see a calendar heatmap showing daily production patterns over weeks/months
   5. All panels across the entire dashboard use consistent color schemes, correct units, and have descriptive tooltips/descriptions
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 04-01-PLAN.md — TOU-aware financial savings stat panels (Today/MTD/YTD + Peak/Off-Peak breakdown)
+- [ ] 04-02-PLAN.md — Canvas roof layout heatmap and daily production heatmap
+- [ ] 04-03-PLAN.md — Dashboard-wide consistency polish and visual verification
 **UI hint**: yes
 
 ## Progress
