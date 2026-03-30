@@ -36,10 +36,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Financial
 
-- [ ] **FINC-01**: User can see today's estimated savings in THB based on solar production
-- [ ] **FINC-02**: User can see TOU-aware savings calculations using peak rate (5.7982 THB/kWh, weekday 09-22) and off-peak rate (2.6369 THB/kWh, weekday 22-09, weekends/holidays all day)
-- [ ] **FINC-03**: User can see cumulative savings for month-to-date and year-to-date periods
-- [ ] **FINC-04**: User can see savings breakdown showing peak kWh vs off-peak kWh and their respective THB values
+- [x] **FINC-01**: User can see today's estimated savings in THB based on solar production
+- [x] **FINC-02**: User can see TOU-aware savings calculations using peak rate (5.7982 THB/kWh, weekday 09-22) and off-peak rate (2.6369 THB/kWh, weekday 22-09, weekends/holidays all day)
+- [x] **FINC-03**: User can see cumulative savings for month-to-date and year-to-date periods
+- [x] **FINC-04**: User can see savings breakdown showing peak kWh vs off-peak kWh and their respective THB values
 
 ### Inverter Health
 
@@ -125,10 +125,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MODL-02 | Phase 3 | Complete |
 | MODL-03 | Phase 3 | Complete |
 | MODL-04 | Phase 4 | Complete |
-| FINC-01 | Phase 4 | Pending |
-| FINC-02 | Phase 4 | Pending |
-| FINC-03 | Phase 4 | Pending |
-| FINC-04 | Phase 4 | Pending |
+| FINC-01 | Phase 4 | Complete |
+| FINC-02 | Phase 4 | Complete |
+| FINC-03 | Phase 4 | Complete |
+| FINC-04 | Phase 4 | Complete |
 | HLTH-01 | Phase 3 | Complete |
 | HLTH-02 | Phase 3 | Complete |
 | HLTH-03 | Phase 3 | Complete |

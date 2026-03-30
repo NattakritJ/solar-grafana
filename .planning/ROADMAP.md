@@ -81,7 +81,7 @@ Plans:
   5. All panels across the entire dashboard use consistent color schemes, correct units, and have descriptive tooltips/descriptions
 **Plans**: 3 plans
 Plans:
-- [ ] 04-01-PLAN.md — TOU-aware financial savings stat panels (Today/MTD/YTD + Peak/Off-Peak breakdown)
+- [x] 04-01-PLAN.md — TOU-aware financial savings stat panels (Today/MTD/YTD + Peak/Off-Peak breakdown)
 - [x] 04-02-PLAN.md — Canvas roof layout heatmap and daily production heatmap
 - [ ] 04-03-PLAN.md — Dashboard-wide consistency polish and visual verification
 **UI hint**: yes
@@ -96,4 +96,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
 | 3. Module-Level Detail, Inverter Health & Event Log | 3/3 | Complete | 2026-03-30 |
-| 4. Financial Savings, Canvas Layout & Polish | 0/TBD | Not started | - |
+| 4. Financial Savings, Canvas Layout & Polish | 2/3 | In Progress|  |
