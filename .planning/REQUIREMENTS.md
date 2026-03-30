@@ -29,9 +29,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Module-Level Monitoring
 
-- [ ] **MODL-01**: User can see individual power output (W) for all 8 panels (PV1-PV4 on each inverter)
-- [ ] **MODL-02**: User can see individual voltage (V) and current (A) for all 8 panels
-- [ ] **MODL-03**: User can see today's and total production (kWh) for each individual panel
+- [x] **MODL-01**: User can see individual power output (W) for all 8 panels (PV1-PV4 on each inverter)
+- [x] **MODL-02**: User can see individual voltage (V) and current (A) for all 8 panels
+- [x] **MODL-03**: User can see today's and total production (kWh) for each individual panel
 - [ ] **MODL-04**: User can see a roof layout visualization (Canvas panel) showing physical panel positions with color-coded production heatmap — East row: [PV3][PV4][PV1][PV2], West row: [PV3][PV4][PV1][PV2]
 
 ### Financial
@@ -43,10 +43,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Inverter Health
 
-- [ ] **HLTH-01**: User can see inverter temperature for both East and West micro inverters as gauges or stats
-- [ ] **HLTH-02**: User can see device state, alarm status, and fault status for both inverters with color-coded indicators
-- [ ] **HLTH-03**: User can see alarm/fault history as a table log showing when alarms or faults occurred
-- [ ] **HLTH-04**: Dashboard accounts for normal inverter shutdown at night (no PV input = offline is expected, not alarming)
+- [x] **HLTH-01**: User can see inverter temperature for both East and West micro inverters as gauges or stats
+- [x] **HLTH-02**: User can see device state, alarm status, and fault status for both inverters with color-coded indicators
+- [x] **HLTH-03**: User can see alarm/fault history as a table log showing when alarms or faults occurred
+- [x] **HLTH-04**: Dashboard accounts for normal inverter shutdown at night (no PV input = offline is expected, not alarming)
 
 ### Grid Quality
 
@@ -55,9 +55,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Anomaly & Event Log
 
-- [ ] **EVNT-01**: User can see a grid backfeed event log table showing timestamp, power value (W), and duration for all instances where smart meter power_sensor < 0
-- [ ] **EVNT-02**: User can see today's backfeed event count and max backfeed power (W) as summary stats
-- [ ] **EVNT-03**: User can see a unified event log combining grid backfeed events, inverter alarm/fault events, and device state changes in chronological order
+- [x] **EVNT-01**: User can see a grid backfeed event log table showing timestamp, power value (W), and duration for all instances where smart meter power_sensor < 0
+- [x] **EVNT-02**: User can see today's backfeed event count and max backfeed power (W) as summary stats
+- [x] **EVNT-03**: User can see a unified event log combining grid backfeed events, inverter alarm/fault events, and device state changes in chronological order
 
 ### Dashboard Infrastructure
 
@@ -121,23 +121,23 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-03 | Phase 2 | Complete |
 | PROD-04 | Phase 2 | Complete |
 | PROD-05 | Phase 4 | Pending |
-| MODL-01 | Phase 3 | Pending |
-| MODL-02 | Phase 3 | Pending |
-| MODL-03 | Phase 3 | Pending |
+| MODL-01 | Phase 3 | Complete |
+| MODL-02 | Phase 3 | Complete |
+| MODL-03 | Phase 3 | Complete |
 | MODL-04 | Phase 4 | Pending |
 | FINC-01 | Phase 4 | Pending |
 | FINC-02 | Phase 4 | Pending |
 | FINC-03 | Phase 4 | Pending |
 | FINC-04 | Phase 4 | Pending |
-| HLTH-01 | Phase 3 | Pending |
-| HLTH-02 | Phase 3 | Pending |
-| HLTH-03 | Phase 3 | Pending |
-| HLTH-04 | Phase 3 | Pending |
+| HLTH-01 | Phase 3 | Complete |
+| HLTH-02 | Phase 3 | Complete |
+| HLTH-03 | Phase 3 | Complete |
+| HLTH-04 | Phase 3 | Complete |
 | GRID-01 | Phase 2 | Complete |
 | GRID-02 | Phase 2 | Complete |
-| EVNT-01 | Phase 3 | Pending |
-| EVNT-02 | Phase 3 | Pending |
-| EVNT-03 | Phase 3 | Pending |
+| EVNT-01 | Phase 3 | Complete |
+| EVNT-02 | Phase 3 | Complete |
+| EVNT-03 | Phase 3 | Complete |
 | INFR-01 | Phase 1 | Complete |
 | INFR-02 | Phase 1 | Complete |
 | INFR-03 | Phase 1 | Complete |

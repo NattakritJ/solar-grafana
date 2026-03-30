@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Overview Stats** - Dashboard skeleton with validated SQL queries, header stats showing real-time power/energy/status, and power flow layout
 - [x] **Phase 2: Production Charts & Grid Monitoring** - Time-series production graphs, East vs West comparison, daily/weekly bars, and grid quality views
-- [ ] **Phase 3: Module-Level Detail, Inverter Health & Event Log** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history, grid backfeed event tracking
+- [x] **Phase 3: Module-Level Detail, Inverter Health & Event Log** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history, grid backfeed event tracking
 - [ ] **Phase 4: Financial Savings, Canvas Layout & Polish** - TOU-aware savings calculations, roof layout heatmap visualization, calendar heatmap, unit/color consistency
 
 ## Phase Details
@@ -64,9 +64,9 @@ Plans:
   7. User can see a unified event log combining grid backfeed, inverter alarms/faults, and state changes chronologically
 **Plans:** 3 plans
 Plans:
-- [ ] 03-01-PLAN.md — Module-level bar gauge (8-panel power) and detail table (power/voltage/current/today/total)
-- [ ] 03-02-PLAN.md — Inverter temperature gauges, device state/alarm/fault stats, state timeline
-- [ ] 03-03-PLAN.md — Backfeed summary stats, backfeed event log, alarm/fault history, unified event log
+- [x] 03-01-PLAN.md — Module-level bar gauge (8-panel power) and detail table (power/voltage/current/today/total)
+- [x] 03-02-PLAN.md — Inverter temperature gauges, device state/alarm/fault stats, state timeline
+- [x] 03-03-PLAN.md — Backfeed summary stats, backfeed event log, alarm/fault history, unified event log
 **UI hint**: yes
 
 ### Phase 4: Financial Savings, Canvas Layout & Polish
@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
-| 3. Module-Level Detail, Inverter Health & Event Log | 0/3 | Planned | - |
+| 3. Module-Level Detail, Inverter Health & Event Log | 3/3 | Complete | 2026-03-30 |
 | 4. Financial Savings, Canvas Layout & Polish | 0/TBD | Not started | - |
