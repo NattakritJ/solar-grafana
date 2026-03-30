@@ -21,10 +21,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Production Charts
 
-- [ ] **PROD-01**: User can see a production time-series graph showing power output over the selected time range
-- [ ] **PROD-02**: User can see per-inverter production breakdown (East vs West) as separate stats or grouped display
-- [ ] **PROD-03**: User can see production history as daily/weekly/monthly bar charts depending on selected time range
-- [ ] **PROD-04**: User can see East vs West production overlaid on the same time-series chart for orientation comparison
+- [x] **PROD-01**: User can see a production time-series graph showing power output over the selected time range
+- [x] **PROD-02**: User can see per-inverter production breakdown (East vs West) as separate stats or grouped display
+- [x] **PROD-03**: User can see production history as daily/weekly/monthly bar charts depending on selected time range
+- [x] **PROD-04**: User can see East vs West production overlaid on the same time-series chart for orientation comparison
 - [ ] **PROD-05**: User can see a calendar heatmap showing daily production patterns over weeks/months
 
 ### Module-Level Monitoring
@@ -50,8 +50,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Grid Quality
 
-- [ ] **GRID-01**: User can see grid voltage (V) and frequency (Hz) from smart meter as stats
-- [ ] **GRID-02**: User can see smart meter detailed view including power factor, current, voltage, and frequency as time-series trends
+- [x] **GRID-01**: User can see grid voltage (V) and frequency (Hz) from smart meter as stats
+- [x] **GRID-02**: User can see smart meter detailed view including power factor, current, voltage, and frequency as time-series trends
 
 ### Anomaly & Event Log
 
@@ -116,10 +116,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OVER-07 | Phase 1 | Complete |
 | OVER-08 | Phase 1 | Complete |
 | OVER-09 | Phase 1 | Complete |
-| PROD-01 | Phase 2 | Pending |
-| PROD-02 | Phase 2 | Pending |
-| PROD-03 | Phase 2 | Pending |
-| PROD-04 | Phase 2 | Pending |
+| PROD-01 | Phase 2 | Complete |
+| PROD-02 | Phase 2 | Complete |
+| PROD-03 | Phase 2 | Complete |
+| PROD-04 | Phase 2 | Complete |
 | PROD-05 | Phase 4 | Pending |
 | MODL-01 | Phase 3 | Pending |
 | MODL-02 | Phase 3 | Pending |
@@ -133,8 +133,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HLTH-02 | Phase 3 | Pending |
 | HLTH-03 | Phase 3 | Pending |
 | HLTH-04 | Phase 3 | Pending |
-| GRID-01 | Phase 2 | Pending |
-| GRID-02 | Phase 2 | Pending |
+| GRID-01 | Phase 2 | Complete |
+| GRID-02 | Phase 2 | Complete |
 | EVNT-01 | Phase 3 | Pending |
 | EVNT-02 | Phase 3 | Pending |
 | EVNT-03 | Phase 3 | Pending |

@@ -13,7 +13,7 @@ This roadmap delivers a comprehensive Grafana dashboard JSON for monitoring a 5.
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Overview Stats** - Dashboard skeleton with validated SQL queries, header stats showing real-time power/energy/status, and power flow layout
-- [ ] **Phase 2: Production Charts & Grid Monitoring** - Time-series production graphs, East vs West comparison, daily/weekly bars, and grid quality views
+- [x] **Phase 2: Production Charts & Grid Monitoring** - Time-series production graphs, East vs West comparison, daily/weekly bars, and grid quality views
 - [ ] **Phase 3: Module-Level Detail, Inverter Health & Event Log** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history, grid backfeed event tracking
 - [ ] **Phase 4: Financial Savings, Canvas Layout & Polish** - TOU-aware savings calculations, roof layout heatmap visualization, calendar heatmap, unit/color consistency
 
@@ -44,7 +44,10 @@ Plans:
   2. User can see East and West inverter production overlaid on the same chart and as separate stat/bar gauge values for direct comparison
   3. User can see daily/weekly/monthly production as bar charts that adapt to the selected time range
   4. User can see grid voltage (V), frequency (Hz), power factor, and current as stats and time-series trends from the smart meter
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [x] 02-01-PLAN.md — Solar production time-series (East/West overlay), inverter bar gauge, East/West pie chart
+- [x] 02-02-PLAN.md — Daily energy bar chart, grid quality stats, grid parameter time-series
 **UI hint**: yes
 
 ### Phase 3: Module-Level Detail, Inverter Health & Event Log
@@ -83,6 +86,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
-| 2. Production Charts & Grid Monitoring | 0/TBD | Not started | - |
+| 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
 | 3. Module-Level Detail, Inverter Health & Event Log | 0/TBD | Not started | - |
 | 4. Financial Savings, Canvas Layout & Polish | 0/TBD | Not started | - |

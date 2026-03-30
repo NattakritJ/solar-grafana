@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 complete + SQL bug fix committed. Ready for Phase 2 planning.
+stopped_at: Phase 2 complete. Ready for Phase 3 planning.
 last_updated: "2026-03-30"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 25
+  completed_phases: 2
+  total_plans: 4
+  completed_plans: 4
+  percent: 50
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 02 — production-charts-grid-monitoring
+**Current focus:** Phase 03 — module-level-detail-inverter-health
 
 ## Current Position
 
-Phase: 2
+Phase: 3
 Plan: Not started — needs planning
-Status: Phase 1 complete + SQL bug fix. Ready for Phase 2 planning.
+Status: Phase 2 complete. Ready for Phase 3 planning.
 Last activity: 2026-03-30
 
-Progress: [██░░░░░░░░] 25%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -54,6 +54,8 @@ Progress: [██░░░░░░░░] 25%
 *Updated after each plan completion*
 | Phase 01-foundation-overview-stats P01 | 5 | 2 tasks | 1 files |
 | Phase 01-foundation-overview-stats P02 | 3min | 2 tasks | 1 files |
+| Phase 02-production-charts-grid P01 | — | 5 tasks | 1 files |
+| Phase 02-production-charts-grid P02 | — | 5 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -72,6 +74,11 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-overview-stats]: Self-Consumption outputs 0-1 range with percentunit (not 0-100 with percent)
 - [Phase 01-foundation-overview-stats]: Power flow panels use colorMode=background + graphMode=area to distinguish from KPI row
 - [Bug Fix]: InfluxDB 3 Core SQL limitation — no subquery-wrapped UNION ALL. All multi-measurement panels must use separate Grafana queries + transformations.
+- [Phase 02]: Time-series panels use $__timeFrom/$__timeTo macros for time-range awareness — needs runtime validation
+- [Phase 02]: Multi-measurement time-series (production chart) use separate queries, Grafana overlays natively — no transformations needed
+- [Phase 02]: Daily energy uses date_trunc('day') + MAX(today_production) counters from each inverter
+- [Phase 02]: Grid stats use absolute thresholds for voltage (215-240V green), frequency (49.5-50.5Hz green), PF (0.9+ green)
+- [Phase 02]: Grid time-series use dual Y-axes (voltage+frequency, PF+current) for different-unit series
 
 ### Pending Todos
 
@@ -81,7 +88,7 @@ None yet.
 
 - [RESOLVED] ~~[Phase 1]: InfluxDB 3 SQL macro syntax — addressed by using now()-INTERVAL instead~~
 - [RESOLVED] ~~[Phase 1]: UNION ALL subquery not supported — fixed with multi-query + transformations~~
-- [Phase 2+]: Multi-measurement time-series queries need same multi-query pattern (no UNION ALL)
+- [RESOLVED] ~~[Phase 2+]: Multi-measurement time-series queries need same multi-query pattern (no UNION ALL)~~
 - [Phase 2]: $__timeFrom / $__timeTo macro syntax needs runtime validation for time-range-aware queries
 - [Phase 4]: Canvas panel JSON may require building in Grafana UI first then extracting JSON
 - [Phase 4]: AT TIME ZONE 'Asia/Bangkok' interaction with Grafana macros needs validation
@@ -90,5 +97,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-30
-Stopped at: Phase 1 complete + SQL bug fix committed. Ready for Phase 2 planning.
+Stopped at: Phase 2 complete. Ready for Phase 3 planning.
 Resume file: None
