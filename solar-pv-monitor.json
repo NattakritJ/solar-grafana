@@ -11,21 +11,48 @@
   ],
   "__elements": {},
   "__requires": [
-    { "type": "grafana", "id": "grafana", "name": "Grafana", "version": "12.4.1" },
-    { "type": "datasource", "id": "influxdb", "name": "InfluxDB", "version": "1.0.0" },
-    { "type": "panel", "id": "stat", "name": "Stat", "version": "" },
-    { "type": "panel", "id": "row", "name": "Row", "version": "" }
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.4.1"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "row",
+      "name": "Row",
+      "version": ""
+    }
   ],
   "id": null,
   "uid": null,
   "title": "Solar PV Monitor",
   "description": "Residential solar PV monitoring - 5.24 kWp system with 2 micro inverters and 8 panels",
-  "tags": ["solar", "energy", "influxdb"],
+  "tags": [
+    "solar",
+    "energy",
+    "influxdb"
+  ],
   "schemaVersion": 40,
   "version": 1,
   "timezone": "Asia/Bangkok",
   "refresh": "10s",
-  "time": { "from": "now-24h", "to": "now" },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "editable": true,
@@ -35,7 +62,12 @@
       "id": 100,
       "title": "Overview",
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "panels": []
     },
     {
@@ -44,38 +76,91 @@
       "title": "Solar Power",
       "description": "Current total solar production from both inverters",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 0, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT SUM(solar_kw) AS solar_kw FROM (SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1 UNION ALL SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1)",
-          "format": "table"
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "yellow" },
-              { "value": 1, "color": "green" },
-              { "value": 4, "color": "dark-green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "yellow"
+              },
+              {
+                "value": 1,
+                "color": "green"
+              },
+              {
+                "value": 4,
+                "color": "dark-green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -83,38 +168,91 @@
       "title": "Today's Energy",
       "description": "Total energy produced today from both inverters",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 3, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT SUM(today_energy) AS today_kwh FROM (SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_energy FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' UNION ALL SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_energy FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours')",
-          "format": "table"
+          "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatth",
           "decimals": 1,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.1, "color": "yellow" },
-              { "value": 10, "color": "green" },
-              { "value": 25, "color": "dark-green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.1,
+                "color": "yellow"
+              },
+              {
+                "value": 10,
+                "color": "green"
+              },
+              {
+                "value": 25,
+                "color": "dark-green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -122,36 +260,83 @@
       "title": "Lifetime Energy",
       "description": "Total cumulative energy produced since system installation",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 6, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT SUM(total_energy) AS lifetime_kwh FROM (SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS total_energy FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 hour' UNION ALL SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS total_energy FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 hour')",
-          "format": "table"
+          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatth",
           "decimals": 0,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 1, "color": "green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 1,
+                "color": "green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -159,34 +344,64 @@
       "title": "Grid Import",
       "description": "Current power drawn from the grid via smart meter",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 9, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 9,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT COALESCE(power_sensor, 0) / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1",
-          "format": "table"
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "light-blue" },
-              { "value": 1, "color": "blue" },
-              { "value": 3, "color": "dark-blue" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "light-blue"
+              },
+              {
+                "value": 1,
+                "color": "blue"
+              },
+              {
+                "value": 3,
+                "color": "dark-blue"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
@@ -198,38 +413,100 @@
       "title": "House Load",
       "description": "Current household power consumption (solar + grid import)",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 12, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 12,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
-          "refId": "A",
-          "rawSql": "SELECT GREATEST(COALESCE(east.p, 0) + COALESCE(west.p, 0) + COALESCE(grid.p, 0), 0) / 1000.0 AS house_load_kw FROM (SELECT power_sensor AS p FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS east, (SELECT power_sensor AS p FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS west, (SELECT power_sensor AS p FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS grid",
-          "format": "table"
+          "refId": "East",
+          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "Grid",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "light-orange" },
-              { "value": 1, "color": "orange" },
-              { "value": 3, "color": "dark-orange" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "light-orange"
+              },
+              {
+                "value": 1,
+                "color": "orange"
+              },
+              {
+                "value": 3,
+                "color": "dark-orange"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -237,38 +514,141 @@
       "title": "Self-Consumption",
       "description": "Percentage of house load covered by solar production",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 15, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 15,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
-          "refId": "A",
-          "rawSql": "SELECT CASE WHEN (COALESCE(east.p, 0) + COALESCE(west.p, 0) + COALESCE(grid.p, 0)) = 0 THEN 0 ELSE LEAST(GREATEST((COALESCE(east.p, 0) + COALESCE(west.p, 0)) / (COALESCE(east.p, 0) + COALESCE(west.p, 0) + COALESCE(grid.p, 0)), 0), 1) END AS self_consumption FROM (SELECT power_sensor AS p FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS east, (SELECT power_sensor AS p FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS west, (SELECT power_sensor AS p FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS grid",
-          "format": "table"
+          "refId": "East",
+          "rawSql": "SELECT power_sensor AS east_w FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT power_sensor AS west_w FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "Grid",
+          "rawSql": "SELECT power_sensor AS grid_w FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "percentunit",
           "decimals": 0,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.3, "color": "yellow" },
-              { "value": 0.7, "color": "green" },
-              { "value": 1.0, "color": "dark-green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.3,
+                "color": "yellow"
+              },
+              {
+                "value": 0.7,
+                "color": "green"
+              },
+              {
+                "value": 1,
+                "color": "dark-green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "binary": {
+              "left": "east_w",
+              "operator": "+",
+              "right": "west_w"
+            },
+            "alias": "solar_w"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "binary",
+            "binary": {
+              "left": "solar_w",
+              "operator": "+",
+              "right": "grid_w"
+            },
+            "alias": "total_w"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "binary",
+            "binary": {
+              "left": "solar_w",
+              "operator": "/",
+              "right": "total_w"
+            },
+            "alias": "self_consumption"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "self_consumption"
+              ]
+            }
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -276,38 +656,91 @@
       "title": "Peak Today",
       "description": "Maximum solar power achieved today",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 18, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT (COALESCE(east_max, 0) + COALESCE(west_max, 0)) / 1000.0 AS peak_kw FROM (SELECT MAX(power_sensor) AS east_max FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours'), (SELECT MAX(power_sensor) AS west_max FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours')",
-          "format": "table"
+          "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "yellow" },
-              { "value": 1, "color": "green" },
-              { "value": 4, "color": "dark-green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "yellow"
+              },
+              {
+                "value": 1,
+                "color": "green"
+              },
+              {
+                "value": 4,
+                "color": "dark-green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "auto",
         "colorMode": "value"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
@@ -315,40 +748,72 @@
       "title": "System Status",
       "description": "Current inverter operating state",
       "transparent": true,
-      "gridPos": { "h": 4, "w": 3, "x": 21, "y": 1 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
           "rawSql": "SELECT device_state_sensor AS state FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1",
-          "format": "table"
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              }
             ]
           },
           "mappings": [
             {
               "type": "value",
               "options": {
-                "0": { "text": "Standby", "color": "dark-gray" },
-                "1": { "text": "Normal", "color": "green" },
-                "2": { "text": "Warning", "color": "yellow" },
-                "3": { "text": "Fault", "color": "red" }
+                "0": {
+                  "text": "Standby",
+                  "color": "dark-gray"
+                },
+                "1": {
+                  "text": "Normal",
+                  "color": "green"
+                },
+                "2": {
+                  "text": "Warning",
+                  "color": "yellow"
+                },
+                "3": {
+                  "text": "Fault",
+                  "color": "red"
+                }
               }
             },
             {
               "type": "special",
               "options": {
                 "match": "null",
-                "result": { "text": "Offline", "color": "dark-gray" }
+                "result": {
+                  "text": "Offline",
+                  "color": "dark-gray"
+                }
               }
             }
           ]
@@ -356,7 +821,11 @@
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "none",
         "textMode": "value",
         "colorMode": "value"
@@ -365,115 +834,260 @@
     {
       "type": "stat",
       "id": 9,
-      "title": "☀ Solar → House",
+      "title": "\u2600 Solar \u2192 House",
       "description": "Solar power flowing into the house",
       "transparent": true,
-      "gridPos": { "h": 3, "w": 8, "x": 0, "y": 6 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 6
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT SUM(solar_kw) AS solar_kw FROM (SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1 UNION ALL SELECT COALESCE(power_sensor, 0) / 1000.0 AS solar_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1)",
-          "format": "table"
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "yellow" },
-              { "value": 1, "color": "green" },
-              { "value": 4, "color": "dark-green" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "yellow"
+              },
+              {
+                "value": 1,
+                "color": "green"
+              },
+              {
+                "value": 4,
+                "color": "dark-green"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "area",
         "textMode": "auto",
         "colorMode": "background"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
       "id": 10,
-      "title": "🏠 House Load",
+      "title": "\ud83c\udfe0 House Load",
       "description": "Total household power consumption",
       "transparent": true,
-      "gridPos": { "h": 3, "w": 8, "x": 8, "y": 6 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 8,
+        "y": 6
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
-          "refId": "A",
-          "rawSql": "SELECT GREATEST(COALESCE(east.p, 0) + COALESCE(west.p, 0) + COALESCE(grid.p, 0), 0) / 1000.0 AS house_load_kw FROM (SELECT power_sensor AS p FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS east, (SELECT power_sensor AS p FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS west, (SELECT power_sensor AS p FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1) AS grid",
-          "format": "table"
+          "refId": "East",
+          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "Grid",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "light-orange" },
-              { "value": 1, "color": "orange" },
-              { "value": 3, "color": "dark-orange" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "light-orange"
+              },
+              {
+                "value": 1,
+                "color": "orange"
+              },
+              {
+                "value": 3,
+                "color": "dark-orange"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "area",
         "textMode": "auto",
         "colorMode": "background"
-      }
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ]
     },
     {
       "type": "stat",
       "id": 11,
-      "title": "⚡ Grid → House",
+      "title": "\u26a1 Grid \u2192 House",
       "description": "Power drawn from the electrical grid",
       "transparent": true,
-      "gridPos": { "h": 3, "w": 8, "x": 16, "y": 6 },
-      "datasource": { "type": "influxdb", "uid": "${DS_INFLUXDB_SOLAR}" },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 16,
+        "y": 6
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
       "targets": [
         {
           "refId": "A",
-          "rawSql": "SELECT COALESCE(power_sensor, 0) / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '1 minute' ORDER BY time DESC LIMIT 1",
-          "format": "table"
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "kwatt",
           "decimals": 2,
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "dark-gray" },
-              { "value": 0.001, "color": "light-blue" },
-              { "value": 1, "color": "blue" },
-              { "value": 3, "color": "dark-blue" }
+              {
+                "value": null,
+                "color": "dark-gray"
+              },
+              {
+                "value": 0.001,
+                "color": "light-blue"
+              },
+              {
+                "value": 1,
+                "color": "blue"
+              },
+              {
+                "value": 3,
+                "color": "dark-blue"
+              }
             ]
           }
         },
         "overrides": []
       },
       "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
         "graphMode": "area",
         "textMode": "auto",
         "colorMode": "background"
@@ -484,7 +1098,12 @@
       "id": 200,
       "title": "Production",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 20 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
       "panels": []
     },
     {
@@ -492,7 +1111,12 @@
       "id": 300,
       "title": "Module Level",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 21 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
       "panels": []
     },
     {
@@ -500,7 +1124,12 @@
       "id": 400,
       "title": "Grid & Consumption",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 22 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
       "panels": []
     },
     {
@@ -508,7 +1137,12 @@
       "id": 500,
       "title": "Inverter Health",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "panels": []
     },
     {
@@ -516,7 +1150,12 @@
       "id": 600,
       "title": "Financial Savings",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 24 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
       "panels": []
     },
     {
@@ -524,11 +1163,20 @@
       "id": 700,
       "title": "Event Log",
       "collapsed": true,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
       "panels": []
     }
   ],
-  "templating": { "list": [] },
-  "annotations": { "list": [] },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
   "links": []
 }
