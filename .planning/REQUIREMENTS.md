@@ -101,46 +101,46 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OVER-01 | — | Pending |
-| OVER-02 | — | Pending |
-| OVER-03 | — | Pending |
-| OVER-04 | — | Pending |
-| OVER-05 | — | Pending |
-| OVER-06 | — | Pending |
-| OVER-07 | — | Pending |
-| OVER-08 | — | Pending |
-| OVER-09 | — | Pending |
-| PROD-01 | — | Pending |
-| PROD-02 | — | Pending |
-| PROD-03 | — | Pending |
-| PROD-04 | — | Pending |
-| PROD-05 | — | Pending |
-| MODL-01 | — | Pending |
-| MODL-02 | — | Pending |
-| MODL-03 | — | Pending |
-| MODL-04 | — | Pending |
-| FINC-01 | — | Pending |
-| FINC-02 | — | Pending |
-| FINC-03 | — | Pending |
-| FINC-04 | — | Pending |
-| HLTH-01 | — | Pending |
-| HLTH-02 | — | Pending |
-| HLTH-03 | — | Pending |
-| HLTH-04 | — | Pending |
-| GRID-01 | — | Pending |
-| GRID-02 | — | Pending |
-| INFR-01 | — | Pending |
-| INFR-02 | — | Pending |
-| INFR-03 | — | Pending |
-| INFR-04 | — | Pending |
-| INFR-05 | — | Pending |
-| INFR-06 | — | Pending |
+| OVER-01 | Phase 1 | Pending |
+| OVER-02 | Phase 1 | Pending |
+| OVER-03 | Phase 1 | Pending |
+| OVER-04 | Phase 1 | Pending |
+| OVER-05 | Phase 1 | Pending |
+| OVER-06 | Phase 1 | Pending |
+| OVER-07 | Phase 1 | Pending |
+| OVER-08 | Phase 1 | Pending |
+| OVER-09 | Phase 1 | Pending |
+| PROD-01 | Phase 2 | Pending |
+| PROD-02 | Phase 2 | Pending |
+| PROD-03 | Phase 2 | Pending |
+| PROD-04 | Phase 2 | Pending |
+| PROD-05 | Phase 4 | Pending |
+| MODL-01 | Phase 3 | Pending |
+| MODL-02 | Phase 3 | Pending |
+| MODL-03 | Phase 3 | Pending |
+| MODL-04 | Phase 4 | Pending |
+| FINC-01 | Phase 4 | Pending |
+| FINC-02 | Phase 4 | Pending |
+| FINC-03 | Phase 4 | Pending |
+| FINC-04 | Phase 4 | Pending |
+| HLTH-01 | Phase 3 | Pending |
+| HLTH-02 | Phase 3 | Pending |
+| HLTH-03 | Phase 3 | Pending |
+| HLTH-04 | Phase 3 | Pending |
+| GRID-01 | Phase 2 | Pending |
+| GRID-02 | Phase 2 | Pending |
+| INFR-01 | Phase 1 | Pending |
+| INFR-02 | Phase 1 | Pending |
+| INFR-03 | Phase 1 | Pending |
+| INFR-04 | Phase 1 | Pending |
+| INFR-05 | Phase 1 | Pending |
+| INFR-06 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 34 total
-- Mapped to phases: 0
-- Unmapped: 34
+- Mapped to phases: 34
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-30*
-*Last updated: 2026-03-30 after initial definition*
+*Last updated: 2026-03-30 after roadmap creation (traceability updated)*

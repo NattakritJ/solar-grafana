@@ -1,0 +1,198 @@
+<!-- GSD:project-start source:PROJECT.md -->
+## Project
+
+**Solar Monitoring Grafana Dashboard**
+
+A comprehensive Grafana dashboard for monitoring a residential rooftop solar PV system. It visualizes real-time and historical data from two micro inverters (8 panels total) and a smart meter, all stored in InfluxDB 3 Core. The dashboard provides total production, per-inverter production, module-level monitoring with roof layout visualization, grid import/consumption tracking, and financial savings calculations.
+
+**Core Value:** At a glance, the homeowner can see how much solar energy is being produced right now, how much the house is consuming, and how much money is being saved — down to the individual panel level.
+
+### Constraints
+
+- **Grafana Version**: 12.4.1 — use panel types and plugins compatible with this version
+- **Query Language**: InfluxDB 3 Core uses SQL (not InfluxQL or Flux) — all queries must be SQL
+- **Datasource**: Must reference `influxdb-solar` as the datasource name in dashboard JSON
+- **Delivery Format**: Grafana JSON dashboard export file, importable via Grafana UI
+- **Single Dashboard**: All monitoring on one comprehensive dashboard with logical sections
+- **Zero Export**: System cannot export to grid — no export revenue calculations needed
+<!-- GSD:project-end -->
+
+<!-- GSD:stack-start source:research/STACK.md -->
+## Technology Stack
+
+## Recommended Stack
+### Core Platform (Already Running — No Changes Needed)
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| Grafana OSS | 12.4.1 | Dashboard visualization platform | Already deployed; latest stable version with full panel type support |
+| InfluxDB 3 Core | Latest | Time-series data storage | Already deployed at 192.168.2.10:8181; SQL query language (NOT Flux/InfluxQL) |
+| InfluxDB datasource | Built-in (Grafana core) | Connect Grafana to InfluxDB | `influxdb-solar` datasource already configured; supports SQL query mode for InfluxDB v3 |
+### Grafana Panel Types — Recommended for Solar Monitoring
+| Panel Type (`type` in JSON) | Use Case in This Dashboard | Why This Panel | Confidence |
+|---|---|---|---|
+| `timeseries` | Production over time, grid import trends, inverter temperature history | The workhorse of time-series visualization. Supports multiple series overlay, fill below, thresholds, and gradient coloring. Perfect for showing East vs West production curves over a day. | HIGH |
+| `stat` | Current total power (W), today's energy (kWh), total savings (THB), system capacity | Big single-number readout with optional sparkline. Ideal for "at a glance" KPIs like "2,450W right now" or "23.5 kWh today". Supports color thresholds (green=producing, gray=night). | HIGH |
+| `gauge` | Current power as % of system capacity (5,240W), power factor, grid voltage deviation | Circular/bar gauge showing a value relative to min/max. Perfect for "how close to max capacity" and "is grid voltage in normal range". | HIGH |
+| `barchart` | Daily/weekly/monthly energy production comparison, per-panel production ranking | Native bar chart for categorical or time-bucketed comparisons. Better than time series for "which panel produced most today" or "daily kWh this week". | HIGH |
+| `table` | Module-level detail (all 8 panels: power, voltage, current), inverter fault/alarm status | Data table with color-coded cells. Shows all panel metrics side by side. Cell coloring highlights underperforming panels. | HIGH |
+| `canvas` | **Roof layout visualization** — physical panel positions with data-driven colors | Free-form layout where elements (rectangles/text/icons) can be positioned absolutely and bound to query data. **This is the key panel for the roof layout heatmap.** Place 8 rectangle elements representing physical panel positions, color them by production. | HIGH |
+| `piechart` | East vs West production split, peak vs off-peak energy distribution | Donut/pie chart for proportional breakdowns. Good for "65% East, 35% West" at a glance. | HIGH |
+| `text` | Dashboard section headers, rate information, system description | Markdown/HTML text panel. Use for organizing dashboard sections ("Solar Production", "Grid Status", "Financials"). | HIGH |
+| `state-timeline` | Inverter state history (producing/standby/fault/alarm), device state over time | Horizontal bars showing state transitions over time. Perfect for "when were inverters producing vs idle". | MEDIUM |
+| `bargauge` | Per-panel current power comparison (8 horizontal bars) | Horizontal bar gauges stacked vertically. Compact visual comparing 8 individual panel outputs at a glance. | HIGH |
+### Panel Types — NOT Recommended
+| Panel Type | Why NOT to Use |
+|---|---|
+| `heatmap` | Designed for histogram/distribution data, not spatial layout. Canvas panel is the right choice for roof layout heatmap. |
+| `histogram` | Statistical distribution — not useful for solar monitoring's continuous time series. |
+| `geomap` | Requires geospatial coordinates. Roof panel layout is better served by Canvas. |
+| `traces` / `logs` / `flamegraph` | Observability-specific panels. Not applicable to solar monitoring. |
+| `news` | RSS feed panel. Not relevant. |
+| `nodeGraph` | Network topology visualization. Not applicable. |
+| `datagrid` | Editable spreadsheet. We need read-only display. |
+### Dashboard Structural Elements
+| Element | Purpose | Notes |
+|---------|---------|-------|
+| **Row panels** | Section headers: "Overview", "Per-Inverter", "Module Level", "Grid & Consumption", "Financial Savings", "System Health" | Collapsible rows organize the single-dashboard layout |
+| **Dashboard variables** | Time range, auto-refresh interval | Use `$__from` and `$__to` for time-range-aware SQL queries; 10s auto-refresh matches data interval |
+| **Annotations** | Mark sunrise/sunset, fault events | Optional enhancement using Grafana annotation queries |
+## InfluxDB 3 Core SQL Query Patterns
+### Confidence: HIGH — Verified from InfluxDB 3 Core official docs (docs.influxdata.com/influxdb3/core)
+### Key SQL Functions for Solar Dashboard
+| Function | Purpose | Example |
+|----------|---------|---------|
+| `DATE_BIN(interval, time, origin)` | Time-bucket aggregation | `DATE_BIN(INTERVAL '1 hour', time, '2026-01-01T00:00:00Z'::TIMESTAMP)` |
+| `date_bin_gapfill(interval, time)` | Fill missing time buckets | For continuous chart lines even when inverters report no data at night |
+| `AVG()`, `SUM()`, `MAX()`, `MIN()` | Standard aggregates | Average power, total energy, peak production |
+| `LAG() OVER (PARTITION BY ... ORDER BY time)` | Window function for delta calculations | Calculate energy produced between two readings using total_production counter differences |
+| `LAST_VALUE() OVER (...)` | Latest reading | Get current/most recent value from each sensor |
+| `CASE WHEN ... THEN ... END` | TOU rate calculation | Map time-of-day to peak/off-peak rates |
+| `selector_last(field)['value']` | InfluxDB selector for latest value | Optimized "give me latest reading" query |
+| `locf()` / `interpolate()` | Gap-fill strategies | Last-observation-carried-forward or linear interpolation for missing data |
+### Essential Query Patterns
+#### 1. Current Power (Real-time Stat Panel)
+#### 2. Total System Power (Sum Both Inverters)
+#### 3. Daily Energy Production (Bar Chart)
+#### 4. Module-Level Power (Canvas/Table — All 8 Panels)
+#### 5. TOU Financial Savings Calculation
+#### 6. Time Range Variables in Grafana SQL
+- `$__timeFrom` — start of selected time range (timestamp)
+- `$__timeTo` — end of selected time range (timestamp)
+- Use `WHERE time >= $__timeFrom AND time <= $__timeTo` in all time-filtered queries
+## Dashboard JSON Structure
+### Confidence: HIGH — Verified from Grafana official docs
+### Key Structural Rules
+### Panel JSON Structure Pattern
+### Critical JSON Details
+| Aspect | Value | Notes |
+|--------|-------|-------|
+| `schemaVersion` | 40 | Grafana 12.x schema version |
+| `datasource.uid` | `"${DS_INFLUXDB_SOLAR}"` | Use `__inputs` pattern for importable dashboards |
+| `targets[].rawSql` | SQL string | Raw SQL mode, NOT visual query builder |
+| `targets[].format` | `"table"` or `"time_series"` | `table` for stat/gauge/table, `time_series` for time series chart |
+| `gridPos` | `{h, w, x, y}` | 24-column grid; height in "units" (1 unit = ~30px) |
+| `fieldConfig.defaults.unit` | Grafana unit string | `"watt"`, `"watth"`, `"kwatth"`, `"volt"`, `"amp"`, `"celsius"`, `"hertz"`, `"currencyTHB"` |
+| Time zone | `"Asia/Bangkok"` | Thailand timezone for correct TOU rate calculations |
+## Color Scheme & Theme for Solar/Energy Dashboards
+### Confidence: MEDIUM — Based on industry patterns and Grafana community dashboards
+### Recommended Color Palette
+| Metric Type | Color(s) | Grafana Color Name | Rationale |
+|---|---|---|---|
+| Solar production (active) | Amber/Yellow/Green gradient | `"yellow"`, `"green"`, `"dark-green"` | Industry standard: sun/solar = yellow/amber; higher production = greener |
+| Solar production (zero/night) | Dark gray | `"dark-gray"` | Clearly distinguishes non-producing state |
+| Grid import | Blue | `"blue"`, `"light-blue"` | Industry convention: grid power = blue, contrasts with solar yellow |
+| House consumption | Purple/Orange | `"purple"` or `"orange"` | Distinct from both solar (yellow) and grid (blue) |
+| Voltage | Teal/Cyan | `"super-light-blue"` | Common for electrical measurements |
+| Temperature | Orange → Red gradient | `"orange"`, `"red"` | Intuitive heat mapping |
+| Financial savings | Green | `"green"` | Universal "money saved" = green |
+| Faults/Alarms | Red | `"red"`, `"dark-red"` | Universal danger/alert |
+| Off-peak period | Light blue background | Annotation color | Visual TOU period indicator |
+| Peak period | Light orange background | Annotation color | Visual TOU period indicator |
+### Panel Roof Layout Color Scale (Canvas Panel)
+- **0W** (night/offline): `#1a1a2e` (dark navy)
+- **1-100W** (low): `#614a19` (dark amber)
+- **100-400W** (moderate): `#c7a035` (amber)
+- **400-600W** (good): `#73BF69` (green)
+- **600W+** (excellent): `#1a7c11` (dark green)
+### Dashboard-Level Theming
+- **Background**: Use Grafana's dark theme (default) — superior contrast for colored data
+- **Row section headers**: Use `text` panel type with dark background, contrasting text
+- **Panel spacing**: Tight (0-1px gap) for overview stats row; standard for chart rows
+- **Transparent backgrounds**: Use `"transparent": true` for stat panels in the header row to create a clean KPI bar
+## Grafana Plugins Assessment
+### Confidence: MEDIUM — No solar-specific Grafana plugins verified as maintained for Grafana 12
+### Verdict: No Plugins Needed — Use Built-in Panels Only
+### If Future Enhancement Needed
+| Plugin | Use Case | Status |
+|--------|----------|--------|
+| `grafana-image-renderer` | Screenshot/PDF export of dashboard | Official plugin, already available. Install only if email reports needed. |
+| `volkovlabs-variable-panel` | Enhanced variable/filter UI | Community. Only if needing complex filtering. |
+## Alternatives Considered
+| Category | Recommended | Alternative | Why Not |
+|----------|-------------|-------------|---------|
+| Roof layout visualization | Canvas panel (built-in) | Custom HTML panel / iframe | Canvas is native, data-bound, and exportable in JSON. HTML panels are a security concern and harder to maintain. |
+| Query language | InfluxDB SQL | InfluxQL (also supported by v3) | SQL is the primary language for InfluxDB 3 Core, has richer features (window functions, CTEs), and is the future direction. InfluxQL is legacy compatibility. |
+| Financial calculations | In-query SQL (CASE/WHEN) | Grafana transformations | SQL is more testable, version-controllable, and doesn't break when Grafana transformation API changes. Keep logic in queries. |
+| Per-panel comparison | `bargauge` panel | 8 separate `stat` panels | `bargauge` is more space-efficient and provides instant visual comparison. Stat panels waste grid space for 8 items. |
+| Time-bucketed energy | `barchart` panel | `timeseries` with bar style | `barchart` is purpose-built for categorical/bucketed data. Time series bar mode works but is less flexible for labeling. |
+## Datasource Configuration (Reference)
+- **Query Language**: SQL
+- **URL**: `http://192.168.2.10:8181`
+- **Database**: `solar`
+## Grafana Units Reference (Solar-Specific)
+| Unit String | Display | Use For |
+|---|---|---|
+| `"watt"` | W | Real-time power |
+| `"kwatt"` | kW | System-level power |
+| `"watth"` | Wh | Energy (small scale) |
+| `"kwatth"` | kWh | Energy (daily/total) |
+| `"volt"` | V | Grid/panel voltage |
+| `"amp"` | A | Current |
+| `"celsius"` | °C | Inverter temperature |
+| `"hertz"` | Hz | Grid frequency |
+| `"percentunit"` | % | Power factor, efficiency |
+| `"currencyTHB"` | N/A — use custom | Thai Baht — **Note**: Grafana may not have THB built-in. Use `"none"` with `suffix: " THB"` or check available currency units. |
+| `"none"` + suffix | Custom | Fallback for THB if no native unit |
+## Sources
+- **Grafana 12.4 Visualization Docs**: https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/ (verified 2026-03-30)
+- **Grafana Canvas Panel Docs**: https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/canvas/ (verified 2026-03-30)
+- **Grafana InfluxDB Datasource Docs**: https://grafana.com/docs/grafana/latest/datasources/influxdb/ (verified 2026-03-30)
+- **Grafana Dashboard Import Docs**: https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/ (verified 2026-03-30)
+- **InfluxDB 3 Core SQL Query Docs**: https://docs.influxdata.com/influxdb3/core/query-data/sql/ (verified 2026-03-30)
+- **InfluxDB 3 Core SQL Reference**: https://docs.influxdata.com/influxdb3/core/reference/sql/ (verified 2026-03-30)
+- **InfluxDB 3 Core + Grafana Setup**: https://docs.influxdata.com/influxdb3/core/visualize-data/grafana/ (verified 2026-03-30)
+<!-- GSD:stack-end -->
+
+<!-- GSD:conventions-start source:CONVENTIONS.md -->
+## Conventions
+
+Conventions not yet established. Will populate as patterns emerge during development.
+<!-- GSD:conventions-end -->
+
+<!-- GSD:architecture-start source:ARCHITECTURE.md -->
+## Architecture
+
+Architecture not yet mapped. Follow existing patterns found in the codebase.
+<!-- GSD:architecture-end -->
+
+<!-- GSD:workflow-start source:GSD defaults -->
+## GSD Workflow Enforcement
+
+Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+
+Use these entry points:
+- `/gsd:quick` for small fixes, doc updates, and ad-hoc tasks
+- `/gsd:debug` for investigation and bug fixing
+- `/gsd:execute-phase` for planned phase work
+
+Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+<!-- GSD:workflow-end -->
+
+
+
+<!-- GSD:profile-start -->
+## Developer Profile
+
+> Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.
+> This section is managed by `generate-claude-profile` -- do not edit manually.
+<!-- GSD:profile-end -->
