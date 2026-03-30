@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-30T03:52:19.672Z"
-last_activity: 2026-03-30 — Roadmap created
+status: executing
+stopped_at: Completed 01-foundation-overview-stats-01-PLAN.md
+last_updated: "2026-03-30T04:02:21.795Z"
+last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 1 — Foundation & Overview Stats
+**Current focus:** Phase 01 — foundation-overview-stats
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation & Overview Stats)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-30 — Roadmap created
+Phase: 01 (foundation-overview-stats) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-foundation-overview-stats P01 | 5 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,9 @@ Recent decisions affecting current work:
 - [Roadmap]: 4-phase coarse structure — Foundation → Production/Grid → Module/Health → Financial/Canvas/Polish
 - [Roadmap]: MODL-04 (Canvas roof layout) deferred to Phase 4 with Financial due to high complexity
 - [Roadmap]: PROD-05 (calendar heatmap) grouped with Phase 4 as premium visualization feature
+- [Phase 01-foundation-overview-stats]: UNION ALL single-query for Solar Power panel (simpler than two-query + Grafana merge/reduce transformations)
+- [Phase 01-foundation-overview-stats]: Phase 1 uses now()-INTERVAL pattern (no time-range macros) to avoid macro substitution validation risk
+- [Phase 01-foundation-overview-stats]: __inputs pattern for DS_INFLUXDB_SOLAR — all panels use ${DS_INFLUXDB_SOLAR} uid for portable import
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T03:52:19.664Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation-overview-stats/01-CONTEXT.md
+Last session: 2026-03-30T04:02:21.791Z
+Stopped at: Completed 01-foundation-overview-stats-01-PLAN.md
+Resume file: None

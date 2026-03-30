@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### System Overview
 
-- [ ] **OVER-01**: User can see current total solar production power (kW) as a large prominent stat
-- [ ] **OVER-02**: User can see today's total energy production (kWh) as a stat
-- [ ] **OVER-03**: User can see lifetime total energy production (kWh/MWh) as a stat
+- [x] **OVER-01**: User can see current total solar production power (kW) as a large prominent stat
+- [x] **OVER-02**: User can see today's total energy production (kWh) as a stat
+- [x] **OVER-03**: User can see lifetime total energy production (kWh/MWh) as a stat
 - [ ] **OVER-04**: User can see current grid import power (kW) from smart meter as a stat
 - [ ] **OVER-05**: User can see current house load (kW) calculated as solar production + grid import
 - [ ] **OVER-06**: User can see self-consumption ratio (%) showing how much load is covered by solar
@@ -61,12 +61,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard Infrastructure
 
-- [ ] **INFR-01**: Dashboard is delivered as a Grafana JSON export file importable via Grafana UI
-- [ ] **INFR-02**: All queries use InfluxDB 3 Core SQL syntax (not Flux, not InfluxQL)
-- [ ] **INFR-03**: All queries reference datasource `influxdb-solar` with database `solar`
-- [ ] **INFR-04**: Dashboard works with Grafana 12.4.1 built-in panel types (no external plugins required)
-- [ ] **INFR-05**: Dashboard responds to Grafana's time range picker for all time-dependent panels
-- [ ] **INFR-06**: All panels use appropriate units (W, kW, kWh, V, A, Hz, THB, %, C)
+- [x] **INFR-01**: Dashboard is delivered as a Grafana JSON export file importable via Grafana UI
+- [x] **INFR-02**: All queries use InfluxDB 3 Core SQL syntax (not Flux, not InfluxQL)
+- [x] **INFR-03**: All queries reference datasource `influxdb-solar` with database `solar`
+- [x] **INFR-04**: Dashboard works with Grafana 12.4.1 built-in panel types (no external plugins required)
+- [x] **INFR-05**: Dashboard responds to Grafana's time range picker for all time-dependent panels
+- [x] **INFR-06**: All panels use appropriate units (W, kW, kWh, V, A, Hz, THB, %, C)
 
 ## v2 Requirements
 
@@ -107,9 +107,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OVER-01 | Phase 1 | Pending |
-| OVER-02 | Phase 1 | Pending |
-| OVER-03 | Phase 1 | Pending |
+| OVER-01 | Phase 1 | Complete |
+| OVER-02 | Phase 1 | Complete |
+| OVER-03 | Phase 1 | Complete |
 | OVER-04 | Phase 1 | Pending |
 | OVER-05 | Phase 1 | Pending |
 | OVER-06 | Phase 1 | Pending |
@@ -138,12 +138,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVNT-01 | Phase 3 | Pending |
 | EVNT-02 | Phase 3 | Pending |
 | EVNT-03 | Phase 3 | Pending |
-| INFR-01 | Phase 1 | Pending |
-| INFR-02 | Phase 1 | Pending |
-| INFR-03 | Phase 1 | Pending |
-| INFR-04 | Phase 1 | Pending |
-| INFR-05 | Phase 1 | Pending |
-| INFR-06 | Phase 1 | Pending |
+| INFR-01 | Phase 1 | Complete |
+| INFR-02 | Phase 1 | Complete |
+| INFR-03 | Phase 1 | Complete |
+| INFR-04 | Phase 1 | Complete |
+| INFR-05 | Phase 1 | Complete |
+| INFR-06 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 37 total
