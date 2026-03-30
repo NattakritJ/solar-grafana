@@ -76,6 +76,12 @@
       "id": "state-timeline",
       "name": "State timeline",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "canvas",
+      "name": "Canvas",
+      "version": ""
     }
   ],
   "id": null,
@@ -876,7 +882,7 @@
     {
       "type": "stat",
       "id": 9,
-      "title": "\u2600 Solar \u2192 House",
+      "title": "☀ Solar → House",
       "description": "Solar power flowing into the house",
       "transparent": true,
       "gridPos": {
@@ -968,7 +974,7 @@
     {
       "type": "stat",
       "id": 10,
-      "title": "\ud83c\udfe0 House Load",
+      "title": "🏠 House Load",
       "description": "Total household power consumption",
       "transparent": true,
       "gridPos": {
@@ -1069,7 +1075,7 @@
     {
       "type": "stat",
       "id": 11,
-      "title": "\u26a1 Grid \u2192 House",
+      "title": "⚡ Grid → House",
       "description": "Power drawn from the electrical grid",
       "transparent": true,
       "gridPos": {
@@ -1152,7 +1158,7 @@
       "type": "timeseries",
       "id": 12,
       "title": "Solar Production",
-      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
+      "description": "Power output over time — East (orange) vs West (blue) inverters",
       "gridPos": {
         "h": 10,
         "w": 16,
@@ -1528,7 +1534,7 @@
       "type": "barchart",
       "id": 15,
       "title": "Daily Energy",
-      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
+      "description": "Daily energy production — East (orange) vs West (blue)",
       "gridPos": {
         "h": 8,
         "w": 24,
@@ -1676,7 +1682,7 @@
       "type": "bargauge",
       "id": 22,
       "title": "Panel Power",
-      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
+      "description": "Current power output per solar panel — 8 panels across 2 inverters",
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -1942,7 +1948,7 @@
       "type": "table",
       "id": 23,
       "title": "Module Detail",
-      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -2181,6 +2187,514 @@
             "desc": false
           }
         ]
+      }
+    },
+    {
+      "type": "canvas",
+      "id": 45,
+      "title": "Roof Layout",
+      "description": "Physical panel positions on roof with color-coded production heatmap. West slope on top, East slope on bottom.",
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 50
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"East PV1\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"East PV2\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "C",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"East PV3\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "D",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"East PV4\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "E",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"West PV1\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "F",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"West PV2\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "G",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"West PV3\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "H",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"West PV4\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "#1a1a2e"
+              },
+              {
+                "value": 1,
+                "color": "#614a19"
+              },
+              {
+                "value": 100,
+                "color": "#c7a035"
+              },
+              {
+                "value": 400,
+                "color": "#73BF69"
+              },
+              {
+                "value": 600,
+                "color": "#1a7c11"
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "inlineEditing": true,
+        "showAdvancedTypes": false,
+        "root": {
+          "name": "root",
+          "type": 0,
+          "elements": [
+            {
+              "name": "west_label",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "West Slope"
+                },
+                "color": {
+                  "fixed": "#cccccc"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "placement": {
+                "top": 40,
+                "left": 10,
+                "width": 100,
+                "height": 60
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "east_label",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "East Slope"
+                },
+                "color": {
+                  "fixed": "#cccccc"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "placement": {
+                "top": 160,
+                "left": 10,
+                "width": 100,
+                "height": 60
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "west_pv2",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "West PV2"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "West PV2",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 20,
+                "left": 120,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "west_pv1",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "West PV1"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "West PV1",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 20,
+                "left": 290,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "west_pv4",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "West PV4"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "West PV4",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 20,
+                "left": 460,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "west_pv3",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "West PV3"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "West PV3",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 20,
+                "left": 630,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "east_pv3",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "East PV3"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "East PV3",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 160,
+                "left": 120,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "east_pv4",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "East PV4"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "East PV4",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 160,
+                "left": 290,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "east_pv1",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "East PV1"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "East PV1",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 160,
+                "left": 460,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            },
+            {
+              "name": "east_pv2",
+              "type": "rectangle",
+              "config": {
+                "align": "center",
+                "valign": "middle",
+                "text": {
+                  "fixed": "East PV2"
+                },
+                "color": {
+                  "fixed": "white"
+                },
+                "size": 14
+              },
+              "background": {
+                "color": {
+                  "field": "East PV2",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "placement": {
+                "top": 160,
+                "left": 630,
+                "width": 150,
+                "height": 80
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -2808,7 +3322,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 60
       },
       "panels": []
     },
@@ -2821,7 +3335,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 51
+        "y": 61
       },
       "datasource": {
         "type": "influxdb",
@@ -2888,7 +3402,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 51
+        "y": 61
       },
       "datasource": {
         "type": "influxdb",
@@ -2955,7 +3469,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 51
+        "y": 61
       },
       "datasource": {
         "type": "influxdb",
@@ -3042,7 +3556,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 51
+        "y": 61
       },
       "datasource": {
         "type": "influxdb",
@@ -3121,7 +3635,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 51
+        "y": 61
       },
       "datasource": {
         "type": "influxdb",
@@ -3200,7 +3714,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 54
+        "y": 64
       },
       "datasource": {
         "type": "influxdb",
@@ -3287,7 +3801,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 54
+        "y": 64
       },
       "datasource": {
         "type": "influxdb",
@@ -3366,7 +3880,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 54
+        "y": 64
       },
       "datasource": {
         "type": "influxdb",
@@ -3440,12 +3954,12 @@
       "type": "state-timeline",
       "id": 32,
       "title": "Inverter State History",
-      "description": "Operating state transitions over time \u2014 producing, standby, offline",
+      "description": "Operating state transitions over time — producing, standby, offline",
       "gridPos": {
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 67
       },
       "datasource": {
         "type": "influxdb",
@@ -3560,7 +4074,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 63
+        "y": 73
       },
       "panels": []
     },
@@ -3573,7 +4087,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 74
       },
       "panels": []
     },
@@ -3586,7 +4100,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 65
+        "y": 75
       },
       "datasource": {
         "type": "influxdb",
@@ -3654,7 +4168,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 65
+        "y": 75
       },
       "datasource": {
         "type": "influxdb",
@@ -3722,7 +4236,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 65
+        "y": 75
       },
       "datasource": {
         "type": "influxdb",
@@ -3842,7 +4356,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 69
+        "y": 79
       },
       "datasource": {
         "type": "influxdb",
@@ -4004,12 +4518,12 @@
       "type": "table",
       "id": 37,
       "title": "Event Log",
-      "description": "All system events \u2014 grid backfeed, inverter alarms, faults, and state changes",
+      "description": "All system events — grid backfeed, inverter alarms, faults, and state changes",
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 73
+        "y": 83
       },
       "datasource": {
         "type": "influxdb",
