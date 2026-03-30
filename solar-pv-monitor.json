@@ -52,6 +52,12 @@
       "id": "piechart",
       "name": "Pie chart",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
     }
   ],
   "id": null,
@@ -1501,6 +1507,141 @@
       }
     },
     {
+      "type": "barchart",
+      "id": 15,
+      "title": "Daily Energy",
+      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "East",
+          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "West",
+          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "East"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF9830"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#5794F2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "stacking": "normal",
+        "barWidth": 0.7,
+        "groupWidth": 0.7,
+        "xField": "time",
+        "orientation": "auto",
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": [
+            "sum"
+          ]
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0,
+        "fullHighlight": false
+      }
+    },
+    {
       "type": "row",
       "id": 300,
       "title": "Module Level",
@@ -1509,7 +1650,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 41
       },
       "panels": []
     },
@@ -1517,14 +1658,617 @@
       "type": "row",
       "id": 400,
       "title": "Grid & Consumption",
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 28
       },
       "panels": []
+    },
+    {
+      "type": "stat",
+      "id": 16,
+      "title": "Grid Voltage",
+      "description": "Current grid voltage from smart meter",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 29
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT voltage_sensor AS voltage FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 200
+              },
+              {
+                "color": "green",
+                "value": 215
+              },
+              {
+                "color": "yellow",
+                "value": 240
+              },
+              {
+                "color": "red",
+                "value": 250
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "orientation": "auto"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 17,
+      "title": "Grid Frequency",
+      "description": "Current grid frequency from smart meter",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 29
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT frequency_sensor AS frequency FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "hertz",
+          "decimals": 2,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 49
+              },
+              {
+                "color": "green",
+                "value": 49.5
+              },
+              {
+                "color": "yellow",
+                "value": 50.5
+              },
+              {
+                "color": "red",
+                "value": 51
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "orientation": "auto"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 18,
+      "title": "Power Factor",
+      "description": "Current power factor from smart meter",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 29
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT power_factor_sensor AS pf FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 3,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.8
+              },
+              {
+                "color": "green",
+                "value": 0.9
+              },
+              {
+                "color": "dark-green",
+                "value": 0.99
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "orientation": "auto"
+      }
+    },
+    {
+      "type": "stat",
+      "id": 19,
+      "title": "Grid Current",
+      "description": "Current grid current from smart meter",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 29
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT current_sensor AS current FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "format": "table",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp",
+          "decimals": 1,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "orientation": "auto"
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 20,
+      "title": "Voltage & Frequency",
+      "description": "Grid voltage and frequency trends over time",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(voltage_sensor) AS \"Voltage\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(frequency_sensor) AS \"Frequency\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisPlacement": "auto",
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Voltage"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#8AB8FF"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "volt"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Voltage (V)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Frequency"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#B877D9"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "hertz"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Frequency (Hz)"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ]
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 21,
+      "title": "Power Factor & Current",
+      "description": "Grid power factor and current trends over time",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB_SOLAR}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_factor_sensor) AS \"Power Factor\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        },
+        {
+          "refId": "B",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(current_sensor) AS \"Current\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB_SOLAR}"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisPlacement": "auto",
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power Factor"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#F2495C"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Power Factor"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Current"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#FF9830"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "amp"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Current (A)"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ]
+        }
+      }
     },
     {
       "type": "row",
@@ -1535,7 +2279,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 42
       },
       "panels": []
     },
@@ -1548,7 +2292,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 43
       },
       "panels": []
     },
@@ -1561,7 +2305,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 44
       },
       "panels": []
     }
