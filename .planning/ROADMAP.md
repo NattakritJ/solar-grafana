@@ -82,7 +82,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [ ] 04-01-PLAN.md — TOU-aware financial savings stat panels (Today/MTD/YTD + Peak/Off-Peak breakdown)
-- [ ] 04-02-PLAN.md — Canvas roof layout heatmap and daily production heatmap
+- [x] 04-02-PLAN.md — Canvas roof layout heatmap and daily production heatmap
 - [ ] 04-03-PLAN.md — Dashboard-wide consistency polish and visual verification
 **UI hint**: yes
 

@@ -25,14 +25,14 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PROD-02**: User can see per-inverter production breakdown (East vs West) as separate stats or grouped display
 - [x] **PROD-03**: User can see production history as daily/weekly/monthly bar charts depending on selected time range
 - [x] **PROD-04**: User can see East vs West production overlaid on the same time-series chart for orientation comparison
-- [ ] **PROD-05**: User can see a calendar heatmap showing daily production patterns over weeks/months
+- [x] **PROD-05**: User can see a calendar heatmap showing daily production patterns over weeks/months
 
 ### Module-Level Monitoring
 
 - [x] **MODL-01**: User can see individual power output (W) for all 8 panels (PV1-PV4 on each inverter)
 - [x] **MODL-02**: User can see individual voltage (V) and current (A) for all 8 panels
 - [x] **MODL-03**: User can see today's and total production (kWh) for each individual panel
-- [ ] **MODL-04**: User can see a roof layout visualization (Canvas panel) showing physical panel positions with color-coded production heatmap — East row: [PV3][PV4][PV1][PV2], West row: [PV3][PV4][PV1][PV2]
+- [x] **MODL-04**: User can see a roof layout visualization (Canvas panel) showing physical panel positions with color-coded production heatmap — East row: [PV3][PV4][PV1][PV2], West row: [PV3][PV4][PV1][PV2]
 
 ### Financial
 
@@ -120,11 +120,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-02 | Phase 2 | Complete |
 | PROD-03 | Phase 2 | Complete |
 | PROD-04 | Phase 2 | Complete |
-| PROD-05 | Phase 4 | Pending |
+| PROD-05 | Phase 4 | Complete |
 | MODL-01 | Phase 3 | Complete |
 | MODL-02 | Phase 3 | Complete |
 | MODL-03 | Phase 3 | Complete |
-| MODL-04 | Phase 4 | Pending |
+| MODL-04 | Phase 4 | Complete |
 | FINC-01 | Phase 4 | Pending |
 | FINC-02 | Phase 4 | Pending |
 | FINC-03 | Phase 4 | Pending |
