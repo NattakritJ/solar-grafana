@@ -62,7 +62,11 @@ Plans:
   5. Dashboard displays inverter offline status at night as normal/expected (not as an error condition)
   6. User can see a grid backfeed event log showing timestamp, power, and duration for all negative smart meter readings, plus today's backfeed count and max backfeed power as summary stats
   7. User can see a unified event log combining grid backfeed, inverter alarms/faults, and state changes chronologically
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 03-01-PLAN.md — Module-level bar gauge (8-panel power) and detail table (power/voltage/current/today/total)
+- [ ] 03-02-PLAN.md — Inverter temperature gauges, device state/alarm/fault stats, state timeline
+- [ ] 03-03-PLAN.md — Backfeed summary stats, backfeed event log, alarm/fault history, unified event log
 **UI hint**: yes
 
 ### Phase 4: Financial Savings, Canvas Layout & Polish
@@ -87,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
-| 3. Module-Level Detail, Inverter Health & Event Log | 0/TBD | Not started | - |
+| 3. Module-Level Detail, Inverter Health & Event Log | 0/3 | Planned | - |
 | 4. Financial Savings, Canvas Layout & Polish | 0/TBD | Not started | - |
