@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation & Overview Stats** - Dashboard skeleton with validated SQL queries, header stats showing real-time power/energy/status, and power flow layout
 - [x] **Phase 2: Production Charts & Grid Monitoring** - Time-series production graphs, East vs West comparison, daily/weekly bars, and grid quality views
 - [x] **Phase 3: Module-Level Detail, Inverter Health & Event Log** - Per-panel power/voltage/current for all 8 panels, temperature gauges, alarm/fault history, grid backfeed event tracking
-- [ ] **Phase 4: Financial Savings, Canvas Layout & Polish** - TOU-aware savings calculations, roof layout heatmap visualization, calendar heatmap, unit/color consistency
+- [x] **Phase 4: Financial Savings, Canvas Layout & Polish** - TOU-aware savings calculations, roof layout heatmap visualization, calendar heatmap, unit/color consistency (completed 2026-03-30)
 
 ## Phase Details
 
@@ -83,7 +83,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — TOU-aware financial savings stat panels (Today/MTD/YTD + Peak/Off-Peak breakdown)
 - [x] 04-02-PLAN.md — Canvas roof layout heatmap and daily production heatmap
-- [ ] 04-03-PLAN.md — Dashboard-wide consistency polish and visual verification
+- [x] 04-03-PLAN.md — Dashboard-wide consistency polish and visual verification
 **UI hint**: yes
 
 ## Progress
@@ -96,4 +96,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
 | 3. Module-Level Detail, Inverter Health & Event Log | 3/3 | Complete | 2026-03-30 |
-| 4. Financial Savings, Canvas Layout & Polish | 2/3 | In Progress|  |
+| 4. Financial Savings, Canvas Layout & Polish | 3/3 | Complete   | 2026-03-30 |
