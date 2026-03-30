@@ -12,12 +12,12 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **OVER-01**: User can see current total solar production power (kW) as a large prominent stat
 - [x] **OVER-02**: User can see today's total energy production (kWh) as a stat
 - [x] **OVER-03**: User can see lifetime total energy production (kWh/MWh) as a stat
-- [ ] **OVER-04**: User can see current grid import power (kW) from smart meter as a stat
-- [ ] **OVER-05**: User can see current house load (kW) calculated as solar production + grid import
-- [ ] **OVER-06**: User can see self-consumption ratio (%) showing how much load is covered by solar
-- [ ] **OVER-07**: User can see system status indicator (Normal/Fault/Offline) with color-coded value mapping
-- [ ] **OVER-08**: User can see power flow overview with stat panels arranged as Solar -> House <- Grid showing energy direction
-- [ ] **OVER-09**: User can see peak power achieved today (kW) as a stat
+- [x] **OVER-04**: User can see current grid import power (kW) from smart meter as a stat
+- [x] **OVER-05**: User can see current house load (kW) calculated as solar production + grid import
+- [x] **OVER-06**: User can see self-consumption ratio (%) showing how much load is covered by solar
+- [x] **OVER-07**: User can see system status indicator (Normal/Fault/Offline) with color-coded value mapping
+- [x] **OVER-08**: User can see power flow overview with stat panels arranged as Solar -> House <- Grid showing energy direction
+- [x] **OVER-09**: User can see peak power achieved today (kW) as a stat
 
 ### Production Charts
 
@@ -110,12 +110,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OVER-01 | Phase 1 | Complete |
 | OVER-02 | Phase 1 | Complete |
 | OVER-03 | Phase 1 | Complete |
-| OVER-04 | Phase 1 | Pending |
-| OVER-05 | Phase 1 | Pending |
-| OVER-06 | Phase 1 | Pending |
-| OVER-07 | Phase 1 | Pending |
-| OVER-08 | Phase 1 | Pending |
-| OVER-09 | Phase 1 | Pending |
+| OVER-04 | Phase 1 | Complete |
+| OVER-05 | Phase 1 | Complete |
+| OVER-06 | Phase 1 | Complete |
+| OVER-07 | Phase 1 | Complete |
+| OVER-08 | Phase 1 | Complete |
+| OVER-09 | Phase 1 | Complete |
 | PROD-01 | Phase 2 | Pending |
 | PROD-02 | Phase 2 | Pending |
 | PROD-03 | Phase 2 | Pending |

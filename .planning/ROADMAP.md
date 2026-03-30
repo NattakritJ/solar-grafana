@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 Plans:
 - [x] 01-01-PLAN.md — Dashboard skeleton with __inputs, 7 section rows, and 3 overview stats (Solar Power, Today's Energy, Lifetime Energy)
-- [ ] 01-02-PLAN.md — Grid import, house load, self-consumption, peak power, system status stats, and power flow row
+- [x] 01-02-PLAN.md — Grid import, house load, self-consumption, peak power, system status stats, and power flow row
 **UI hint**: yes
 
 ### Phase 2: Production Charts & Grid Monitoring
