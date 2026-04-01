@@ -99,6 +99,7 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 - **Delivery Format**: Grafana JSON dashboard export file, importable via Grafana UI
 - **Single Dashboard**: All monitoring on one comprehensive dashboard with logical sections
 - **Zero Export**: System cannot export to grid — no export revenue calculations needed
+- **Schema Version**: `schemaVersion: 42` (bumped from 40 post-v1 for Grafana 12.4.1 full compatibility)
 
 ## Key Decisions
 
@@ -109,6 +110,11 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 | SQL queries (InfluxDB v3) | InfluxDB 3 Core only supports SQL, not Flux/InfluxQL | Confirmed — all queries use valid InfluxDB 3 SQL |
 | TOU-aware financial calculations | Peak solar production aligns with peak rates, maximizing tracked savings | Confirmed — 7 stat panels with hourly-bucketed TOU SQL, Thai holiday handling |
 | Roof layout visualization | Module-level visual showing physical panel positions with production heatmap | Confirmed — Canvas panel with 8 data-bound rectangles in physical arrangement |
+| [Post-v1] Overview row redesign (2026-04-01) | Improve scannability: wider panels for primary KPIs, larger display area for Self-Consumption and System Status | 5×w=4 top row + two w=12 panels on second row; `transparent:true` removed from panels 6 & 8 |
+| [Post-v1] Server-side Expressions for House Load & Self-Consumption (2026-04-01) | Grafana Expression targets (type=math) are simpler, less brittle than multi-step client-side transformation chains | Panels 5 and 6 use `$A + $B + $C` style math targets; no more merge/calculateField transformations |
+| [Phase 5] Full Expression migration for all 15 calculation panels (2026-04-01) | Eliminated all remaining merge+reduce/calculateField transformation chains from calculation panels — single architectural pattern throughout dashboard | Panels 1, 2, 3, 7, 9 (overview), 5, 6, 10 (load/consumption), 38–44 (financial savings) all use Expression targets; display-only merge panels (13, 14, 15, 22, 23, 45) preserved |
+| [Post-v1] Remove alarm/fault history & unified event log panels (2026-04-01) | Panels 36+37 duplicated info already visible in health stats; added noise without actionable value | Removed panels 36 & 37; Row 700 renamed to "Backfeed Log" (panels 33–35 only) |
+| [Post-v1] Bump schemaVersion 40 → 42 (2026-04-01) | Required for Grafana 12.4.1 full compatibility; triggers updated panel options schema and normalised thresholds | `schemaVersion: 42`, `pluginVersion: "12.4.1"`, threshold base `value: null → 0` on all panels |
 
 ## Evolution
 
@@ -128,4 +134,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-01 after Phase 4 completion — Financial Savings, Canvas Layout & Polish (v1.0 milestone complete)*
+*Last updated: 2026-04-01 — Phase 5 complete: full Expression migration for all 15 calculation panels; zero transformation-based calculations remain in dashboard*
