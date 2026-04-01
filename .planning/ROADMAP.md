@@ -119,10 +119,10 @@ Applied manually to `solar-pv-monitor.json` after the v1.0 milestone:
 **Goal:** Migrate all 15 calculation panels from client-side `merge + reduce(sum)` / `calculateField` transformations to Grafana server-side Expression targets (`type: math`) so arithmetic runs as `$A + $B` expressions rather than transformation pipelines
 **Requirements**: OVER-03, OVER-05, OVER-06, FINC-01, FINC-02, FINC-03, FINC-04
 **Depends on:** Phase 4
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
-- [ ] 05-01-PLAN.md — Clean up panels 5/6/10 (remove leftover disabled transforms) and migrate overview/power-flow panels 1, 2, 3, 7, 9 to Expression targets
+- [x] 05-01-PLAN.md — Clean up panels 5/6/10 (remove leftover disabled transforms) and migrate overview/power-flow panels 1, 2, 3, 7, 9 to Expression targets
 - [ ] 05-02-PLAN.md — Migrate financial savings panels 38-44 to Expression targets + human verification checkpoint
 
 ### Phase 05.1: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (INSERTED)

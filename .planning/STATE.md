@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 5 context gathered
-last_updated: "2026-04-01T08:43:29.713Z"
+status: executing
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-04-01T09:28:48.175Z"
 last_activity: 2026-04-01
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
+  total_plans: 12
+  completed_plans: 11
   percent: 100
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 04 — financial-savings-canvas-layout-polish
+**Current focus:** Phase 05 — fix-all-panel-in-dashboard-that-still-use-transformation-to-calcuate-to-use-expression-instead-for-example-look-at-self-consumption-or-house-load-panel-that-use-expression
 
 ## Current Position
 
-Phase: 04
-Plan: Not started
-Status: v1.0 milestone complete
+Phase: 05 (fix-all-panel-in-dashboard-that-still-use-transformation-to-calcuate-to-use-expression-instead-for-example-look-at-self-consumption-or-house-load-panel-that-use-expression) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-04-01
 
 Progress: [██████████] 100%
@@ -62,6 +62,7 @@ Progress: [██████████] 100%
 | Phase 04 P02 | 3min | 2 tasks | 1 files |
 | Phase 04 P01 | 19min | 2 tasks | 1 files |
 | Phase 04 P03 | 3min | 1 tasks | 1 files |
+| Phase 05 P01 | 2min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -99,6 +100,7 @@ Recent decisions affecting current work:
 - [Phase 04]: Thai public holidays encoded as month/day extraction in SQL WHERE clauses (15 dates for 2026)
 - [Phase 04]: Financial panel Y positions adjusted from plan (y:64→y:82) due to Canvas+Heatmap panels inserted by parallel 04-02 execution
   - [Phase 04]: Production threshold colors normalized to consistent 5-step scale across all production panels for dashboard-wide consistency
+- [Phase 05]: Migrated 8 stat panels from client-side merge+reduce/calculateField transformation chains to server-side Grafana Expression targets (type=math); raw InfluxDB query targets set to hide:true
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -134,6 +136,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T08:43:29.705Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-fix-all-panel-in-dashboard-that-still-use-transformation-to-calcuate-to-use-expression-instead-for-example-look-at-self-consumption-or-house-load-panel-that-use-expression/05-CONTEXT.md
+Last session: 2026-04-01T09:28:48.171Z
+Stopped at: Completed 05-01-PLAN.md
+Resume file: None
