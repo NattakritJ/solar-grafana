@@ -153,4 +153,4 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 07-01-PLAN.md — Add WHERE time >= now() - INTERVAL '2 minutes' to all 53 latest-value queries (6 surgical replaceAll edits) + human verification
+- [x] 07-01-PLAN.md — Add WHERE time >= now() - INTERVAL '2 minutes' to all 53 latest-value queries (6 surgical replaceAll edits) + human verification

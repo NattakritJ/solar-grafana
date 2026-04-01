@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
+status: executing
 stopped_at: Completed Phase 06-01 — Financial Savings Rework flat-rate 3.5 THB/kWh
-last_updated: "2026-04-01T14:24:25.538Z"
+last_updated: "2026-04-01T16:13:10.851Z"
 last_activity: 2026-04-01
 progress:
-  total_phases: 7
-  completed_phases: 7
-  total_plans: 14
-  completed_plans: 14
+  total_phases: 8
+  completed_phases: 8
+  total_plans: 15
+  completed_plans: 15
   percent: 100
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 06 — financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate
+**Current focus:** Phase 07 — fix-stale-data-when-inverter-goes-offline-at-sunset
 
 ## Current Position
 
-Phase: 06
+Phase: 07
 Plan: Not started
-Status: Phase complete — ready for verification
+Status: Executing Phase 07
 Last activity: 2026-04-01
 
 Progress: [██████████] 100%
@@ -128,6 +128,7 @@ The following decisions were recorded after the v1.0 milestone to reflect manual
 - Phase 5 added: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
 - Phase 5.1 inserted after Phase 5: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (URGENT)
 - Phase 6 added: Financial Savings rework: use fixed rate (3.5 THB/kWh) instead of TOU rate
+- Phase 7 added: Fix stale data when inverter goes offline at sunset — most panels use ORDER BY time DESC LIMIT 1 which freezes at the last value when the inverter turns off at night; need time-bounded queries that return null/no data outside active hours
 
 ### Pending Todos
 
