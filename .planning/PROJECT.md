@@ -115,6 +115,7 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 | [Phase 5] Full Expression migration for all 15 calculation panels (2026-04-01) | Eliminated all remaining merge+reduce/calculateField transformation chains from calculation panels — single architectural pattern throughout dashboard | Panels 1, 2, 3, 7, 9 (overview), 5, 6, 10 (load/consumption), 38–44 (financial savings) all use Expression targets; display-only merge panels (13, 14, 15, 22, 23, 45) preserved |
 | [Post-v1] Remove alarm/fault history & unified event log panels (2026-04-01) | Panels 36+37 duplicated info already visible in health stats; added noise without actionable value | Removed panels 36 & 37; Row 700 renamed to "Backfeed Log" (panels 33–35 only) |
 | [Post-v1] Bump schemaVersion 40 → 42 (2026-04-01) | Required for Grafana 12.4.1 full compatibility; triggers updated panel options schema and normalised thresholds | `schemaVersion: 42`, `pluginVersion: "12.4.1"`, threshold base `value: null → 0` on all panels |
+| [Phase 5.1] Calendar-day boundary for all "today" queries (2026-04-01) | `now() - INTERVAL '24 hours'` was a rolling window, not the Bangkok calendar day — "today" should mean since 00:00 Bangkok time | All 18 rawSql "today" boundaries replaced with `date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'`; real-time patterns unchanged |
 
 ## Evolution
 
@@ -134,4 +135,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-01 — Phase 5 complete: full Expression migration for all 15 calculation panels; zero transformation-based calculations remain in dashboard*
+*Last updated: 2026-04-01 — Phase 5.1 complete: all 18 "today" SQL boundaries fixed to Bangkok calendar-day anchor; no rolling 24-hour windows remain*
