@@ -86,9 +86,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -222,9 +220,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -312,9 +308,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -454,9 +448,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -550,9 +542,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -715,9 +705,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -853,9 +841,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -964,21 +950,19 @@
       },
       "id": 8,
       "options": {
-        "colorMode": "value",
+        "colorMode": "none",
         "graphMode": "none",
-        "justifyMode": "auto",
+        "justifyMode": "center",
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "/.*/",
           "values": false
         },
         "showPercentChange": false,
-        "textMode": "value",
-        "wideLayout": true
+        "textMode": "value_and_name",
+        "wideLayout": false
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -1094,9 +1078,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1176,7 +1158,6 @@
         }
       ],
       "title": "☀ Solar → House",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -1231,9 +1212,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1342,7 +1321,6 @@
         }
       ],
       "title": "🏠 House Load",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -1397,9 +1375,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1439,7 +1415,6 @@
         }
       ],
       "title": "⚡ Grid → House",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -1567,11 +1542,7 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
+          "calcs": ["mean", "max", "lastNotNull"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1698,9 +1669,7 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1800,23 +1769,16 @@
       },
       "id": 14,
       "options": {
-        "displayLabels": [
-          "percent"
-        ],
+        "displayLabels": ["percent"],
         "legend": {
           "displayMode": "list",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": true
         },
@@ -1859,9 +1821,7 @@
           "options": {
             "includeTimeField": false,
             "mode": "seriesToRows",
-            "reducers": [
-              "sum"
-            ]
+            "reducers": ["sum"]
           }
         }
       ],
@@ -1958,9 +1918,7 @@
         "fullHighlight": false,
         "groupWidth": 0.7,
         "legend": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2238,9 +2196,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2338,9 +2294,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2415,9 +2369,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2488,9 +2440,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2635,11 +2585,7 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max"
-          ],
+          "calcs": ["mean", "min", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2808,11 +2754,7 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max"
-          ],
+          "calcs": ["mean", "min", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3042,9 +2984,7 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4586,9 +4526,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4658,9 +4596,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4753,9 +4689,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4840,9 +4774,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4927,9 +4859,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5022,9 +4952,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5109,9 +5037,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5196,9 +5122,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5282,9 +5206,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5395,9 +5317,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5489,9 +5409,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5600,9 +5518,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5677,9 +5593,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -5845,11 +5759,7 @@
   "preload": false,
   "refresh": "10s",
   "schemaVersion": 42,
-  "tags": [
-    "solar",
-    "energy",
-    "influxdb"
-  ],
+  "tags": ["solar", "energy", "influxdb"],
   "templating": {
     "list": []
   },
@@ -5861,6 +5771,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g8",
-  "version": 20,
+  "version": 27,
   "weekStart": ""
 }

@@ -123,6 +123,14 @@ The following decisions were recorded after the v1.0 milestone to reflect manual
   - [Post-v1]: House Load colour thresholds changed from solar-green scale to orange — orange is the correct colour convention for load/consumption panels (per D-14)
   - [Post-v1]: Panels 36 ("Alarm / Fault History") and 37 ("Event Log" unified log) removed from dashboard; Row 700 renamed "Event Log" → "Backfeed Log"
 
+### Post-v1 Edits Applied (2026-04-02)
+
+The following decisions were recorded after the Phase 07 completion to reflect manual edits applied directly to `solar-pv-monitor.json` (dashboard version bumped 20 → 27):
+
+  - [Post-v1 2026-04-02]: System Status (panel 8) display options reworked — `colorMode: value → none` (no per-value tinting), `justifyMode: auto → center`, `textMode: value → value_and_name` (shows inverter name alongside state), `wideLayout: true → false` (compact layout)
+  - [Post-v1 2026-04-02]: `transparent: true` removed from three Power Flow row panels — ☀ Solar → House, 🏠 House Load, ⚡ Grid → House — these panels now render with standard panel background
+  - [Post-v1 2026-04-02]: JSON cosmetic reformatting — 31 single-element arrays collapsed to inline style (`["lastNotNull"]` etc.); no functional change
+
 ### Roadmap Evolution
 
 - Phase 5 added: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
