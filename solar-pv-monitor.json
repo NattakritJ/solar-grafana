@@ -509,12 +509,7 @@
         }
       ],
       "title": "House Load",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -747,102 +742,7 @@
         }
       ],
       "title": "Self-Consumption",
-      "transformations": [
-        {
-          "disabled": true,
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "disabled": true,
-          "id": "calculateField",
-          "options": {
-            "alias": "solar_w",
-            "binary": {
-              "left": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "east_w"
-                }
-              },
-              "operator": "+",
-              "right": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "west_w"
-                }
-              }
-            },
-            "mode": "binary",
-            "reduce": {
-              "reducer": "sum"
-            }
-          }
-        },
-        {
-          "disabled": true,
-          "id": "calculateField",
-          "options": {
-            "alias": "total_w",
-            "binary": {
-              "left": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "solar_w"
-                }
-              },
-              "operator": "+",
-              "right": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "grid_w"
-                }
-              }
-            },
-            "mode": "binary",
-            "reduce": {
-              "reducer": "sum"
-            }
-          }
-        },
-        {
-          "disabled": true,
-          "id": "calculateField",
-          "options": {
-            "alias": "self_consumption",
-            "binary": {
-              "left": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "solar_w"
-                }
-              },
-              "operator": "/",
-              "right": {
-                "matcher": {
-                  "id": "byName",
-                  "options": "total_w"
-                }
-              }
-            },
-            "mode": "binary",
-            "reduce": {
-              "reducer": "sum"
-            }
-          }
-        },
-        {
-          "disabled": true,
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "self_consumption"
-              ]
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -1011,7 +911,7 @@
           "refId": "B"
         }
       ],
-      "title": "☀ Solar → House",
+      "title": "\u2600 Solar \u2192 House",
       "transformations": [
         {
           "id": "merge",
@@ -1134,13 +1034,8 @@
           "type": "math"
         }
       ],
-      "title": "🏠 House Load",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        }
-      ],
+      "title": "\ud83c\udfe0 House Load",
+      "transformations": [],
       "transparent": true,
       "type": "stat"
     },
@@ -1218,7 +1113,7 @@
           "refId": "A"
         }
       ],
-      "title": "⚡ Grid → House",
+      "title": "\u26a1 Grid \u2192 House",
       "transparent": true,
       "type": "stat"
     },
@@ -1240,7 +1135,7 @@
         "type": "influxdb",
         "uid": "${DS_INFLUXDB_SOLAR}"
       },
-      "description": "Power output over time — East (orange) vs West (blue) inverters",
+      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1652,7 +1547,7 @@
         "type": "influxdb",
         "uid": "${DS_INFLUXDB_SOLAR}"
       },
-      "description": "Daily energy production — East (orange) vs West (blue)",
+      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2565,7 +2460,7 @@
         "type": "influxdb",
         "uid": "${DS_INFLUXDB_SOLAR}"
       },
-      "description": "Current power output per solar panel — 8 panels across 2 inverters",
+      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -2841,7 +2736,7 @@
         "type": "influxdb",
         "uid": "${DS_INFLUXDB_SOLAR}"
       },
-      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -4334,7 +4229,7 @@
         "type": "influxdb",
         "uid": "${DS_INFLUXDB_SOLAR}"
       },
-      "description": "Operating state transitions over time — producing, standby, offline",
+      "description": "Operating state transitions over time \u2014 producing, standby, offline",
       "fieldConfig": {
         "defaults": {
           "color": {
