@@ -4524,7 +4524,7 @@
             "uid": "${DS_INFLUXDB_SOLAR}"
           },
           "format": "table",
-          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', now()) GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
           "refId": "A",
           "hide": true
         },
@@ -4534,7 +4534,7 @@
             "uid": "${DS_INFLUXDB_SOLAR}"
           },
           "format": "table",
-          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', now()) GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
           "refId": "B",
           "hide": true
         },
@@ -4619,7 +4619,7 @@
             "uid": "${DS_INFLUXDB_SOLAR}"
           },
           "format": "table",
-          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', now()) GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
           "refId": "A",
           "hide": true
         },
@@ -4629,7 +4629,7 @@
             "uid": "${DS_INFLUXDB_SOLAR}"
           },
           "format": "table",
-          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', now()) GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
           "refId": "B",
           "hide": true
         },
