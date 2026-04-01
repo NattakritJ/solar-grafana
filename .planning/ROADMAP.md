@@ -127,10 +127,10 @@ Plans:
 
 ### Phase 05.1: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** Fix all 18 SQL queries that use `now() - INTERVAL '24 hours'` / `now() - INTERVAL '1 day'` as a "today" boundary — replace with `date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'` so "today" means the Bangkok calendar day, not a rolling 24-hour window.
+**Requirements**: OVER-02, OVER-09, PROD-02, FINC-01, FINC-02, EVNT-02
 **Depends on:** Phase 5
-**Plans:** 2/2 plans complete
+**Plans:** 0/1 plans complete
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 05.1 to break down)
+- [ ] 05.1-01-PLAN.md — Replace all 18 rolling-window boundaries with Bangkok calendar-day expression (2 global replaceAll edits)
