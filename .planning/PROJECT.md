@@ -80,16 +80,15 @@ West Row:  [PV3] [PV4] [PV1] [PV2]
 - All numeric fields are Float64
 - Timestamp column: `time` (nanosecond precision)
 
-### Electricity Rates (TOU — Time of Use)
+### Electricity Rate
 
-| Period | Hours | Rate (THB/kWh) |
-|---|---|---|
-| **Peak** | Weekday (Mon-Fri) 09:00-22:00 | 5.7982 |
-| **Off-Peak** | Weekday 22:00-09:00, Weekend/Holiday all day | 2.6369 |
+| Rate | THB/kWh |
+|------|---------|
+| **Flat rate** | 3.5 |
 
 Currency: Thai Baht (THB). No feed-in tariff (zero export).
 
-Solar production mostly occurs during peak hours (daytime), maximizing savings value.
+The homeowner's actual tariff is a flat 3.5 THB/kWh — not TOU. The dashboard previously used complex TOU peak/off-peak rates (5.7982/2.6369) which were incorrect and have been replaced.
 
 ## Constraints
 
@@ -116,6 +115,7 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 | [Post-v1] Remove alarm/fault history & unified event log panels (2026-04-01) | Panels 36+37 duplicated info already visible in health stats; added noise without actionable value | Removed panels 36 & 37; Row 700 renamed to "Backfeed Log" (panels 33–35 only) |
 | [Post-v1] Bump schemaVersion 40 → 42 (2026-04-01) | Required for Grafana 12.4.1 full compatibility; triggers updated panel options schema and normalised thresholds | `schemaVersion: 42`, `pluginVersion: "12.4.1"`, threshold base `value: null → 0` on all panels |
 | [Phase 5.1] Calendar-day boundary for all "today" queries (2026-04-01) | `now() - INTERVAL '24 hours'` was a rolling window, not the Bangkok calendar day — "today" should mean since 00:00 Bangkok time | All 18 rawSql "today" boundaries replaced with `date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'`; real-time patterns unchanged |
+| [Phase 6] Flat-rate savings calculation replaces TOU (2026-04-01) | Homeowner's actual tariff is flat 3.5 THB/kWh — not TOU. The complex CASE WHEN SQL with two rates + 15 Thai public holiday exceptions was producing incorrect savings figures | Panels 38/39/40 use `SUM(hourly_kwh * 3.5)`; panels 41-44 (Peak/Off-Peak breakdown) removed; all three boundaries use Bangkok timezone anchor |
 
 ## Evolution
 
@@ -135,4 +135,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-01 — Phase 5.1 complete: all 18 "today" SQL boundaries fixed to Bangkok calendar-day anchor; no rolling 24-hour windows remain*
+*Last updated: 2026-04-01 — Phase 6 complete: flat-rate 3.5 THB/kWh savings calculation; TOU complexity removed; v1.0 milestone complete*
