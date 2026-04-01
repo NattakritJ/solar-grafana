@@ -58,15 +58,15 @@ Plans:
   1. User can see power output (W) for all 8 individual panels (PV1-PV4 on East and West inverters)
   2. User can see voltage (V) and current (A) for all 8 panels, plus today's and total production per panel
   3. User can see inverter temperature for both micro inverters as gauges or stats with appropriate thresholds
-  4. User can see device state, alarm, and fault status with color-coded indicators, plus a historical alarm/fault log table
+  4. User can see device state, alarm, and fault status with color-coded indicators, plus a historical alarm/fault log table *(post-v1: dedicated table panel removed; state visible via stat panels + state-timeline)*
   5. Dashboard displays inverter offline status at night as normal/expected (not as an error condition)
   6. User can see a grid backfeed event log showing timestamp, power, and duration for all negative smart meter readings, plus today's backfeed count and max backfeed power as summary stats
-  7. User can see a unified event log combining grid backfeed, inverter alarms/faults, and state changes chronologically
+  7. User can see a unified event log combining grid backfeed, inverter alarms/faults, and state changes chronologically *(post-v1: unified log panel removed; row 700 renamed "Backfeed Log")*
 **Plans:** 3 plans
 Plans:
 - [x] 03-01-PLAN.md — Module-level bar gauge (8-panel power) and detail table (power/voltage/current/today/total)
 - [x] 03-02-PLAN.md — Inverter temperature gauges, device state/alarm/fault stats, state timeline
-- [x] 03-03-PLAN.md — Backfeed summary stats, backfeed event log, alarm/fault history, unified event log
+- [x] 03-03-PLAN.md — Backfeed summary stats, backfeed event log, alarm/fault history, unified event log *(post-v1: panels 36+37 removed, row 700 renamed "Backfeed Log")*
 **UI hint**: yes
 
 ### Phase 4: Financial Savings, Canvas Layout & Polish
@@ -97,3 +97,40 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
 | 3. Module-Level Detail, Inverter Health & Event Log | 3/3 | Complete | 2026-03-30 |
 | 4. Financial Savings, Canvas Layout & Polish | 3/3 | Complete   | 2026-03-30 |
+
+## Post-v1 Dashboard Changes (2026-04-01)
+
+Applied manually to `solar-pv-monitor.json` after the v1.0 milestone:
+
+| Change | Panels Affected | Detail |
+|--------|-----------------|--------|
+| `schemaVersion` 40 → 42 | All | Grafana 12.4.1 compatibility; `pluginVersion: "12.4.1"` on all panels; threshold `value: null → 0` |
+| Overview row redesign | 6, 7, 8 | 8 × w=3 → 5 × w=4 (y=1) + 2 × w=12 (y=5); downstream rows shifted +3 |
+| House Load: server-side expressions | 5 | 3 queries + client transforms → Expression targets (`$East + $West + $Grid`) |
+| Self-Consumption: server-side expressions | 6 | Client calculateField chain → Expression targets (Solar/Total/Self math) |
+| House Load colour: orange | 5 | Thresholds changed from solar-green to orange (load convention) |
+| `transparent: true` removed | 6, 8 | Panels now on dedicated second row, standard background |
+| System Status `reduceOptions.fields` normalised | 8 | `'/.*/'` → `''` |
+| Panels 36 & 37 removed | 36, 37 | Alarm/Fault History and unified Event Log tables removed |
+| Row 700 renamed | 700 | "Event Log" → "Backfeed Log" (reflects remaining content: panels 33–35 only) |
+
+### Phase 5: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
+
+**Goal:** Migrate all 15 calculation panels from client-side `merge + reduce(sum)` / `calculateField` transformations to Grafana server-side Expression targets (`type: math`) so arithmetic runs as `$A + $B` expressions rather than transformation pipelines
+**Requirements**: OVER-03, OVER-05, OVER-06, FINC-01, FINC-02, FINC-03, FINC-04
+**Depends on:** Phase 4
+**Plans:** 2 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Clean up panels 5/6/10 (remove leftover disabled transforms) and migrate overview/power-flow panels 1, 2, 3, 7, 9 to Expression targets
+- [ ] 05-02-PLAN.md — Migrate financial savings panels 38-44 to Expression targets + human verification checkpoint
+
+### Phase 05.1: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 5
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 05.1 to break down)
