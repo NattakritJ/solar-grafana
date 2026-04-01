@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 04-03 — Phase 4 and v1.0 milestone complete
-last_updated: "2026-04-01T06:18:34.977Z"
+stopped_at: Phase 5 context gathered
+last_updated: "2026-04-01T08:43:29.713Z"
 last_activity: 2026-04-01
 progress:
-  total_phases: 4
-  completed_phases: 3
+  total_phases: 6
+  completed_phases: 4
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 10
   percent: 100
 ---
 
@@ -98,7 +98,25 @@ Recent decisions affecting current work:
 - [Phase 04]: Hourly bucket TOU approach: AVG(power)/1000 per DATE_BIN hour for kWh estimation, classified by DOW+HOUR+holidays
 - [Phase 04]: Thai public holidays encoded as month/day extraction in SQL WHERE clauses (15 dates for 2026)
 - [Phase 04]: Financial panel Y positions adjusted from plan (y:64→y:82) due to Canvas+Heatmap panels inserted by parallel 04-02 execution
-- [Phase 04]: Production threshold colors normalized to consistent 5-step scale across all production panels for dashboard-wide consistency
+  - [Phase 04]: Production threshold colors normalized to consistent 5-step scale across all production panels for dashboard-wide consistency
+
+### Post-v1 Edits Applied (2026-04-01)
+
+The following decisions were recorded after the v1.0 milestone to reflect manual edits applied directly to `solar-pv-monitor.json`:
+
+  - [Post-v1]: schemaVersion bumped 40 → 42 for Grafana 12.4.1; all panels updated to `pluginVersion: "12.4.1"` with full options schema; threshold step base `value: null` → `value: 0` normalized across all panels
+  - [Post-v1]: Overview row redesigned — 8 × w=3 panels collapsed to 5 × w=4 panels at y=1, plus Self-Consumption (panel 6, w=12) and System Status (panel 8, w=12) on a new second row at y=5; all downstream rows shifted down 3 units
+  - [Post-v1]: `transparent: true` removed from panels 6 (Self-Consumption) and 8 (System Status) as they now sit on their own dedicated row
+  - [Post-v1]: House Load (panel 5) migrated from 3 InfluxDB queries + client-side merge/calculateField transforms to server-side Grafana Expression targets — `$East + $West + $Grid` (type=math); simpler and more reliable
+  - [Post-v1]: Self-Consumption (panel 6) migrated to server-side Grafana Expressions: `$Solar = $East + $West`, `$Total = $Solar + $Grid`, `$Self = $Solar / $Total`
+  - [Post-v1]: System Status (panel 8) `reduceOptions.fields` normalised from regex `'/.*/'` to `''` (empty string)
+  - [Post-v1]: House Load colour thresholds changed from solar-green scale to orange — orange is the correct colour convention for load/consumption panels (per D-14)
+  - [Post-v1]: Panels 36 ("Alarm / Fault History") and 37 ("Event Log" unified log) removed from dashboard; Row 700 renamed "Event Log" → "Backfeed Log"
+
+### Roadmap Evolution
+
+- Phase 5 added: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
+- Phase 5.1 inserted after Phase 5: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (URGENT)
 
 ### Pending Todos
 
@@ -116,6 +134,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T00:00:00.000Z
-Stopped at: Completed 04-03 — Phase 4 and v1.0 milestone complete
-Resume file: None
+Last session: 2026-04-01T08:43:29.705Z
+Stopped at: Phase 5 context gathered
+Resume file: .planning/phases/05-fix-all-panel-in-dashboard-that-still-use-transformation-to-calcuate-to-use-expression-instead-for-example-look-at-self-consumption-or-house-load-panel-that-use-expression/05-CONTEXT.md
