@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Phase 06-01 Task 1 complete; checkpoint:human-verify pending for Task 2"
-last_updated: "2026-04-01T13:58:51.160Z"
-last_activity: 2026-04-01 -- Phase 06 execution started
+status: verifying
+stopped_at: Completed Phase 06-01 — Financial Savings Rework flat-rate 3.5 THB/kWh
+last_updated: "2026-04-01T14:20:15.431Z"
+last_activity: 2026-04-01
 progress:
   total_phases: 7
   completed_phases: 7
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 
 Phase: 06 (financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate) — EXECUTING
 Plan: 1 of 1
-Status: Executing Phase 06
-Last activity: 2026-04-01 -- Phase 06 execution started
+Status: Phase complete — ready for verification
+Last activity: 2026-04-01
 
 Progress: [██████████] 100%
 
@@ -66,6 +66,7 @@ Progress: [██████████] 100%
 | Phase 05 P02 | 5min | 2 tasks | 1 files |
 | Phase 05.1 P01 | 1 | 1 tasks | 1 files |
 | Phase 06 P01 | 2 | 1 tasks | 1 files |
+| Phase 06-financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate P01 | 22min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -107,6 +108,7 @@ Recent decisions affecting current work:
 - [Phase 05]: [Phase 05-02]: Migrated 7 financial savings panels (38-44) from merge+reduce transforms to Grafana Expression targets ( + ); Phase 5 migration complete — all 15 calculation panels now use server-side Expression arithmetic
 - [Phase 05.1]: Calendar-day boundary for Bangkok timezone: date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' replaces rolling 24h/1day windows in all 18 today-scoped queries
 - [Phase 06]: Replaced TOU CASE WHEN SQL (5.7982 peak / 2.6369 off-peak + 15 Thai holiday exceptions) with SUM(hourly_kwh * 3.5) flat rate for savings panels 38/39/40 — homeowner's actual tariff is flat 3.5 THB/kWh; removed 4 TOU breakdown panels 41-44
+- [Phase 06]: Flat rate 3.5 THB/kWh replaces TOU CASE WHEN SQL — homeowner's actual tariff is flat; TOU breakdown panels 41-44 removed; Bangkok timezone applied to all three savings boundaries
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -143,6 +145,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T13:58:42.524Z
-Stopped at: Phase 06-01 Task 1 complete; checkpoint:human-verify pending for Task 2
+Last session: 2026-04-01T14:20:15.426Z
+Stopped at: Completed Phase 06-01 — Financial Savings Rework flat-rate 3.5 THB/kWh
 Resume file: None
