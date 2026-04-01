@@ -4430,7 +4430,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4439,24 +4440,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Today's Savings",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -4526,7 +4525,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', now()) GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4535,24 +4535,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', now()) GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Month Savings",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -4622,7 +4620,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', now()) GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4631,24 +4630,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(CASE WHEN EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23) THEN hourly_kwh * 2.6369 WHEN CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31) THEN hourly_kwh * 2.6369 WHEN EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 THEN hourly_kwh * 5.7982 ELSE hourly_kwh * 2.6369 END) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', now()) GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Year Savings",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -4718,7 +4715,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh) AS peak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4727,24 +4725,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh) AS peak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Peak kWh",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -4814,7 +4810,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh * 5.7982) AS peak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4823,24 +4820,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh * 5.7982) AS peak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') NOT IN (0, 6) AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 9 AND EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 22 AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) AND NOT (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31))",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Peak THB",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -4910,7 +4905,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh) AS offpeak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -4919,24 +4915,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh) AS offpeak_kwh FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Off-Peak kWh",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -5006,7 +5000,8 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh * 2.6369) AS offpeak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -5015,24 +5010,22 @@
           },
           "format": "table",
           "rawSql": "SELECT SUM(hourly_kwh * 2.6369) AS offpeak_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours' GROUP BY 1) WHERE hourly_kwh > 0 AND (EXTRACT(DOW FROM bucket AT TIME ZONE 'Asia/Bangkok') IN (0, 6) OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') < 9 OR EXTRACT(HOUR FROM bucket AT TIME ZONE 'Asia/Bangkok') >= 22 OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 1) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 2 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 26) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 4 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (6, 13, 14, 15)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 5 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (1, 4, 12)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 6 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 3) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 7 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 28) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 8 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 10 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (13, 23)) OR (CAST(EXTRACT(MONTH FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) = 12 AND CAST(EXTRACT(DAY FROM bucket AT TIME ZONE 'Asia/Bangkok') AS INTEGER) IN (5, 10, 31)))",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Off-Peak THB",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
