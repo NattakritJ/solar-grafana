@@ -37,7 +37,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current total solar production from both inverters",
       "fieldConfig": {
@@ -86,9 +86,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -101,22 +99,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "A",
-          "hide": true
+          "hide": true,
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "B",
-          "hide": true
+          "hide": true,
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "refId": "B"
         },
         {
           "datasource": {
@@ -130,13 +128,12 @@
         }
       ],
       "title": "Solar Power",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Total energy produced today from both inverters",
       "fieldConfig": {
@@ -185,9 +182,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -200,22 +195,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
-          "refId": "A",
-          "hide": true
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
-          "refId": "B",
-          "hide": true
+          "refId": "B"
         },
         {
           "datasource": {
@@ -229,13 +224,12 @@
         }
       ],
       "title": "Today's Energy",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Total cumulative energy produced since system installation",
       "fieldConfig": {
@@ -268,7 +262,7 @@
         "x": 8,
         "y": 1
       },
-      "id": 3,
+      "id": 702,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -276,9 +270,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -289,24 +281,62 @@
       "pluginVersion": "12.4.1",
       "targets": [
         {
+          "dataset": "iox",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh_east FROM \"East Microinverter\"",
           "refId": "A",
-          "hide": true
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
         },
         {
+          "dataset": "iox",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh_west FROM \"West Microinverter\"",
           "refId": "B",
-          "hide": true
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
         },
         {
           "datasource": {
@@ -320,13 +350,18 @@
         }
       ],
       "title": "Lifetime Energy",
-      "transformations": [],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current power drawn from the grid via smart meter",
       "fieldConfig": {
@@ -375,9 +410,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -390,10 +423,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -403,7 +436,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current household power consumption (solar + grid import)",
       "fieldConfig": {
@@ -452,9 +485,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -467,31 +498,31 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "East"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "West"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "Grid"
         },
         {
@@ -506,13 +537,12 @@
         }
       ],
       "title": "House Load",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Maximum solar power achieved today",
       "fieldConfig": {
@@ -561,9 +591,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -576,22 +604,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"East Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
-          "refId": "A",
-          "hide": true
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"West Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
-          "refId": "B",
-          "hide": true
+          "refId": "B"
         },
         {
           "datasource": {
@@ -605,13 +633,12 @@
         }
       ],
       "title": "Peak Today",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Percentage of house load covered by solar production",
       "fieldConfig": {
@@ -627,7 +654,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-gray",
+                "color": "text",
                 "value": 0
               },
               {
@@ -662,9 +689,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -677,31 +702,31 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor AS east_w FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor AS east_w FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "East"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor AS west_w FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor AS west_w FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "West"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor AS grid_w FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor AS grid_w FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "Grid"
         },
         {
@@ -738,13 +763,12 @@
         }
       ],
       "title": "Self-Consumption",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current inverter operating state",
       "fieldConfig": {
@@ -780,9 +804,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "/.*/",
           "values": false
         },
@@ -796,7 +818,7 @@
           "dataset": "iox",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "editorMode": "code",
           "format": "table",
@@ -827,7 +849,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Solar power flowing into the house",
       "fieldConfig": {
@@ -876,9 +898,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -891,22 +911,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "A",
-          "hide": true
+          "hide": true,
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "B",
-          "hide": true
+          "hide": true,
+          "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "refId": "B"
         },
         {
           "datasource": {
@@ -919,15 +939,14 @@
           "type": "math"
         }
       ],
-      "title": "\u2600 Solar \u2192 House",
-      "transformations": [],
+      "title": "☀ Solar → House",
       "transparent": true,
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Total household power consumption",
       "fieldConfig": {
@@ -976,9 +995,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -991,31 +1008,31 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS east_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "East"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS west_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "West"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "Grid"
         },
         {
@@ -1029,15 +1046,14 @@
           "type": "math"
         }
       ],
-      "title": "\ud83c\udfe0 House Load",
-      "transformations": [],
+      "title": "🏠 House Load",
       "transparent": true,
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Power drawn from the electrical grid",
       "fieldConfig": {
@@ -1086,9 +1102,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1101,14 +1115,14 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor / 1000.0 AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
-      "title": "\u26a1 Grid \u2192 House",
+      "title": "⚡ Grid → House",
       "transparent": true,
       "type": "stat"
     },
@@ -1128,9 +1142,9 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
-      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
+      "description": "Power output over time — East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1237,11 +1251,7 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "lastNotNull"
-          ],
+          "calcs": ["mean", "max", "lastNotNull"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1257,7 +1267,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -1266,7 +1276,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -1279,7 +1289,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current power output per inverter",
       "fieldConfig": {
@@ -1368,9 +1378,7 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1383,19 +1391,19 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor AS \"East\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor AS \"East\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "East"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_sensor AS \"West\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_sensor AS \"West\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "West"
         }
       ],
@@ -1411,7 +1419,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Today's energy production split between East and West inverters",
       "fieldConfig": {
@@ -1470,23 +1478,16 @@
       },
       "id": 14,
       "options": {
-        "displayLabels": [
-          "percent"
-        ],
+        "displayLabels": ["percent"],
         "legend": {
           "displayMode": "list",
           "placement": "right",
           "showLegend": true,
-          "values": [
-            "value",
-            "percent"
-          ]
+          "values": ["value", "percent"]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": true
         },
@@ -1502,7 +1503,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
@@ -1511,7 +1512,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'",
@@ -1529,9 +1530,7 @@
           "options": {
             "includeTimeField": false,
             "mode": "seriesToRows",
-            "reducers": [
-              "sum"
-            ]
+            "reducers": ["sum"]
           }
         }
       ],
@@ -1540,9 +1539,9 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
-      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
+      "description": "Daily energy production — East (orange) vs West (blue)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1628,9 +1627,7 @@
         "fullHighlight": false,
         "groupWidth": 0.7,
         "legend": {
-          "calcs": [
-            "sum"
-          ],
+          "calcs": ["sum"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -1652,7 +1649,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -1661,13 +1658,14 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "West"
         }
       ],
+      "timeFrom": "90d",
       "title": "Daily Energy",
       "transformations": [
         {
@@ -1680,7 +1678,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Hourly production intensity over time. Color shows total system power (kW). Select Last 90 days for best view.",
       "fieldConfig": {
@@ -1735,7 +1733,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-09
+          "le": 1e-9
         },
         "legend": {
           "show": true
@@ -1759,7 +1757,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS \"East kW\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -1768,7 +1766,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS \"West kW\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -1795,7 +1793,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current grid voltage from smart meter",
       "fieldConfig": {
@@ -1847,9 +1845,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1862,10 +1858,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT voltage_sensor AS voltage FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT voltage_sensor AS voltage FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -1875,7 +1871,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current grid frequency from smart meter",
       "fieldConfig": {
@@ -1928,9 +1924,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1943,10 +1937,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT frequency_sensor AS frequency FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT frequency_sensor AS frequency FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -1956,7 +1950,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current power factor from smart meter",
       "fieldConfig": {
@@ -2005,9 +1999,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2020,10 +2012,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT power_factor_sensor AS pf FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power_factor_sensor AS pf FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -2033,7 +2025,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Current grid current from smart meter",
       "fieldConfig": {
@@ -2078,9 +2070,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2093,10 +2083,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT current_sensor AS current FROM \"Smart Meter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT current_sensor AS current FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -2106,7 +2096,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Grid voltage and frequency trends over time",
       "fieldConfig": {
@@ -2225,11 +2215,7 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max"
-          ],
+          "calcs": ["mean", "min", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2245,7 +2231,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(voltage_sensor) AS \"Voltage\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -2254,7 +2240,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(frequency_sensor) AS \"Frequency\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -2267,7 +2253,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Grid power factor and current trends over time",
       "fieldConfig": {
@@ -2398,11 +2384,7 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max"
-          ],
+          "calcs": ["mean", "min", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2418,7 +2400,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_factor_sensor) AS \"Power Factor\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -2427,7 +2409,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(current_sensor) AS \"Current\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
@@ -2453,9 +2435,9 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
+      "description": "Current power output per solar panel — 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -2632,9 +2614,7 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -2647,73 +2627,73 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"East PV1\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"East PV1\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "EastPV1"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"East PV2\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"East PV2\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "EastPV2"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"East PV3\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"East PV3\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "EastPV3"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"East PV4\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"East PV4\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "EastPV4"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"West PV1\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"West PV1\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "WestPV1"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"West PV2\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"West PV2\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "WestPV2"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"West PV3\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"West PV3\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "WestPV3"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"West PV4\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"West PV4\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "WestPV4"
         }
       ],
@@ -2729,9 +2709,9 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
-      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2908,73 +2888,73 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'East PV1' AS \"Panel\",\n  COALESCE(pv1_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv1_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv1_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_1_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_1_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'East PV1' AS \"Panel\",\n  COALESCE(pv1_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv1_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv1_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_1_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_1_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "EastPV1"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'East PV2' AS \"Panel\",\n  COALESCE(pv2_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv2_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv2_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_2_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_2_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'East PV2' AS \"Panel\",\n  COALESCE(pv2_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv2_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv2_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_2_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_2_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "EastPV2"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'East PV3' AS \"Panel\",\n  COALESCE(pv3_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv3_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv3_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_3_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_3_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'East PV3' AS \"Panel\",\n  COALESCE(pv3_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv3_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv3_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_3_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_3_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "EastPV3"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'East PV4' AS \"Panel\",\n  COALESCE(pv4_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv4_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv4_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_4_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_4_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'East PV4' AS \"Panel\",\n  COALESCE(pv4_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv4_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv4_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_4_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_4_sensor, 0) AS \"Total (kWh)\"\nFROM \"East Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "EastPV4"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'West PV1' AS \"Panel\",\n  COALESCE(pv1_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv1_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv1_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_1_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_1_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'West PV1' AS \"Panel\",\n  COALESCE(pv1_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv1_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv1_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_1_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_1_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "WestPV1"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'West PV2' AS \"Panel\",\n  COALESCE(pv2_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv2_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv2_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_2_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_2_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'West PV2' AS \"Panel\",\n  COALESCE(pv2_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv2_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv2_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_2_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_2_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "WestPV2"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'West PV3' AS \"Panel\",\n  COALESCE(pv3_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv3_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv3_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_3_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_3_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'West PV3' AS \"Panel\",\n  COALESCE(pv3_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv3_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv3_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_3_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_3_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "WestPV3"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  'West PV4' AS \"Panel\",\n  COALESCE(pv4_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv4_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv4_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_4_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_4_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT\n  'West PV4' AS \"Panel\",\n  COALESCE(pv4_power_sensor, 0) AS \"Power (W)\",\n  COALESCE(pv4_voltage_sensor, 0) AS \"Voltage (V)\",\n  COALESCE(pv4_current_sensor, 0) AS \"Current (A)\",\n  COALESCE(today_production_4_sensor, 0) AS \"Today (kWh)\",\n  COALESCE(total_production_4_sensor, 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nWHERE time >= now() - INTERVAL '2 minutes'\nORDER BY time DESC LIMIT 1",
           "refId": "WestPV4"
         }
       ],
@@ -2990,7 +2970,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Physical panel positions on roof with color-coded production heatmap. West slope on top, East slope on bottom.",
       "fieldConfig": {
@@ -3445,73 +3425,73 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"East PV1\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"East PV1\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"East PV2\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"East PV2\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "B"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"East PV3\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"East PV3\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "C"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"East PV4\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"East PV4\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "D"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"West PV1\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv1_power_sensor, 0) AS \"West PV1\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "E"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"West PV2\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv2_power_sensor, 0) AS \"West PV2\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "F"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"West PV3\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv3_power_sensor, 0) AS \"West PV3\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "G"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"West PV4\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(pv4_power_sensor, 0) AS \"West PV4\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "H"
         }
       ],
@@ -3540,7 +3520,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "East Microinverter operating temperature",
       "fieldConfig": {
@@ -3584,9 +3564,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -3599,10 +3577,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(temperature_sensor, 0) AS \"Temperature\" FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(temperature_sensor, 0) AS \"Temperature\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -3612,7 +3590,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "West Microinverter operating temperature",
       "fieldConfig": {
@@ -3656,9 +3634,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -3671,10 +3647,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(temperature_sensor, 0) AS \"Temperature\" FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(temperature_sensor, 0) AS \"Temperature\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -3684,7 +3660,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "East Microinverter operating state",
       "fieldConfig": {
@@ -3751,9 +3727,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -3766,10 +3740,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT device_state_sensor AS state FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT device_state_sensor AS state FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -3779,7 +3753,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "East Microinverter alarm status",
       "fieldConfig": {
@@ -3838,9 +3812,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -3853,10 +3825,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(alarm_sensor, 0) AS alarm FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(alarm_sensor, 0) AS alarm FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -3866,7 +3838,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "East Microinverter fault status",
       "fieldConfig": {
@@ -3925,9 +3897,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -3940,10 +3910,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(fault_sensor, 0) AS fault FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(fault_sensor, 0) AS fault FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -3953,7 +3923,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "West Microinverter operating state",
       "fieldConfig": {
@@ -4020,9 +3990,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4035,10 +4003,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT device_state_sensor AS state FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT device_state_sensor AS state FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -4048,7 +4016,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "West Microinverter alarm status",
       "fieldConfig": {
@@ -4107,9 +4075,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4122,10 +4088,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(alarm_sensor, 0) AS alarm FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(alarm_sensor, 0) AS alarm FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -4135,7 +4101,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "West Microinverter fault status",
       "fieldConfig": {
@@ -4194,9 +4160,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4209,10 +4173,10 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(fault_sensor, 0) AS fault FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT COALESCE(fault_sensor, 0) AS fault FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -4222,9 +4186,9 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
-      "description": "Operating state transitions over time \u2014 producing, standby, offline",
+      "description": "Operating state transitions over time — producing, standby, offline",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4331,7 +4295,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT time, device_state_sensor AS \"East Inverter\"\nFROM \"East Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\nORDER BY time",
@@ -4340,7 +4304,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
           "rawSql": "SELECT time, device_state_sensor AS \"West Inverter\"\nFROM \"West Microinverter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\nORDER BY time",
@@ -4366,7 +4330,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Estimated savings from solar production today, calculated using TOU rates (Peak: 5.7982, Off-Peak: 2.6369 THB/kWh)",
       "fieldConfig": {
@@ -4411,9 +4375,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4426,22 +4388,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A",
-          "hide": true
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B",
-          "hide": true
+          "refId": "B"
         },
         {
           "datasource": {
@@ -4455,13 +4417,12 @@
         }
       ],
       "title": "Today's Savings",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Month-to-date estimated savings from solar production using TOU rates",
       "fieldConfig": {
@@ -4506,9 +4467,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4521,22 +4480,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A",
-          "hide": true
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B",
-          "hide": true
+          "refId": "B"
         },
         {
           "datasource": {
@@ -4550,13 +4509,12 @@
         }
       ],
       "title": "Month Savings",
-      "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Year-to-date estimated savings from solar production using TOU rates",
       "fieldConfig": {
@@ -4601,9 +4559,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4616,22 +4572,22 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "A",
-          "hide": true
+          "refId": "A"
         },
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
+          "hide": true,
           "rawSql": "SELECT SUM(hourly_kwh * 3.5) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
-          "refId": "B",
-          "hide": true
+          "refId": "B"
         },
         {
           "datasource": {
@@ -4645,7 +4601,6 @@
         }
       ],
       "title": "Year Savings",
-      "transformations": [],
       "type": "stat"
     },
     {
@@ -4664,7 +4619,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Number of grid backfeed events today (Smart Meter power < 0)",
       "fieldConfig": {
@@ -4713,9 +4668,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4728,7 +4681,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT COUNT(*) AS \"Count\"\nFROM \"Smart Meter\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power_sensor < 0",
@@ -4741,7 +4694,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Maximum grid backfeed power today (absolute value)",
       "fieldConfig": {
@@ -4790,9 +4743,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -4805,7 +4756,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT ABS(MIN(power_sensor)) AS \"Max Export\"\nFROM \"Smart Meter\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power_sensor < 0",
@@ -4818,7 +4769,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_SOLAR}"
+        "uid": "efhjej3wub8xsd"
       },
       "description": "Instances where grid power went negative (export/backfeed)",
       "fieldConfig": {
@@ -4944,7 +4895,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_SOLAR}"
+            "uid": "efhjej3wub8xsd"
           },
           "format": "table",
           "rawSql": "SELECT\n  time AS \"Time\",\n  ABS(power_sensor) AS \"Export Power (W)\",\n  voltage_sensor AS \"Voltage (V)\",\n  current_sensor AS \"Current (A)\"\nFROM \"Smart Meter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND power_sensor < 0\nORDER BY time DESC\nLIMIT 100",
@@ -4958,11 +4909,7 @@
   "preload": false,
   "refresh": "10s",
   "schemaVersion": 42,
-  "tags": [
-    "solar",
-    "energy",
-    "influxdb"
-  ],
+  "tags": ["solar", "energy", "influxdb"],
   "templating": {
     "list": []
   },
@@ -4972,100 +4919,8 @@
   },
   "timepicker": {},
   "timezone": "Asia/Bangkok",
-  "title": "Solar PV Monitor",
-  "uid": null,
-  "version": 1,
-  "weekStart": "",
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB_SOLAR",
-      "label": "influxdb-solar",
-      "description": "InfluxDB 3 Core - Solar monitoring database",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "12.4.1"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "row",
-      "name": "Row",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "piechart",
-      "name": "Pie chart",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "barchart",
-      "name": "Bar chart",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "state-timeline",
-      "name": "State timeline",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "canvas",
-      "name": "Canvas",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "heatmap",
-      "name": "Heatmap",
-      "version": ""
-    }
-  ],
-  "__elements": {},
-  "id": null
+  "title": "Solar PV Monitor 3",
+  "uid": "to9w25k",
+  "version": 3,
+  "weekStart": ""
 }
