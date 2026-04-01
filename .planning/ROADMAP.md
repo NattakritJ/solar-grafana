@@ -134,3 +134,13 @@ Plans:
 
 Plans:
 - [x] 05.1-01-PLAN.md — Replace all 18 rolling-window boundaries with Bangkok calendar-day expression (2 global replaceAll edits)
+
+### Phase 6: Financial Savings rework: use fixed rate (3.5 THB/kWh) instead of TOU rate
+
+**Goal:** Replace the complex TOU peak/off-peak rate calculation with a single flat rate of 3.5 THB/kWh for all savings panels, and remove the now-irrelevant TOU breakdown panels (Peak kWh, Peak THB, Off-Peak kWh, Off-Peak THB)
+**Requirements**: FINC-01, FINC-02, FINC-03
+**Depends on:** Phase 5.1
+**Plans:** 1 plan
+
+Plans:
+- [ ] 06-01-PLAN.md — Replace TOU SQL with flat-rate 3.5 THB/kWh in panels 38/39/40, remove panels 41-44 + human verification
