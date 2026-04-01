@@ -144,3 +144,13 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md — Replace TOU SQL with flat-rate 3.5 THB/kWh in panels 38/39/40, remove panels 41-44 + human verification
+
+### Phase 7: Fix stale data when inverter goes offline at sunset
+
+**Goal:** Add a 2-minute recency window (`WHERE time >= now() - INTERVAL '2 minutes'`) to all 53 latest-value queries across 23 panels so that when inverters go offline at sunset, stat/bargauge/canvas panels show "no data" instead of freezing at the last active reading
+**Requirements**: OVER-01, OVER-02, OVER-04, OVER-05, PROD-01, MODL-01, MODL-02, HLTH-01, HLTH-02, HLTH-03, GRID-01
+**Depends on:** Phase 6
+**Plans:** 1 plan
+
+Plans:
+- [ ] 07-01-PLAN.md — Add WHERE time >= now() - INTERVAL '2 minutes' to all 53 latest-value queries (6 surgical replaceAll edits) + human verification
