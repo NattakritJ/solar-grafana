@@ -936,7 +936,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current inverter operating state",
+      "description": "Current operating state of each microinverter",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -991,8 +991,36 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(MAX(device_state_sensor), 'Offline') AS state FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute'",
+          "rawSql": "SELECT COALESCE(MAX(device_state_sensor), 'Offline') AS \"East Inverter\" FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 minute'",
           "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(MAX(device_state_sensor), 'Offline') AS \"West Inverter\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 minute'",
+          "refId": "B",
           "sql": {
             "columns": [
               {
@@ -1035,8 +1063,8 @@
                 "value": 0
               },
               {
-                "color": "yellow",
-                "value": 1
+                "color": "super-light-green",
+                "value": 0
               },
               {
                 "color": "green",
@@ -3411,7 +3439,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 61
@@ -4504,7 +4532,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 70
       },
       "id": 500,
       "panels": [],
@@ -4550,7 +4578,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 72
+        "y": 71
       },
       "id": 24,
       "options": {
@@ -4622,7 +4650,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 72
+        "y": 71
       },
       "id": 25,
       "options": {
@@ -4715,7 +4743,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 72
+        "y": 71
       },
       "id": 26,
       "options": {
@@ -4802,7 +4830,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 72
+        "y": 71
       },
       "id": 27,
       "options": {
@@ -4889,7 +4917,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 72
+        "y": 71
       },
       "id": 28,
       "options": {
@@ -4984,7 +5012,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 75
+        "y": 74
       },
       "id": 29,
       "options": {
@@ -5071,7 +5099,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 75
+        "y": 74
       },
       "id": 30,
       "options": {
@@ -5158,7 +5186,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 75
+        "y": 74
       },
       "id": 31,
       "options": {
@@ -5199,7 +5227,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 78
+        "y": 77
       },
       "id": 600,
       "panels": [],
@@ -5211,7 +5239,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Estimated savings from solar production today, calculated using TOU rates (Peak: 5.7982, Off-Peak: 2.6369 THB/kWh)",
+      "description": "Estimated savings from solar production today, calculated using fixed rates 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5244,7 +5272,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 79
+        "y": 78
       },
       "id": 38,
       "options": {
@@ -5324,7 +5352,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Month-to-date estimated savings from solar production using TOU rates",
+      "description": "Month-to-date estimated savings from solar production using fixed rates 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5357,7 +5385,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 79
+        "y": 78
       },
       "id": 39,
       "options": {
@@ -5418,7 +5446,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Year-to-date estimated savings from solar production using TOU rates",
+      "description": "Year-to-date estimated savings from solar production using fixed rates 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5451,7 +5479,7 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 79
+        "y": 78
       },
       "id": 40,
       "options": {
@@ -5513,7 +5541,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 82
       },
       "id": 700,
       "panels": [],
@@ -5562,7 +5590,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 84
+        "y": 83
       },
       "id": 33,
       "options": {
@@ -5639,7 +5667,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 84
+        "y": 83
       },
       "id": 34,
       "options": {
@@ -5785,7 +5813,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 84
+        "y": 83
       },
       "id": 35,
       "options": {
@@ -5833,6 +5861,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g8",
-  "version": 15,
+  "version": 20,
   "weekStart": ""
 }
