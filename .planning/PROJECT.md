@@ -116,6 +116,7 @@ The homeowner's actual tariff is a flat 3.5 THB/kWh — not TOU. The dashboard p
 | [Post-v1] Bump schemaVersion 40 → 42 (2026-04-01) | Required for Grafana 12.4.1 full compatibility; triggers updated panel options schema and normalised thresholds | `schemaVersion: 42`, `pluginVersion: "12.4.1"`, threshold base `value: null → 0` on all panels |
 | [Phase 5.1] Calendar-day boundary for all "today" queries (2026-04-01) | `now() - INTERVAL '24 hours'` was a rolling window, not the Bangkok calendar day — "today" should mean since 00:00 Bangkok time | All 18 rawSql "today" boundaries replaced with `date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'`; real-time patterns unchanged |
 | [Phase 6] Flat-rate savings calculation replaces TOU (2026-04-01) | Homeowner's actual tariff is flat 3.5 THB/kWh — not TOU. The complex CASE WHEN SQL with two rates + 15 Thai public holiday exceptions was producing incorrect savings figures | Panels 38/39/40 use `SUM(hourly_kwh * 3.5)`; panels 41-44 (Peak/Off-Peak breakdown) removed; all three boundaries use Bangkok timezone anchor |
+| [Phase 7] 2-minute recency window for stale data fix (2026-04-01) | `ORDER BY time DESC LIMIT 1` with no time filter returns hours-old data after sunset — panels freeze at last active value | All 53 latest-value queries across 23 panels now include `WHERE time >= now() - INTERVAL '2 minutes'`; Panel 8 preserved with 1-minute filter |
 
 ## Evolution
 
@@ -135,4 +136,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-01 — Phase 6 complete: flat-rate 3.5 THB/kWh savings calculation; TOU complexity removed; v1.0 milestone complete*
+*Last updated: 2026-04-01 — Phase 7 complete: 2-minute recency window on all 53 stale latest-value queries; inverter panels show no-data at night instead of frozen values*
