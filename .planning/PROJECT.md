@@ -16,17 +16,18 @@ At a glance, the homeowner can see how much solar energy is being produced right
 - [x] Grid import power (real-time from smart meter) — Validated in Phase 1: Foundation & Overview Stats
 - [x] House load calculation (solar production + grid import) — Validated in Phase 1: Foundation & Overview Stats
 - [x] Today/total energy production stats — Validated in Phase 1: Foundation & Overview Stats
+- [x] Per-inverter production breakdown (East vs West) — Validated in Phase 2: Production & Per-Inverter
+- [x] Historical trends (production over time, daily/weekly/monthly) — Validated in Phase 2: Production & Per-Inverter
+- [x] Module-level monitoring (8 individual panels with power, voltage, current) — Validated in Phase 3: Module Level, Grid & Inverter Health
+- [x] Inverter health monitoring (temperature, alarms, faults, state) — Validated in Phase 3: Module Level, Grid & Inverter Health
+- [x] Grid quality monitoring (voltage, frequency, power factor) — Validated in Phase 3: Module Level, Grid & Inverter Health
+- [x] All data from InfluxDB utilized in meaningful visualizations — Validated in Phase 3: Module Level, Grid & Inverter Health
+- [x] Financial savings calculation using TOU rates — Validated in Phase 4: Financial Savings, Canvas Layout & Polish
+- [x] Roof layout visualization showing panel positions with production heatmap — Validated in Phase 4: Financial Savings, Canvas Layout & Polish
 
 ### Active
 
-- [ ] Per-inverter production breakdown (East vs West)
-- [ ] Module-level monitoring (8 individual panels with power, voltage, current)
-- [ ] Roof layout visualization showing panel positions with production heatmap
-- [ ] Financial savings calculation using TOU rates
-- [ ] Inverter health monitoring (temperature, alarms, faults, state)
-- [ ] Grid quality monitoring (voltage, frequency, power factor)
-- [ ] Historical trends (production over time, daily/weekly/monthly)
-- [ ] All data from InfluxDB utilized in meaningful visualizations
+(None — all v1.0 requirements validated)
 
 ### Out of Scope
 
@@ -106,8 +107,8 @@ Solar production mostly occurs during peak hours (daytime), maximizing savings v
 | Single dashboard (not multiple) | User wants everything at a glance in one place | Confirmed — Phase 1 delivers single importable JSON |
 | JSON export delivery | Simple import, no provisioning infrastructure needed | Confirmed — __inputs pattern works for datasource binding |
 | SQL queries (InfluxDB v3) | InfluxDB 3 Core only supports SQL, not Flux/InfluxQL | Confirmed — all queries use valid InfluxDB 3 SQL |
-| TOU-aware financial calculations | Peak solar production aligns with peak rates, maximizing tracked savings | — Pending |
-| Roof layout visualization | Module-level visual showing physical panel positions with production heatmap | — Pending |
+| TOU-aware financial calculations | Peak solar production aligns with peak rates, maximizing tracked savings | Confirmed — 7 stat panels with hourly-bucketed TOU SQL, Thai holiday handling |
+| Roof layout visualization | Module-level visual showing physical panel positions with production heatmap | Confirmed — Canvas panel with 8 data-bound rectangles in physical arrangement |
 
 ## Evolution
 
@@ -127,4 +128,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after Phase 1 completion — Foundation & Overview Stats*
+*Last updated: 2026-04-01 after Phase 4 completion — Financial Savings, Canvas Layout & Polish (v1.0 milestone complete)*
