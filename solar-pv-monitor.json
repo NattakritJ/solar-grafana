@@ -105,7 +105,8 @@
           },
           "format": "table",
           "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -114,24 +115,22 @@
           },
           "format": "table",
           "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Solar Power",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -205,7 +204,8 @@
           },
           "format": "table",
           "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -214,24 +214,22 @@
           },
           "format": "table",
           "rawSql": "SELECT (MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor)) AS today_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Today's Energy",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -297,7 +295,8 @@
           },
           "format": "table",
           "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -306,24 +305,22 @@
           },
           "format": "table",
           "rawSql": "SELECT (MAX(total_production_1_sensor) + MAX(total_production_2_sensor) + MAX(total_production_3_sensor) + MAX(total_production_4_sensor)) AS lifetime_kwh FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '1 hour'",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Lifetime Energy",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -583,7 +580,8 @@
           },
           "format": "table",
           "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -592,24 +590,22 @@
           },
           "format": "table",
           "rawSql": "SELECT MAX(power_sensor) / 1000.0 AS peak_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '24 hours'",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "Peak Today",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -899,7 +895,8 @@
           },
           "format": "table",
           "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"East Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "A"
+          "refId": "A",
+          "hide": true
         },
         {
           "datasource": {
@@ -908,24 +905,22 @@
           },
           "format": "table",
           "rawSql": "SELECT power_sensor / 1000.0 AS solar_kw FROM \"West Microinverter\" ORDER BY time DESC LIMIT 1",
-          "refId": "B"
+          "refId": "B",
+          "hide": true
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A + $B",
+          "refId": "C",
+          "type": "math"
         }
       ],
       "title": "\u2600 Solar \u2192 House",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "sum"
-            ]
-          }
-        }
-      ],
+      "transformations": [],
       "transparent": true,
       "type": "stat"
     },
