@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed Phase 05.1 Plan 01 — fix all 18 today boundaries to calendar-day expression
-last_updated: "2026-04-01T13:22:20.940Z"
-last_activity: 2026-04-01
+status: executing
+stopped_at: "Phase 06-01 Task 1 complete; checkpoint:human-verify pending for Task 2"
+last_updated: "2026-04-01T13:58:51.160Z"
+last_activity: 2026-04-01 -- Phase 06 execution started
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 13
-  completed_plans: 13
+  total_phases: 7
+  completed_phases: 7
+  total_plans: 14
+  completed_plans: 14
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 05.1 — fix-how-to-get-today-data-currently-it-use-where-time-now-interval-24-hours-which-meaning-last-24-hours-not-today-today-should-mean-from-the-beginning-of-the-current-day-at-00-00-to-now
+**Current focus:** Phase 06 — financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate
 
 ## Current Position
 
-Phase: 05.1
-Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-04-01
+Phase: 06 (financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 06
+Last activity: 2026-04-01 -- Phase 06 execution started
 
 Progress: [██████████] 100%
 
@@ -65,6 +65,7 @@ Progress: [██████████] 100%
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
 | Phase 05 P02 | 5min | 2 tasks | 1 files |
 | Phase 05.1 P01 | 1 | 1 tasks | 1 files |
+| Phase 06 P01 | 2 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,7 @@ Recent decisions affecting current work:
 - [Phase 05]: Migrated 8 stat panels from client-side merge+reduce/calculateField transformation chains to server-side Grafana Expression targets (type=math); raw InfluxDB query targets set to hide:true
 - [Phase 05]: [Phase 05-02]: Migrated 7 financial savings panels (38-44) from merge+reduce transforms to Grafana Expression targets ( + ); Phase 5 migration complete — all 15 calculation panels now use server-side Expression arithmetic
 - [Phase 05.1]: Calendar-day boundary for Bangkok timezone: date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' replaces rolling 24h/1day windows in all 18 today-scoped queries
+- [Phase 06]: Replaced TOU CASE WHEN SQL (5.7982 peak / 2.6369 off-peak + 15 Thai holiday exceptions) with SUM(hourly_kwh * 3.5) flat rate for savings panels 38/39/40 — homeowner's actual tariff is flat 3.5 THB/kWh; removed 4 TOU breakdown panels 41-44
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -123,6 +125,7 @@ The following decisions were recorded after the v1.0 milestone to reflect manual
 
 - Phase 5 added: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
 - Phase 5.1 inserted after Phase 5: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (URGENT)
+- Phase 6 added: Financial Savings rework: use fixed rate (3.5 THB/kWh) instead of TOU rate
 
 ### Pending Todos
 
@@ -140,6 +143,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T13:18:56.251Z
-Stopped at: Completed Phase 05.1 Plan 01 — fix all 18 today boundaries to calendar-day expression
+Last session: 2026-04-01T13:58:42.524Z
+Stopped at: Phase 06-01 Task 1 complete; checkpoint:human-verify pending for Task 2
 Resume file: None
