@@ -130,7 +130,7 @@ Plans:
 **Goal:** Fix all 18 SQL queries that use `now() - INTERVAL '24 hours'` / `now() - INTERVAL '1 day'` as a "today" boundary — replace with `date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'` so "today" means the Bangkok calendar day, not a rolling 24-hour window.
 **Requirements**: OVER-02, OVER-09, PROD-02, FINC-01, FINC-02, EVNT-02
 **Depends on:** Phase 5
-**Plans:** 0/1 plans complete
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 05.1-01-PLAN.md — Replace all 18 rolling-window boundaries with Bangkok calendar-day expression (2 global replaceAll edits)
+- [x] 05.1-01-PLAN.md — Replace all 18 rolling-window boundaries with Bangkok calendar-day expression (2 global replaceAll edits)

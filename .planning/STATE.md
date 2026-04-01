@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Phase 05.1 context gathered — ready to plan
-last_updated: "2026-04-01T10:30:00.000Z"
+stopped_at: Completed Phase 05.1 Plan 01 — fix all 18 today boundaries to calendar-day expression
+last_updated: "2026-04-01T13:18:56.255Z"
 last_activity: 2026-04-01
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 12
-  completed_plans: 12
+  completed_phases: 6
+  total_plans: 13
+  completed_plans: 13
   percent: 100
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 05 — fix-all-panel-in-dashboard-that-still-use-transformation-to-calcuate-to-use-expression-instead-for-example-look-at-self-consumption-or-house-load-panel-that-use-expression
+**Current focus:** Phase 05.1 — fix-how-to-get-today-data-currently-it-use-where-time-now-interval-24-hours-which-meaning-last-24-hours-not-today-today-should-mean-from-the-beginning-of-the-current-day-at-00-00-to-now
 
 ## Current Position
 
-Phase: 05.1
-Plan: Not started
+Phase: 05.1 (fix-how-to-get-today-data-currently-it-use-where-time-now-interval-24-hours-which-meaning-last-24-hours-not-today-today-should-mean-from-the-beginning-of-the-current-day-at-00-00-to-now) — EXECUTING
+Plan: 1 of 1
 Status: Phase complete — ready for verification
 Last activity: 2026-04-01
 
@@ -64,6 +64,7 @@ Progress: [██████████] 100%
 | Phase 04 P03 | 3min | 1 tasks | 1 files |
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
 | Phase 05 P02 | 5min | 2 tasks | 1 files |
+| Phase 05.1 P01 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,7 @@ Recent decisions affecting current work:
   - [Phase 04]: Production threshold colors normalized to consistent 5-step scale across all production panels for dashboard-wide consistency
 - [Phase 05]: Migrated 8 stat panels from client-side merge+reduce/calculateField transformation chains to server-side Grafana Expression targets (type=math); raw InfluxDB query targets set to hide:true
 - [Phase 05]: [Phase 05-02]: Migrated 7 financial savings panels (38-44) from merge+reduce transforms to Grafana Expression targets ( + ); Phase 5 migration complete — all 15 calculation panels now use server-side Expression arithmetic
+- [Phase 05.1]: Calendar-day boundary for Bangkok timezone: date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' replaces rolling 24h/1day windows in all 18 today-scoped queries
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -138,6 +140,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T10:30:00.000Z
-Stopped at: Phase 05.1 context gathered — ready to plan
-Resume file: .planning/phases/05.1-fix-how-to-get-today-data-currently-it-use-where-time-now-interval-24-hours-which-meaning-last-24-hours-not-today-today-should-mean-from-the-beginning-of-the-current-day-at-00-00-to-now/05.1-CONTEXT.md
+Last session: 2026-04-01T13:18:56.251Z
+Stopped at: Completed Phase 05.1 Plan 01 — fix all 18 today boundaries to calendar-day expression
+Resume file: None
