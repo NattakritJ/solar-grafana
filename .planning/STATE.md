@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed Phase 06-01 — Financial Savings Rework flat-rate 3.5 THB/kWh
-last_updated: "2026-04-01T16:13:10.851Z"
+stopped_at: Phase 8 context gathered
+last_updated: "2026-04-02T13:17:17.282Z"
 last_activity: 2026-04-01
 progress:
-  total_phases: 8
+  total_phases: 9
   completed_phases: 8
   total_plans: 15
   completed_plans: 15
@@ -137,6 +137,7 @@ The following decisions were recorded after the Phase 07 completion to reflect m
 - Phase 5.1 inserted after Phase 5: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (URGENT)
 - Phase 6 added: Financial Savings rework: use fixed rate (3.5 THB/kWh) instead of TOU rate
 - Phase 7 added: Fix stale data when inverter goes offline at sunset — most panels use ORDER BY time DESC LIMIT 1 which freezes at the last value when the inverter turns off at night; need time-bounded queries that return null/no data outside active hours
+- Phase 8 added: Update house load measurement to use CT meters on both consumer units, add per-floor power distribution panels, and add data reconciliation panel comparing calculated (grid + solar) vs actual CT measurement
 
 ### Pending Todos
 
@@ -154,6 +155,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01T14:20:15.426Z
-Stopped at: Completed Phase 06-01 — Financial Savings Rework flat-rate 3.5 THB/kWh
-Resume file: None
+Last session: 2026-04-02T13:17:17.274Z
+Stopped at: Phase 8 context gathered
+Resume file: .planning/phases/08-update-house-load-measurement-to-use-ct-meters-on-both-consumer-units-add-per-floor-power-distribution-panels-and-add-data-reconciliation-panel-comparing-calculated-grid-solar-vs-actual-ct-measurement/08-CONTEXT.md
