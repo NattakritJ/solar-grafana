@@ -78,7 +78,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -218,7 +220,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -314,7 +318,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -448,7 +454,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -495,7 +503,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current household power consumption (solar + grid import)",
+      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -542,7 +550,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -562,8 +572,8 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS east_kw FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "East",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor1",
           "sql": {
             "columns": [
               {
@@ -591,37 +601,8 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS west_kw FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "West",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "Grid",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor2",
           "sql": {
             "columns": [
               {
@@ -645,7 +626,7 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$East + $West + $Grid",
+          "expression": "$Floor1 + $Floor2",
           "refId": "Total",
           "type": "math"
         }
@@ -705,7 +686,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -841,7 +824,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -967,7 +952,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -1089,7 +1076,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1176,7 +1165,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total household power consumption",
+      "description": "Total household power consumption (CT direct measurement)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1223,7 +1212,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1243,8 +1234,8 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS solar_w FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "East",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor1",
           "sql": {
             "columns": [
               {
@@ -1272,37 +1263,8 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS solar_w FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "West",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT power_sensor AS grid_w FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
-          "refId": "Grid",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor2",
           "sql": {
             "columns": [
               {
@@ -1326,7 +1288,7 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$East + $West + $Grid",
+          "expression": "$Floor1 + $Floor2",
           "refId": "Total",
           "type": "math"
         }
@@ -1386,7 +1348,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1434,7 +1398,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 19
       },
       "id": 800,
       "panels": [],
@@ -1551,12 +1515,16 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 20
       },
       "id": 801,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1606,7 +1574,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 32
       },
       "id": 200,
       "panels": [],
@@ -1720,12 +1688,16 @@
         "h": 10,
         "w": 16,
         "x": 0,
-        "y": 26
+        "y": 33
       },
       "id": 12,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1835,7 +1807,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 26
+        "y": 33
       },
       "id": 13,
       "options": {
@@ -1852,7 +1824,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1948,20 +1922,27 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 31
+        "y": 38
       },
       "id": 14,
       "options": {
-        "displayLabels": ["percent"],
+        "displayLabels": [
+          "percent"
+        ],
         "legend": {
           "displayMode": "list",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": true
         },
@@ -2004,7 +1985,9 @@
           "options": {
             "includeTimeField": false,
             "mode": "seriesToRows",
-            "reducers": ["sum"]
+            "reducers": [
+              "sum"
+            ]
           }
         }
       ],
@@ -2092,7 +2075,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 43
       },
       "id": 15,
       "options": {
@@ -2101,7 +2084,9 @@
         "fullHighlight": false,
         "groupWidth": 0.7,
         "legend": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2194,7 +2179,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 51
       },
       "id": 46,
       "options": {
@@ -2228,7 +2213,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-9
+          "le": 1e-09
         },
         "legend": {
           "show": true
@@ -2317,7 +2302,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 59
       },
       "id": 400,
       "panels": [],
@@ -2369,7 +2354,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 53
+        "y": 60
       },
       "id": 16,
       "options": {
@@ -2379,7 +2364,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2467,7 +2454,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 53
+        "y": 60
       },
       "id": 17,
       "options": {
@@ -2477,7 +2464,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2542,7 +2531,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 53
+        "y": 60
       },
       "id": 18,
       "options": {
@@ -2552,7 +2541,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2613,7 +2604,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 53
+        "y": 60
       },
       "id": 19,
       "options": {
@@ -2623,7 +2614,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2763,12 +2756,16 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 57
+        "y": 64
       },
       "id": 20,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2932,12 +2929,16 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 57
+        "y": 64
       },
       "id": 21,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2978,7 +2979,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 65
+        "y": 72
       },
       "id": 300,
       "panels": [],
@@ -3150,7 +3151,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 66
+        "y": 73
       },
       "id": 22,
       "options": {
@@ -3167,7 +3168,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3423,7 +3426,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 66
+        "y": 73
       },
       "id": 23,
       "options": {
@@ -3565,7 +3568,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 74
+        "y": 81
       },
       "id": 45,
       "options": {
@@ -4655,7 +4658,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 90
       },
       "id": 500,
       "panels": [],
@@ -4701,7 +4704,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 84
+        "y": 91
       },
       "id": 24,
       "options": {
@@ -4709,7 +4712,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -4771,7 +4776,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 84
+        "y": 91
       },
       "id": 25,
       "options": {
@@ -4779,7 +4784,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -4867,7 +4874,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 84
+        "y": 91
       },
       "id": 26,
       "options": {
@@ -4877,7 +4884,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -4952,7 +4961,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 84
+        "y": 91
       },
       "id": 27,
       "options": {
@@ -4962,7 +4971,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5037,7 +5048,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 84
+        "y": 91
       },
       "id": 28,
       "options": {
@@ -5047,7 +5058,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5135,7 +5148,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 87
+        "y": 94
       },
       "id": 29,
       "options": {
@@ -5145,7 +5158,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -5220,7 +5235,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 87
+        "y": 94
       },
       "id": 30,
       "options": {
@@ -5230,7 +5245,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5305,7 +5322,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 87
+        "y": 94
       },
       "id": 31,
       "options": {
@@ -5315,7 +5332,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5344,7 +5363,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 90
+        "y": 97
       },
       "id": 600,
       "panels": [],
@@ -5389,7 +5408,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 91
+        "y": 98
       },
       "id": 38,
       "options": {
@@ -5399,7 +5418,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5500,7 +5521,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 91
+        "y": 98
       },
       "id": 39,
       "options": {
@@ -5510,7 +5531,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5592,7 +5615,7 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 91
+        "y": 98
       },
       "id": 40,
       "options": {
@@ -5602,7 +5625,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5652,7 +5677,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 95
+        "y": 102
       },
       "id": 700,
       "panels": [],
@@ -5701,7 +5726,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 96
+        "y": 103
       },
       "id": 33,
       "options": {
@@ -5711,7 +5736,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5776,7 +5803,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 96
+        "y": 103
       },
       "id": 34,
       "options": {
@@ -5786,7 +5813,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5920,7 +5949,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 96
+        "y": 103
       },
       "id": 35,
       "options": {
@@ -5947,12 +5976,524 @@
       ],
       "title": "Grid Backfeed Log",
       "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 900,
+      "panels": [],
+      "title": "Power Distribution",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Floor 1 consumer unit power (CT direct measurement)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              },
+              {
+                "color": "light-orange",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 1000
+              },
+              {
+                "color": "dark-orange",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 13
+      },
+      "id": 902,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.1",
+      "title": "🏠 Floor 1 Power",
+      "type": "stat",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS \"Floor 1 Power\" FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Floor 2 consumer unit power (CT direct measurement)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              },
+              {
+                "color": "light-orange",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 1000
+              },
+              {
+                "color": "dark-orange",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 6,
+        "y": 13
+      },
+      "id": 903,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.1",
+      "title": "🏠 Floor 2 Power",
+      "type": "stat",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS \"Floor 2 Power\" FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              },
+              {
+                "color": "light-orange",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 1000
+              },
+              {
+                "color": "dark-orange",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 13
+      },
+      "id": 904,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.1",
+      "title": "⚡ CT Load",
+      "type": "stat",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor1",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor2",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$Floor1 + $Floor2",
+          "refId": "Total",
+          "type": "math"
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Total house load — derived calculation (Solar East + Solar West + Grid)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              },
+              {
+                "color": "light-orange",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 1000
+              },
+              {
+                "color": "dark-orange",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 13
+      },
+      "id": 905,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.1",
+      "title": "🔢 Calculated Load",
+      "type": "stat",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS east_w FROM \"East Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "East",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS west_w FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "West",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS grid_w FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Grid",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$East + $West + $Grid",
+          "refId": "Total",
+          "type": "math"
+        }
+      ]
     }
   ],
   "preload": false,
   "refresh": "10s",
   "schemaVersion": 42,
-  "tags": ["solar", "energy", "influxdb"],
+  "tags": [
+    "solar",
+    "energy",
+    "influxdb"
+  ],
   "templating": {
     "list": []
   },
@@ -5964,6 +6505,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g8",
-  "version": 43,
+  "version": 44,
   "weekStart": ""
 }
