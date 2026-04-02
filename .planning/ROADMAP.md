@@ -154,3 +154,13 @@ Plans:
 
 Plans:
 - [x] 07-01-PLAN.md — Add WHERE time >= now() - INTERVAL '2 minutes' to all 53 latest-value queries (6 surgical replaceAll edits) + human verification
+
+### Phase 8: Update house load measurement to use CT meters on both consumer units, add per-floor power distribution panels, and add data reconciliation panel comparing calculated (grid + solar) vs actual CT measurement
+
+**Goal:** Replace derived House Load calculation with CT direct measurement, surface per-floor power distribution, and add reconciliation panels so the homeowner can compare CT-measured vs calculated load
+**Requirements**: OVER-03, OVER-05
+**Depends on:** Phase 7
+**Plans:** 1 plan
+
+Plans:
+- [ ] 08-01-PLAN.md — Replace House Load targets (CT Floor1+Floor2), insert Power Distribution row 900 with 4 stat panels, shift downstream, add Floor 1/2 series to Power Profile + human verification
