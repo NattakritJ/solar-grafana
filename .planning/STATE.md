@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 Phase: 08
 Plan: Not started
 Status: Phase complete — ready for verification
-Last activity: 2026-04-02
+Last activity: 2026-04-02 - Completed quick task 260402-x4d: add README.md
 
 Progress: [██████████] 100%
 
@@ -143,6 +143,12 @@ The following decisions were recorded after the Phase 07 completion to reflect m
 ### Pending Todos
 
 None yet.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260402-x4d | add README.md | 2026-04-02 | 681d76f | [260402-x4d-add-readme-md](./quick/260402-x4d-add-readme-md/) |
 
 ### Blockers/Concerns
 
