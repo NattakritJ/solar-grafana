@@ -163,4 +163,4 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 08-01-PLAN.md — Replace House Load targets (CT Floor1+Floor2), insert Power Distribution row 900 with 4 stat panels, shift downstream, add Floor 1/2 series to Power Profile + human verification
+- [x] 08-01-PLAN.md — Replace House Load targets (CT Floor1+Floor2), insert Power Distribution row 900 with 4 stat panels, shift downstream, add Floor 1/2 series to Power Profile + human verification
