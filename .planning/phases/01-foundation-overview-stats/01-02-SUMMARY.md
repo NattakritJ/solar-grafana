@@ -91,6 +91,18 @@ Each task was committed atomically:
 - **System Status from East Microinverter only:** Per CONTEXT D-67 (agent's discretion), East inverter is primary status source. Value mappings cover states 0 (Standby), 1 (Normal), 2 (Warning), 3 (Fault), null (Offline).
 - **Power flow visual distinction:** colorMode=background + graphMode=area vs colorMode=value + graphMode=none separates the power flow row from KPI row visually.
 
+## Post-v1 Changes Applied (2026-04-01)
+
+The following changes were applied to `solar-pv-monitor.json` after v1.0 completion, superseding some of the original implementation decisions above:
+
+- **Overview row redesigned:** 8 × w=3 panels → 5 × w=4 panels on row y=1 (Solar Power, Today's Energy, Lifetime Energy, Grid Import, House Load + Peak Today) plus two w=12 panels on a new second row at y=5 (Self-Consumption, System Status). All downstream rows shifted down by 3 grid units.
+- **House Load (panel 5) migrated to server-side expressions:** Replaced 3 separate InfluxDB queries + client-side merge/calculateField transformations with 3 hidden queries (East kW, West kW, Grid kW) feeding a single Grafana Expression target `$East + $West + $Grid` (type=math). Simpler, more reliable, avoids transformation chain brittleness.
+- **Self-Consumption (panel 6) migrated to server-side expressions:** Replaced client-side calculateField chain with Grafana Expression targets: `$Solar = $East + $West`, `$Total = $Solar + $Grid`, `$Self = $Solar / $Total` (type=math). Clean separation of concerns.
+- **House Load colour thresholds changed from solar-green to orange:** Consistent with the orange colour convention for house/load panels (D-14). Production colour scale retained only for panels showing *solar output*.
+- **`transparent: true` removed from panels 6 and 8:** These panels now occupy a dedicated w=12 second row and display with standard background.
+- **System Status `reduceOptions.fields` normalised** from `'/.*/'` regex to `''` (empty string).
+- **`schemaVersion` bumped 40 → 42**, all panels set to `pluginVersion: "12.4.1"` with full Grafana 12.4.1 options schema. Threshold step base `value: null` normalised to `value: 0` across all panels.
+
 ## Deviations from Plan
 
 None — plan executed exactly as written.

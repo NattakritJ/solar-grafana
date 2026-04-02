@@ -46,6 +46,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **HLTH-01**: User can see inverter temperature for both East and West micro inverters as gauges or stats
 - [x] **HLTH-02**: User can see device state, alarm status, and fault status for both inverters with color-coded indicators
 - [x] **HLTH-03**: User can see alarm/fault history as a table log showing when alarms or faults occurred
+  > *[Post-v1 note 2026-04-01]: The dedicated alarm/fault history table (panel 36) was removed. Real-time alarm/fault state remains visible via stat panels 27–28 (East) and 30–31 (West), and transitions over time are visible in the state-timeline (panel 32). Historical tabular log is deferred.*
 - [x] **HLTH-04**: Dashboard accounts for normal inverter shutdown at night (no PV input = offline is expected, not alarming)
 
 ### Grid Quality
@@ -58,6 +59,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **EVNT-01**: User can see a grid backfeed event log table showing timestamp, power value (W), and duration for all instances where smart meter power_sensor < 0
 - [x] **EVNT-02**: User can see today's backfeed event count and max backfeed power (W) as summary stats
 - [x] **EVNT-03**: User can see a unified event log combining grid backfeed events, inverter alarm/fault events, and device state changes in chronological order
+  > *[Post-v1 note 2026-04-01]: The unified event log (panel 37) was removed. Row 700 is now "Backfeed Log" containing only the backfeed-specific panels (33–35). Alarm/fault visibility is retained via health stat panels and state-timeline.*
 
 ### Dashboard Infrastructure
 
@@ -152,4 +154,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-30*
-*Last updated: 2026-03-30 after adding anomaly/event log requirements*
+*Last updated: 2026-04-01 — Post-v1 notes added to HLTH-03 and EVNT-03 reflecting panel 36/37 removal*

@@ -15,10 +15,11 @@ requires:
   - phase: 01-foundation-overview-stats
     provides: "Dashboard skeleton, overview stats, power flow panels"
 provides:
-  - "Dashboard-wide consistent units (watt/kwatt/kwatth/volt/amp/celsius/hertz/percentunit across all 46 panels)"
+  - "Dashboard-wide consistent units (watt/kwatt/kwatth/volt/amp/celsius/hertz/percentunit across all panels)"
   - "Normalized production threshold colors across all production panels"
   - "Descriptive tooltips on every non-row panel"
   - "Polished, import-ready solar-pv-monitor.json"
+  - "[Current state post-v1] 44 non-row panels, schemaVersion 42, pluginVersion 12.4.1"
 affects: [final-delivery, user-verification]
 
 # Tech tracking
@@ -59,7 +60,7 @@ completed: 2026-03-30
 - **Files modified:** 1
 
 ## Accomplishments
-- All 46 non-row panels have descriptive tooltip descriptions
+- All 46 non-row panels have descriptive tooltip descriptions (at v1.0; 2 panels removed post-v1, current count: 44)
 - Production threshold colors normalized to consistent 5-step scale across panels 1, 7, 9, 13, 22, 45
 - Unit consistency verified: watt for real-time power, kwatth for energy, volt/amp/celsius/hertz for measurements, suffix THB for financial panels
 - No panel gridPos overlaps, all rows uncollapsed, layout clean and consistent
@@ -83,6 +84,17 @@ Each task was committed atomically:
 ## Deviations from Plan
 
 None - plan executed exactly as written.
+
+## Post-v1 Changes Applied (2026-04-01)
+
+The following changes were applied to `solar-pv-monitor.json` after the v1.0 milestone, affecting the final delivered dashboard:
+
+- **Panel count reduced from 46 to 44 non-row panels.** Panels 36 (Alarm/Fault History) and 37 (Event Log) were removed. See Phase 3 Plan 3 SUMMARY for details.
+- **Overview row redesigned** (2 rows replacing the original 8-panel single row). Self-Consumption (panel 6) and System Status (panel 8) moved to a dedicated second row (y=5, w=12 each). `transparent: true` removed from both panels. Downstream rows shifted down by 3.
+- **House Load (panel 5) migrated to server-side Grafana Expressions** (`$East + $West + $Grid` math target) replacing client-side transformations.
+- **Self-Consumption (panel 6) migrated to server-side Grafana Expressions** (three math targets: Solar, Total, Self).
+- **House Load colour thresholds changed from solar-green to orange** to match the orange convention for load/consumption panels.
+- **`schemaVersion` bumped 40 → 42**, `pluginVersion: "12.4.1"` added to all panels, threshold base `value: null` normalised to `value: 0`.
 
 ## Issues Encountered
 None

@@ -10,8 +10,9 @@ requires:
 provides:
   - Today's backfeed count and max backfeed power summary stats
   - Grid backfeed event log table with timestamps and power values
-  - Alarm/fault history table for both inverters
-  - Unified event log combining backfeed, alarm, fault, and state changes chronologically
+  - Alarm/fault history table for both inverters (panels 36–37 removed post-v1; see Post-v1 Changes)
+  - Unified event log combining backfeed, alarm, fault, and state changes chronologically (removed post-v1)
+  - "[Current state] Row 700 renamed 'Backfeed Log', contains only panels 33–35 (backfeed stats + log)"
 affects: [phase-4-polish]
 
 tech-stack:
@@ -29,6 +30,8 @@ key-decisions:
   - "Non-producing state (device_state_sensor != 2) logged as 'State Change' in unified log"
   - "Color coding: backfeed=purple, alarm=orange, fault=red, state change=blue"
   - "Source colors: Smart Meter=purple, East=orange (#FF9830), West=blue (#5794F2)"
+  - "[Post-v1 2026-04-01] Panels 36 (Alarm/Fault History) and 37 (Event Log / unified log) removed from dashboard"
+  - "[Post-v1 2026-04-01] Row 700 renamed 'Event Log' → 'Backfeed Log' to reflect remaining panel contents"
 
 patterns-established:
   - "Backfeed detection: WHERE power_sensor < 0 on Smart Meter measurement"
@@ -73,6 +76,8 @@ completed: 2026-03-30
 - Source column color-coded: Smart Meter=purple, East=orange, West=blue
 - Event column color-coded: Backfeed=purple, Alarm=orange, Fault=red, State Change=blue
 
+> **[Post-v1 2026-04-01]** Panels 36 and 37 were subsequently **removed** from the dashboard. Row 700 was renamed from "Event Log" to "Backfeed Log". See _Post-v1 Changes Applied_ section below.
+
 ## Commits
 
 | Task | Commit | Description |
@@ -82,6 +87,15 @@ completed: 2026-03-30
 ## Deviations from Plan
 
 None — plan executed exactly as written.
+
+## Post-v1 Changes Applied (2026-04-01)
+
+The following changes were applied to `solar-pv-monitor.json` after v1.0 completion:
+
+- **Panels 36 ("Alarm / Fault History") and 37 ("Event Log") removed.** These two table panels were dropped from the dashboard. The unified event log (panel 37) was found to duplicate information already accessible via per-inverter health panels, and the alarm/fault history table (panel 36) added complexity without sufficient value for the homeowner use case.
+  - HLTH-03 ("alarm/fault history table") was satisfied by the original panels; the requirement is now met in spirit by the per-inverter state/alarm/fault stat panels (26-31) and the state-timeline (32). See REQUIREMENTS.md note on HLTH-03.
+- **Row 700 renamed "Event Log" → "Backfeed Log".** With the unified event log removed, row 700 now contains only the grid backfeed panels (33, 34, 35), making "Backfeed Log" a more accurate section label.
+- **`schemaVersion` bumped 40 → 42**, all panels set to `pluginVersion: "12.4.1"`, threshold step base `value: null` normalised to `value: 0`.
 
 ## Known Stubs
 

@@ -22,12 +22,15 @@ Phase 1 delivers an importable Grafana 12.4.1 dashboard JSON skeleton with:
 
 ### Stat Panel Layout & Density
 - **D-01:** Agent's discretion — use a single compact row of stat panels (full 24-column width) for the overview KPIs. Suggested arrangement: Solar Power | Today's kWh | Lifetime kWh | Grid Import | House Load | Self-Consumption % | Peak Today | System Status. Each stat panel transparent background, no borders, tight spacing. Width: approximately `w:3` for 8 panels.
+  > **[Post-v1 edit 2026-04-01]** Overview row was redesigned: 8 × w=3 panels collapsed into **5 × w=4 panels** (Solar Power, Today's Energy, Lifetime Energy, Grid Import, House Load / Peak Today combined at y=1) plus **two w=12 panels on a new second row** (Self-Consumption w=12 x=0, System Status w=12 x=12, both at y=5). All downstream rows shifted down by 3 units. Panels 6 (Self-Consumption) and 8 (System Status) no longer have `transparent: true`.
 - **D-02:** All overview stats use `"reduceOptions": {"calcs": ["lastNotNull"]}` — always show the most recent value, never a time-range aggregate.
+  > **[Post-v1 edit 2026-04-01]** Panel 8 (System Status) `reduceOptions.fields` normalised from `'/.*/'` to `''` (empty string, all fields) to match the standard stat panel convention used across the rest of the dashboard.
 - **D-03:** Self-consumption ratio (OVER-06) calculated in SQL as `solar_power / (solar_power + grid_import) * 100`, clamped to 0–100.
 
 ### Power Flow Visualization
 - **D-04:** Agent's discretion — implement OVER-08 as three stat panels arranged left-to-right (`Solar Production` | `House Load` | `Grid Import`) with descriptive panel titles that communicate direction. No canvas or text-arrow panels needed for Phase 1. Keep it simple and readable.
 - **D-05:** Power flow row uses `"transparent": true` on all panels so they appear as a unified bar. Separate from the 9-stat KPI row above.
+  > **[Post-v1 edit 2026-04-01]** `transparent: true` removed from panels 6 (Self-Consumption) and 8 (System Status) during the overview row redesign. These two panels now occupy a dedicated second row (y=5) and use the standard non-transparent background.
 
 ### Dashboard Scaffolding
 - **D-06:** Phase 1 creates the **full dashboard skeleton** with all collapsible row panels for all 4 phases, even if later rows are empty. This avoids JSON restructuring in later phases.
@@ -39,6 +42,7 @@ Phase 1 delivers an importable Grafana 12.4.1 dashboard JSON skeleton with:
   - Row 6: "Financial Savings" (collapsed: true — placeholder)
   - Row 7: "Event Log" (collapsed: true — placeholder)
 - **D-07:** Dashboard-level settings: `"title": "Solar PV Monitor"`, `"timezone": "Asia/Bangkok"`, `"refresh": "10s"`, `"time": {"from": "now-24h", "to": "now"}`, `"schemaVersion": 40`.
+  > **[Post-v1 edit 2026-04-01]** `schemaVersion` bumped **40 → 42** for Grafana 12.4.1 compatibility. All panels updated with the full Grafana 12.4.1 options schema and `"pluginVersion": "12.4.1"`. Threshold step base values normalised from `value: null` to `value: 0`.
 - **D-08:** Datasource referenced via `__inputs` pattern: `"${DS_INFLUXDB_SOLAR}"` — required for portability on import (avoids UID mismatch, see PITFALLS.md Pitfall 4).
 
 ### SQL Query Strategy
