@@ -173,4 +173,4 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 09-01-PLAN.md — Apply 10 surgical SQL replacements across 12 panels to switch from Smart Meter to CT grid table + human verification
+- [x] 09-01-PLAN.md — Apply 10 surgical SQL replacements across 12 panels to switch from Smart Meter to CT grid table + human verification
