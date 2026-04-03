@@ -475,7 +475,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT power_sensor AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power AS grid_kw FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A",
           "sql": {
             "columns": [
@@ -863,7 +863,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS grid_w FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes'",
           "refId": "Grid"
         },
         {
@@ -1157,7 +1157,7 @@
           "type": "math"
         }
       ],
-      "title": "☀️ Solar → House",
+      "title": "\u2600\ufe0f Solar \u2192 House",
       "type": "stat"
     },
     {
@@ -1293,7 +1293,7 @@
           "type": "math"
         }
       ],
-      "title": "🏠 House Load",
+      "title": "\ud83c\udfe0 House Load",
       "type": "stat"
     },
     {
@@ -1369,7 +1369,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT power_sensor AS grid_kw FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT power AS grid_kw FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1389,7 +1389,7 @@
           }
         }
       ],
-      "title": "House ← Grid ⚡",
+      "title": "House \u2190 Grid \u26a1",
       "type": "stat"
     },
     {
@@ -1410,7 +1410,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Real-time power distribution — solar production vs grid import vs house load over the selected time range",
+      "description": "Real-time power distribution \u2014 solar production vs grid import vs house load over the selected time range",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1552,7 +1552,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, GREATEST(AVG(power_sensor), 0) / 1000.0 AS \"Grid\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) / 1000.0 AS \"Grid\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Grid"
         },
         {
@@ -1608,7 +1608,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Power output over time — East (orange) vs West (blue) inverters",
+      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2020,7 +2020,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Daily energy production — East (orange) vs West (blue)",
+      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2407,7 +2407,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT voltage_sensor AS voltage FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT voltage AS voltage FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2654,7 +2654,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT current_sensor AS current FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
+          "rawSql": "SELECT current AS current FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes' ORDER BY time DESC LIMIT 1",
           "refId": "A"
         }
       ],
@@ -2806,7 +2806,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(voltage_sensor) AS \"Voltage\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(voltage) AS \"Voltage\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "A"
         },
         {
@@ -2988,7 +2988,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(current_sensor) AS \"Current\" FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(current) AS \"Current\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "B"
         }
       ],
@@ -3013,7 +3013,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per solar panel — 8 panels across 2 inverters",
+      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -3289,7 +3289,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -5776,7 +5776,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COUNT(*) AS \"Count\"\nFROM \"Smart Meter\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power_sensor < 0",
+          "rawSql": "SELECT COUNT(*) AS \"Count\"\nFROM \"grid\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power < 0",
           "refId": "A"
         }
       ],
@@ -5853,7 +5853,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT ABS(MIN(power_sensor)) AS \"Max Export\"\nFROM \"Smart Meter\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power_sensor < 0",
+          "rawSql": "SELECT ABS(MIN(power)) AS \"Max Export\"\nFROM \"grid\"\nWHERE time >= date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC'\n  AND power < 0",
           "refId": "A"
         }
       ],
@@ -5992,7 +5992,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT\n  time AS \"Time\",\n  ABS(power_sensor) AS \"Export Power (W)\",\n  voltage_sensor AS \"Voltage (V)\",\n  current_sensor AS \"Current (A)\"\nFROM \"Smart Meter\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND power_sensor < 0\nORDER BY time DESC\nLIMIT 100",
+          "rawSql": "SELECT\n  time AS \"Time\",\n  ABS(power) AS \"Export Power (W)\",\n  voltage AS \"Voltage (V)\",\n  current AS \"Current (A)\"\nFROM \"grid\"\nWHERE time >= $__timeFrom AND time <= $__timeTo\n  AND power < 0\nORDER BY time DESC\nLIMIT 100",
           "refId": "A"
         }
       ],
@@ -6075,7 +6075,7 @@
         "wideLayout": true
       },
       "pluginVersion": "12.4.1",
-      "title": "🏠 Floor 1 Power",
+      "title": "\ud83c\udfe0 Floor 1 Power",
       "type": "stat",
       "targets": [
         {
@@ -6172,7 +6172,7 @@
         "wideLayout": true
       },
       "pluginVersion": "12.4.1",
-      "title": "🏠 Floor 2 Power",
+      "title": "\ud83c\udfe0 Floor 2 Power",
       "type": "stat",
       "targets": [
         {
@@ -6211,7 +6211,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2)",
+      "description": "Total house load \u2014 CT direct measurement (Floor 1 + Floor 2)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6269,7 +6269,7 @@
         "wideLayout": true
       },
       "pluginVersion": "12.4.1",
-      "title": "⚡ CT Load",
+      "title": "\u26a1 CT Load",
       "type": "stat",
       "targets": [
         {
@@ -6347,7 +6347,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — derived calculation (Solar East + Solar West + Grid)",
+      "description": "Total house load \u2014 derived calculation (Solar East + Solar West + Grid)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6405,7 +6405,7 @@
         "wideLayout": true
       },
       "pluginVersion": "12.4.1",
-      "title": "🔢 Calculated Load",
+      "title": "\ud83d\udd22 Calculated Load",
       "type": "stat",
       "targets": [
         {
@@ -6476,7 +6476,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(selector_last(power_sensor, time)['value'], 0) AS grid_w FROM \"Smart Meter\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "rawSql": "SELECT COALESCE(selector_last(power, time)['value'], 0) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '2 minutes'",
           "refId": "Grid",
           "sql": {
             "columns": [
@@ -6527,6 +6527,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g8",
-  "version": 45,
+  "version": 46,
   "weekStart": ""
 }
