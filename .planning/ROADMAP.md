@@ -164,3 +164,13 @@ Plans:
 
 Plans:
 - [x] 08-01-PLAN.md — Replace House Load targets (CT Floor1+Floor2), insert Power Distribution row 900 with 4 stat panels, shift downstream, add Floor 1/2 series to Power Profile + human verification
+
+### Phase 9: Update panels to use new CT meter data for grid energy import (Current, Voltage, Real Power) instead of smart meter
+
+**Goal:** Migrate 12 panels from the Smart Meter table to the new `grid` CT meter table for grid power, voltage, and current data, leaving frequency and power_factor panels on Smart Meter since those fields don't exist in the CT table
+**Requirements**: GRID-01, GRID-02, OVER-04, OVER-05, OVER-06, EVNT-01, EVNT-02
+**Depends on:** Phase 8
+**Plans:** 1 plan
+
+Plans:
+- [ ] 09-01-PLAN.md — Apply 10 surgical SQL replacements across 12 panels to switch from Smart Meter to CT grid table + human verification
