@@ -1461,7 +1461,7 @@
               }
             ]
           },
-          "unit": "kwatt"
+          "unit": "watt"
         },
         "overrides": [
           {
@@ -1543,7 +1543,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT time, SUM(pw) / 1000.0 AS \"Production\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
+          "rawSql": "SELECT time, SUM(pw) AS \"Production\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
           "refId": "Production"
         },
         {
@@ -1552,7 +1552,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) / 1000.0 AS \"Grid\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"Grid\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Grid"
         },
         {
@@ -1561,7 +1561,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT time, SUM(pw) / 1000.0 AS \"Load\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, GREATEST(AVG(power_sensor), 0) AS pw FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
+          "rawSql": "SELECT time, SUM(pw) AS \"Load\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, GREATEST(AVG(power_sensor), 0) AS pw FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
           "refId": "Load"
         },
         {
@@ -1570,7 +1570,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) / 1000.0 AS \"235 Floor 1\" FROM \"235_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"235 Floor 1\" FROM \"235_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Floor1",
           "editorMode": "code",
           "rawQuery": true
@@ -1581,7 +1581,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "time_series",
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) / 1000.0 AS \"235 Floor 2\" FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"235 Floor 2\" FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Floor2",
           "editorMode": "code",
           "rawQuery": true
