@@ -118,6 +118,7 @@ The homeowner's actual tariff is a flat 3.5 THB/kWh — not TOU. The dashboard p
 | [Phase 6] Flat-rate savings calculation replaces TOU (2026-04-01) | Homeowner's actual tariff is flat 3.5 THB/kWh — not TOU. The complex CASE WHEN SQL with two rates + 15 Thai public holiday exceptions was producing incorrect savings figures | Panels 38/39/40 use `SUM(hourly_kwh * 3.5)`; panels 41-44 (Peak/Off-Peak breakdown) removed; all three boundaries use Bangkok timezone anchor |
   | [Phase 7] 2-minute recency window for stale data fix (2026-04-01) | `ORDER BY time DESC LIMIT 1` with no time filter returns hours-old data after sunset — panels freeze at last active value | All 53 latest-value queries across 23 panels now include `WHERE time >= now() - INTERVAL '2 minutes'`; Panel 8 preserved with 1-minute filter |
 | [Phase 8] CT direct measurement for House Load (2026-04-02) | Hardware CT meters on both consumer units (Floor 1, Floor 2) give a more accurate house load reading than the derived solar+grid formula | Panels 5 and 10 use `235_floor_1` + `235_floor_2` CT queries; new "Power Distribution" row (900) adds Floor 1, Floor 2, CT Load, and Calculated Load panels for per-floor visibility and reconciliation; Panel 801 Power Profile adds Floor 1/2 time-series |
+| [Phase 9] CT grid meter replaces Smart Meter for grid power/voltage/current (2026-04-04) | Dedicated CT sensor at grid connection point provides more accurate real-time measurement; signed power convention (negative = backfeed) enables proper backfeed visualization | 12 panels migrated from `Smart Meter` to `grid` table; Panel 801 Grid series removes GREATEST() clip; Panels 17/18 (frequency/PF) intentionally preserved on Smart Meter |
 
 ## Evolution
 
@@ -137,4 +138,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-02 — Phase 8 complete: CT direct measurement for House Load; new Power Distribution row with floor-level breakdown and CT vs calculated reconciliation*
+*Last updated: 2026-04-04 — Phase 9 complete: CT grid meter replaces Smart Meter for grid power, voltage, and current across 12 panels; signed power enables backfeed visualization in Power Profile*
