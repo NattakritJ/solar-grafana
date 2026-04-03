@@ -41,7 +41,8 @@ Phase 9 replaces Smart Meter queries with the new `grid` CT meter table for pane
   | `power` | Float64 | W | Active power — **signed**: positive = importing from grid, negative = exporting (backfeed) |
   | `current` | Float64 | A | Grid current — **signed**: negative when backfeeding |
   | `voltage` | Float64 | V | Grid voltage — always positive |
-  | `energy_today` | Float64 | kWh | Daily energy counter (resets daily) — NOT the same as Smart Meter total_import |
+  | `energy_today` | Float64 | kWh | Daily import energy counter (resets daily) — NOT the same as Smart Meter total_import |
+  | `energy_backfeed_today` | Float64 | kWh | Daily backfeed energy counter (resets daily) — energy exported to grid today |
   | `time` | Timestamp | — | Nanosecond precision |
 
 - **D-03:** `grid` table does NOT have: `frequency`, `power_factor`, `total_import_energy`, `total_export_energy`. These remain sourced from Smart Meter for panels that need them.
@@ -115,7 +116,7 @@ Phase 9 replaces Smart Meter queries with the new `grid` CT meter table for pane
 
 ### InfluxDB Live Schema (verified 2026-04-04)
 - `grid` table confirmed present in `solar` database
-- Fields: `power` (W), `current` (A), `voltage` (V), `energy_today` (kWh)
+- Fields: `power` (W, signed), `current` (A, signed), `voltage` (V), `energy_today` (kWh), `energy_backfeed_today` (kWh)
 - No tag columns
 - Data started: 2026-04-03T17:21 UTC
 - Sample values at 2026-04-03 17:50: power=1330W, voltage=237V, current=6.55A
