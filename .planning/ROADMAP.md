@@ -174,3 +174,13 @@ Plans:
 
 Plans:
 - [x] 09-01-PLAN.md — Apply 10 surgical SQL replacements across 12 panels to switch from Smart Meter to CT grid table + human verification
+
+### Phase 10: After using dashboard for a while, I found a major problem. Each device have different log time and almost all query use DESC LIMIT 1 so data coming to dashboard are not in the same timeframe. how can we tackle this problem?
+
+**Goal:** Replace all point-in-time latest-value queries (selector_last + ORDER BY DESC LIMIT 1) with windowed AVG/MAX aggregates over the existing 2-minute recency window, so all devices report temporally-aligned values and cross-device expression panels (Self-Consumption, House Load) combine contemporaneous readings
+**Requirements**: OVER-01, OVER-03, OVER-04, OVER-05, OVER-06, PROD-01, MODL-01, MODL-02, MODL-03, MODL-04, HLTH-01, GRID-01, GRID-02
+**Depends on:** Phase 9
+**Plans:** 1 plan
+
+Plans:
+- [ ] 10-01-PLAN.md — Replace 84 selector_last/LIMIT 1 queries with AVG/MAX aggregates + human verification
