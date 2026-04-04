@@ -180,7 +180,7 @@ Plans:
 **Goal:** Replace all point-in-time latest-value queries (selector_last + ORDER BY DESC LIMIT 1) with windowed AVG/MAX aggregates over the existing 2-minute recency window, so all devices report temporally-aligned values and cross-device expression panels (Self-Consumption, House Load) combine contemporaneous readings
 **Requirements**: OVER-01, OVER-03, OVER-04, OVER-05, OVER-06, PROD-01, MODL-01, MODL-02, MODL-03, MODL-04, HLTH-01, GRID-01, GRID-02
 **Depends on:** Phase 9
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 10-01-PLAN.md — Replace 84 selector_last/LIMIT 1 queries with AVG/MAX aggregates + human verification
