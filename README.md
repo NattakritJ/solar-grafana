@@ -115,7 +115,7 @@ Flat rate: **3.5 THB / kWh** (no peak/off-peak TOU, no feed-in tariff).
 | Module Level | Canvas + bargauge + table | Roof layout heatmap, per-panel power bars, module voltage/current table |
 | Inverter Health | State timeline + gauges | Temperature, alarm/fault counters, device state history |
 | Grid Status | Stats + time-series | Voltage, frequency, power factor, grid current trends |
-| Financial Savings | Stat panels | Daily / month-to-date / year-to-date savings in THB |
+| Financial Savings | Stats + time-series | Daily / month-to-date / year-to-date savings in THB, plus a daily savings trend graph |
 | Power Distribution | CT panels + reconciliation | Floor 1, Floor 2, and 236 Floor 1 CT load, plus CT total vs derived (grid + solar) comparison |
 | Backfeed Log | Table | Timestamped backfeed events from Smart Meter |
 
