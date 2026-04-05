@@ -6280,7 +6280,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Month-to-date estimated savings from solar production using fixed rates 3.5 THB/kWh",
+      "description": "Month-to-date estimated savings from solar production using a Bangkok calendar month at a fixed rate of 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6342,7 +6342,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "A"
         },
         {
@@ -6352,7 +6352,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "B"
         },
         {
@@ -6366,7 +6366,7 @@
           "type": "math"
         }
       ],
-      "title": "Month Savings",
+      "title": "Month-to-Date Savings",
       "type": "stat"
     },
     {
@@ -6374,7 +6374,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Year-to-date estimated savings from solar production using fixed rates 3.5 THB/kWh",
+      "description": "Year-to-date estimated savings from solar production using a Bangkok calendar year at a fixed rate of 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6436,7 +6436,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "A"
         },
         {
@@ -6446,7 +6446,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "B"
         },
         {
@@ -6460,7 +6460,7 @@
           "type": "math"
         }
       ],
-      "title": "Year Savings",
+      "title": "Year-to-Date Savings",
       "type": "stat"
     },
     {

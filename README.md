@@ -17,7 +17,7 @@ This is a Grafana JSON dashboard that monitors a residential rooftop solar PV sy
 - **Grid import monitoring** — voltage, frequency, power factor, and current from Smart Meter
 - **Module-level monitoring** — 8 individual panels showing power, voltage, and current per channel
 - **Roof layout heatmap** — Canvas panel with physical panel positions colour-coded by production (0 W dark → 600 W+ bright green)
-- **Financial savings** — daily, this-month, and all-time savings at the flat 3.5 THB/kWh tariff
+- **Financial savings** — daily, month-to-date, and year-to-date savings at the flat 3.5 THB/kWh tariff
 - **Inverter health and state history** — temperature, alarm/fault status, and state timeline (offline / standby / producing / fault)
 - **Data reconciliation** — comparison of CT-measured house load vs. the derived formula (grid import + solar production)
 
@@ -115,7 +115,7 @@ Flat rate: **3.5 THB / kWh** (no peak/off-peak TOU, no feed-in tariff).
 | Module Level | Canvas + bargauge + table | Roof layout heatmap, per-panel power bars, module voltage/current table |
 | Inverter Health | State timeline + gauges | Temperature, alarm/fault counters, device state history |
 | Grid Status | Stats + time-series | Voltage, frequency, power factor, grid current trends |
-| Financial Savings | Stat panels | Daily / this-month / all-time savings in THB |
+| Financial Savings | Stat panels | Daily / month-to-date / year-to-date savings in THB |
 | Power Distribution | CT panels + reconciliation | Floor 1, Floor 2, and 236 Floor 1 CT load, plus CT total vs derived (grid + solar) comparison |
 | Backfeed Log | Table | Timestamped backfeed events from Smart Meter |
 
