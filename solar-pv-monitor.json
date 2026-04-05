@@ -2067,7 +2067,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Real-time power distribution — solar production vs grid import vs house load over the selected time range",
+      "description": "Real-time power distribution — solar production, grid import, and CT-measured house load over the selected time range. The separate calculated-load stat keeps the derived production + grid formula for reconciliation.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2258,15 +2258,6 @@
             "type": "influxdb",
             "uid": "efhjej3wub8xsd"
           },
-          "format": "time_series",
-          "rawSql": "SELECT time, SUM(pw) AS \"Load\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power_sensor) AS pw FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, GREATEST(AVG(power_sensor), 0) AS pw FROM \"Smart Meter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
-          "refId": "Load"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
@@ -2294,6 +2285,16 @@
           "rawQuery": true,
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"236 Floor 1\" FROM \"236_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Floor3"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$Floor1 + $Floor2 + $Floor3",
+          "refId": "Load",
+          "type": "math"
         }
       ],
       "title": "Power Profile",
