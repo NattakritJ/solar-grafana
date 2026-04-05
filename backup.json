@@ -629,7 +629,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2 + 236 Floor 1)",
+      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -745,41 +745,12 @@
           }
         },
         {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "Floor3",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2 + $Floor3",
+          "expression": "$Floor1 + $Floor2",
           "refId": "Total",
           "type": "math"
         }
@@ -1176,7 +1147,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total household power consumption (CT direct measurement: Floor 1 + Floor 2 + 236 Floor 1)",
+      "description": "Total household power consumption (CT direct measurement)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1292,41 +1263,12 @@
           }
         },
         {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "Floor3",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2 + $Floor3",
+          "expression": "$Floor1 + $Floor2",
           "refId": "Total",
           "type": "math"
         }
@@ -1481,7 +1423,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
+        "w": 6,
         "x": 0,
         "y": 13
       },
@@ -1575,8 +1517,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
-        "x": 5,
+        "w": 6,
+        "x": 6,
         "y": 13
       },
       "id": 903,
@@ -1634,101 +1576,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "236 Floor 1 consumer unit power (CT direct measurement)",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-gray",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "semi-dark-yellow",
-                "value": 1000
-              },
-              {
-                "color": "dark-yellow",
-                "value": 3000
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 5,
-        "x": 10,
-        "y": 13
-      },
-      "id": 906,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"236 Floor 1 Power\" FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        }
-      ],
-      "title": "🏠 236 Floor 1 Power",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "efhjej3wub8xsd"
-      },
-      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2 + 236 Floor 1)",
+      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1763,8 +1611,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
-        "x": 15,
+        "w": 6,
+        "x": 12,
         "y": 13
       },
       "id": 904,
@@ -1844,41 +1692,12 @@
           }
         },
         {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
-          "refId": "Floor3",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2 + $Floor3",
+          "expression": "$Floor1 + $Floor2",
           "refId": "Total",
           "type": "math"
         }
@@ -1926,8 +1745,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 20,
+        "w": 6,
+        "x": 18,
         "y": 13
       },
       "id": 905,
@@ -2195,21 +2014,6 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "236 Floor 1"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
           }
         ]
       },
@@ -2283,17 +2087,6 @@
           "rawQuery": true,
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"235 Floor 2\" FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Floor2"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawQuery": true,
-          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"236 Floor 1\" FROM \"236_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
-          "refId": "Floor3"
         }
       ],
       "title": "Power Profile",
@@ -6683,6 +6476,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g9",
-  "version": 17,
+  "version": 14,
   "weekStart": ""
 }
