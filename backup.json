@@ -271,7 +271,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Maximum solar power achieved today",
+      "description": "Maximum combined inverter AC output reached today",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -399,7 +399,7 @@
           "type": "math"
         }
       ],
-      "title": "Peak Today",
+      "title": "Peak AC Power Today",
       "type": "stat"
     },
     {
@@ -407,7 +407,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current total solar production from both inverters",
+      "description": "Current total AC power produced by both inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -535,7 +535,7 @@
           "type": "math"
         }
       ],
-      "title": "Solar Power",
+      "title": "Solar AC Power",
       "type": "stat"
     },
     {
@@ -1058,7 +1058,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Solar power flowing into the house",
+      "description": "Current inverter AC power flowing into the house",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1186,7 +1186,7 @@
           "type": "math"
         }
       ],
-      "title": "\u2600\ufe0f Solar \u2192 House",
+      "title": "\u2600\ufe0f Solar AC \u2192 House",
       "type": "stat"
     },
     {
@@ -2092,14 +2092,15 @@
       "id": 800,
       "panels": [],
       "title": "Power Profile",
-      "type": "row"
+      "type": "row",
+      "description": "Real-time AC power distribution \u2014 solar inverter output, grid import, and CT-measured house load over the selected time range. The separate calculated-load stat keeps the derived production + grid formula for reconciliation."
     },
     {
       "datasource": {
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Real-time power distribution \u2014 solar production vs grid import vs house load over the selected time range",
+      "description": "Real-time AC power distribution \u2014 solar inverter output, grid import, and CT-measured house load over the selected time range. The separate calculated-load stat keeps the derived production + grid formula for reconciliation.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2372,7 +2373,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
+      "description": "AC power output over time \u2014 East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2515,7 +2516,7 @@
           "refId": "West"
         }
       ],
-      "title": "Solar Production",
+      "title": "Solar AC Production",
       "type": "timeseries"
     },
     {
@@ -2523,7 +2524,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per inverter",
+      "description": "Current AC power output per inverter",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -2641,7 +2642,7 @@
           "refId": "West"
         }
       ],
-      "title": "Inverter Power",
+      "title": "Inverter AC Power",
       "transformations": [
         {
           "id": "merge",
@@ -2944,7 +2945,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Hourly production intensity over time. Color shows total system power (kW). Select Last 90 days for best view.",
+      "description": "Hourly DC PV input power intensity over time. Color shows inverter PV DC power. Select Last 90 days for best view.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -3079,7 +3080,7 @@
         }
       ],
       "timeFrom": "90d",
-      "title": "Daily Production Heatmap",
+      "title": "Daily PV DC Power Heatmap",
       "type": "heatmap"
     },
     {
@@ -3777,7 +3778,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
+      "description": "Current DC power per solar panel \u2014 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -4039,7 +4040,7 @@
           "refId": "WestPV4"
         }
       ],
-      "title": "Panel Power",
+      "title": "Panel DC Power",
       "transformations": [
         {
           "id": "merge",
@@ -4053,7 +4054,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
+      "description": "Per-panel DC metrics \u2014 power, voltage, current, today's energy, and lifetime energy",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -4314,7 +4315,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Physical panel positions on roof with color-coded production heatmap. West slope on top, East slope on bottom.",
+      "description": "Physical panel positions on roof with color-coded DC power heatmap. West slope on top, East slope on bottom.",
       "fieldConfig": {
         "defaults": {
           "color": {
