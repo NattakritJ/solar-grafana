@@ -639,7 +639,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2)",
+      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2 + 236 Floor 1)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -757,12 +757,41 @@
           }
         },
         {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor3",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2",
+          "expression": "$Floor1 + $Floor2 + $Floor3",
           "refId": "Total",
           "type": "math"
         }
@@ -1157,7 +1186,7 @@
           "type": "math"
         }
       ],
-      "title": "☀️ Solar → House",
+      "title": "\u2600\ufe0f Solar \u2192 House",
       "type": "stat"
     },
     {
@@ -1165,7 +1194,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total household power consumption (CT direct measurement)",
+      "description": "Total household power consumption (CT direct measurement: Floor 1 + Floor 2 + 236 Floor 1)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1283,17 +1312,46 @@
           }
         },
         {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor3",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2",
+          "expression": "$Floor1 + $Floor2 + $Floor3",
           "refId": "Total",
           "type": "math"
         }
       ],
-      "title": "🏠 House Load",
+      "title": "\ud83c\udfe0 House Load",
       "type": "stat"
     },
     {
@@ -1389,7 +1447,7 @@
           }
         }
       ],
-      "title": "House ← Grid ⚡",
+      "title": "House \u2190 Grid \u26a1",
       "type": "stat"
     },
     {
@@ -1445,7 +1503,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
+        "w": 5,
         "x": 0,
         "y": 13
       },
@@ -1498,7 +1556,7 @@
           }
         }
       ],
-      "title": "🏠 Floor 1 Power",
+      "title": "\ud83c\udfe0 Floor 1 Power",
       "type": "stat"
     },
     {
@@ -1541,8 +1599,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 6,
+        "w": 5,
+        "x": 5,
         "y": 13
       },
       "id": 903,
@@ -1594,7 +1652,7 @@
           }
         }
       ],
-      "title": "🏠 Floor 2 Power",
+      "title": "\ud83c\udfe0 Floor 2 Power",
       "type": "stat"
     },
     {
@@ -1602,7 +1660,103 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2)",
+      "description": "236 Floor 1 consumer unit power (CT direct measurement)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              },
+              {
+                "color": "#5794F2",
+                "value": 1
+              },
+              {
+                "color": "#3274D9",
+                "value": 1000
+              },
+              {
+                "color": "#1F60C4",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 10,
+        "y": 13
+      },
+      "id": 906,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"236 Floor 1 Power\" FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "\ud83c\udfe0 236 Floor 1 Power",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Total house load \u2014 CT direct measurement (Floor 1 + Floor 2 + 236 Floor 1)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1637,8 +1791,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 12,
+        "w": 5,
+        "x": 15,
         "y": 13
       },
       "id": 904,
@@ -1720,17 +1874,46 @@
           }
         },
         {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '2 minutes'",
+          "refId": "Floor3",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$Floor1 + $Floor2",
+          "expression": "$Floor1 + $Floor2 + $Floor3",
           "refId": "Total",
           "type": "math"
         }
       ],
-      "title": "⚡ CT Load",
+      "title": "\u26a1 CT Load",
       "type": "stat"
     },
     {
@@ -1738,7 +1921,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — derived calculation (Solar East + Solar West + Grid)",
+      "description": "Total house load \u2014 derived calculation (Solar East + Solar West + Grid)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1773,8 +1956,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 18,
+        "w": 4,
+        "x": 20,
         "y": 13
       },
       "id": 905,
@@ -1895,7 +2078,7 @@
           "type": "math"
         }
       ],
-      "title": "🔢 Calculated Load",
+      "title": "\ud83d\udd22 Calculated Load",
       "type": "stat"
     },
     {
@@ -1916,7 +2099,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Real-time power distribution — solar production vs grid import vs house load over the selected time range",
+      "description": "Real-time power distribution \u2014 solar production vs grid import vs house load over the selected time range",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2044,6 +2227,21 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "236 Floor 1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5794F2",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -2121,6 +2319,17 @@
           "rawQuery": true,
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"235 Floor 2\" FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Floor2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"236 Floor 1\" FROM \"236_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "refId": "Floor3"
         }
       ],
       "title": "Power Profile",
@@ -2144,7 +2353,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Power output over time — East (orange) vs West (blue) inverters",
+      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2556,7 +2765,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Daily energy production — East (orange) vs West (blue)",
+      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2771,7 +2980,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-9
+          "le": 1e-09
         },
         "legend": {
           "show": true
@@ -3549,7 +3758,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per solar panel — 8 panels across 2 inverters",
+      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -3825,7 +4034,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
       "fieldConfig": {
         "defaults": {
           "custom": {
