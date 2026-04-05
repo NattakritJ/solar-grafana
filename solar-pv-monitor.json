@@ -98,7 +98,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS lifetime_kwh_east FROM \"East Microinverter\"",
+          "rawSql": "SELECT COALESCE(MAX(total_production_sensor), 0) AS lifetime_kwh_east FROM \"East Microinverter\"",
           "refId": "A",
           "sql": {
             "columns": [
@@ -127,7 +127,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT (COALESCE(MAX(total_production_1_sensor), 0) + COALESCE(MAX(total_production_2_sensor), 0) + COALESCE(MAX(total_production_3_sensor), 0) + COALESCE(MAX(total_production_4_sensor), 0)) AS lifetime_kwh_west FROM \"West Microinverter\"",
+          "rawSql": "SELECT COALESCE(MAX(total_production_sensor), 0) AS lifetime_kwh_west FROM \"West Microinverter\"",
           "refId": "B",
           "sql": {
             "columns": [
