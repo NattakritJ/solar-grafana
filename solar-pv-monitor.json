@@ -78,7 +78,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -218,7 +220,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -235,7 +239,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) AS today_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "A"
         },
         {
@@ -245,7 +249,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT (COALESCE(MAX(today_production_1_sensor), 0) + COALESCE(MAX(today_production_2_sensor), 0) + COALESCE(MAX(today_production_3_sensor), 0) + COALESCE(MAX(today_production_4_sensor), 0)) AS today_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) AS today_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "B"
         },
         {
@@ -314,7 +318,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -448,7 +454,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -582,7 +590,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -676,7 +686,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -841,7 +853,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -967,7 +981,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -1089,7 +1105,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1168,7 +1186,7 @@
           "type": "math"
         }
       ],
-      "title": "☀️ Solar → House",
+      "title": "\u2600\ufe0f Solar \u2192 House",
       "type": "stat"
     },
     {
@@ -1223,7 +1241,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1331,7 +1351,7 @@
           "type": "math"
         }
       ],
-      "title": "🏠 House Load",
+      "title": "\ud83c\udfe0 House Load",
       "type": "stat"
     },
     {
@@ -1386,7 +1406,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1425,7 +1447,7 @@
           }
         }
       ],
-      "title": "House ← Grid ⚡",
+      "title": "House \u2190 Grid \u26a1",
       "type": "stat"
     },
     {
@@ -1493,7 +1515,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1532,7 +1556,7 @@
           }
         }
       ],
-      "title": "🏠 Floor 1 Power",
+      "title": "\ud83c\udfe0 Floor 1 Power",
       "type": "stat"
     },
     {
@@ -1587,7 +1611,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1626,7 +1652,7 @@
           }
         }
       ],
-      "title": "🏠 Floor 2 Power",
+      "title": "\ud83c\udfe0 Floor 2 Power",
       "type": "stat"
     },
     {
@@ -1681,7 +1707,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1720,7 +1748,7 @@
           }
         }
       ],
-      "title": "🏠 236 Floor 1 Power",
+      "title": "\ud83c\udfe0 236 Floor 1 Power",
       "type": "stat"
     },
     {
@@ -1728,7 +1756,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — CT direct measurement (Floor 1 + Floor 2 + 236 Floor 1)",
+      "description": "Total house load \u2014 CT direct measurement (Floor 1 + Floor 2 + 236 Floor 1)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1775,7 +1803,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1883,7 +1913,7 @@
           "type": "math"
         }
       ],
-      "title": "⚡ CT Load",
+      "title": "\u26a1 CT Load",
       "type": "stat"
     },
     {
@@ -1891,7 +1921,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Total house load — derived calculation (Solar East + Solar West + Grid)",
+      "description": "Total house load \u2014 derived calculation (Solar East + Solar West + Grid)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1938,7 +1968,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2046,7 +2078,7 @@
           "type": "math"
         }
       ],
-      "title": "🔢 Calculated Load",
+      "title": "\ud83d\udd22 Calculated Load",
       "type": "stat"
     },
     {
@@ -2067,7 +2099,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Real-time power distribution — solar production, grid import, and CT-measured house load over the selected time range. The separate calculated-load stat keeps the derived production + grid formula for reconciliation.",
+      "description": "Real-time power distribution \u2014 solar production, grid import, and CT-measured house load over the selected time range. The separate calculated-load stat keeps the derived production + grid formula for reconciliation.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2223,7 +2255,11 @@
       "id": 801,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -2320,7 +2356,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Power output over time — East (orange) vs West (blue) inverters",
+      "description": "Power output over time \u2014 East (orange) vs West (blue) inverters",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2427,7 +2463,11 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2554,7 +2594,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2654,16 +2696,23 @@
       },
       "id": 14,
       "options": {
-        "displayLabels": ["percent"],
+        "displayLabels": [
+          "percent"
+        ],
         "legend": {
           "displayMode": "list",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": true
         },
@@ -2682,7 +2731,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT MAX(today_production_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "East"
         },
         {
@@ -2691,7 +2740,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT MAX(today_production_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "West"
         }
       ],
@@ -2706,7 +2755,9 @@
           "options": {
             "includeTimeField": false,
             "mode": "seriesToRows",
-            "reducers": ["sum"]
+            "reducers": [
+              "sum"
+            ]
           }
         }
       ],
@@ -2717,7 +2768,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Daily energy production — East (orange) vs West (blue)",
+      "description": "Daily energy production \u2014 East (orange) vs West (blue)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2803,7 +2854,9 @@
         "fullHighlight": false,
         "groupWidth": 0.7,
         "legend": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2831,7 +2884,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_sensor) AS \"East\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "East",
           "sql": {
             "columns": [
@@ -2856,7 +2909,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_1_sensor) + MAX(today_production_2_sensor) + MAX(today_production_3_sensor) + MAX(today_production_4_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "West"
         }
       ],
@@ -2930,7 +2983,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-9
+          "le": 1e-09
         },
         "legend": {
           "show": true
@@ -3081,7 +3134,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3179,7 +3234,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3254,7 +3311,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3325,7 +3384,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3470,7 +3531,11 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3639,7 +3704,11 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3692,7 +3761,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Current power output per solar panel — 8 panels across 2 inverters",
+      "description": "Current power output per solar panel \u2014 8 panels across 2 inverters",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -3869,7 +3938,9 @@
         "namePlacement": "auto",
         "orientation": "vertical",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5096,7 +5167,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Per-panel metrics — power, voltage, current, today's and total energy production",
+      "description": "Per-panel metrics \u2014 power, voltage, current, today's and total energy production",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -5432,7 +5503,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5502,7 +5575,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5600,7 +5675,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -5685,7 +5762,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -5770,7 +5849,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5868,7 +5949,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -5953,7 +6036,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6038,7 +6123,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6122,7 +6209,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6142,7 +6231,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) * 3.5 AS savings_thb FROM \"East Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -6168,7 +6257,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) * 3.5 AS savings_thb FROM \"West Microinverter\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "B"
         },
         {
@@ -6233,7 +6322,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6250,7 +6341,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "A"
         },
         {
@@ -6260,7 +6351,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "B"
         },
         {
@@ -6325,7 +6416,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6342,7 +6435,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "A"
         },
         {
@@ -6352,7 +6445,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(hourly_kwh * 3.5), 0) AS savings_thb FROM (SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS bucket, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) / 1000.0 AS hourly_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1) WHERE hourly_kwh > 0",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', time) AS day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "B"
         },
         {
@@ -6434,7 +6527,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6510,7 +6605,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6695,7 +6792,11 @@
   "preload": false,
   "refresh": "10s",
   "schemaVersion": 42,
-  "tags": ["solar", "energy", "influxdb"],
+  "tags": [
+    "solar",
+    "energy",
+    "influxdb"
+  ],
   "templating": {
     "list": []
   },
