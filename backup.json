@@ -3030,7 +3030,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) AS \"East W\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(pv_power_sensor) AS \"East W\" FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "East",
           "sql": {
             "columns": [
@@ -3058,7 +3058,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(COALESCE(pv1_power_sensor, 0) + COALESCE(pv2_power_sensor, 0) + COALESCE(pv3_power_sensor, 0) + COALESCE(pv4_power_sensor, 0)) AS \"West W\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_BIN(INTERVAL '1 hour', time, '1970-01-01T00:00:00Z') AS time, AVG(pv_power_sensor) AS \"West W\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "West",
           "sql": {
             "columns": [
