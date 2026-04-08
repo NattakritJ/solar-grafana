@@ -11,8 +11,10 @@ Phase 11 migrates solar AC power output queries from the slow-polling `"East Mic
 **Root cause:** The inverter measurements log at ~60-second intervals and the logger polls aggressively, causing the device to report stale/repeated values. The new CT sensors clamp directly on the inverter AC output cables and log at ~2s intervals (same as other CT load tables).
 
 **In scope:**
-- Migrate all 9 panels that query `power_sensor` from East/West Microinverter for solar AC output to the new CT tables
+- Migrate all 8 panels that query `power_sensor` from East/West Microinverter for solar AC output to the new CT tables
 - New CT field for power: `power` (no `_sensor` suffix — same schema as `235_floor_1`, `235_floor_2`, `236_floor_1`)
+- Tighten recency window from `INTERVAL '1 minutes'` → `INTERVAL '10 seconds'` on ALL snapshot panels that query near-real-time CT tables (both newly migrated and pre-existing)
+- Change dashboard-level refresh interval from `10s` → `5s`
 - All changes in `solar-pv-monitor.json` only
 
 **Out of scope:**
@@ -49,11 +51,11 @@ Phase 11 migrates solar AC power output queries from the slow-polling `"East Mic
 
 - **D-02:** Field name mapping: `power_sensor` → `power` (no suffix). The `COALESCE(AVG(power_sensor), 0)` pattern becomes `COALESCE(AVG(power), 0)`.
 
-- **D-03:** Time window stays at `now() - INTERVAL '1 minutes'` — same as the current recency window applied to these panels in the existing dashboard (note: some panels use 1 minute, not 2 minutes — keep existing window per panel).
+- **D-03:** ~~Time window stays at 1 minutes~~ **REVISED by D-08** — All snapshot panels querying CT tables will use `now() - INTERVAL '10 seconds'` instead of the current `INTERVAL '1 minutes'`. See D-08 for full details.
 
-### Panel Migration List (9 panels)
+### Panel Migration List (8 panels)
 
-- **D-04:** These 9 panels migrate their East/West solar power queries from inverter tables to CT tables:
+- **D-04:** These 8 panels migrate their East/West solar power queries from inverter tables to CT tables:
 
 | Panel | Title | Change |
 |-------|-------|--------|
@@ -63,7 +65,6 @@ Phase 11 migrates solar AC power output queries from the slow-polling `"East Mic
 | 9 | ☀️ Solar AC → House | East/West targets → CT tables |
 | 12 | Solar AC Production | Time-series East/West → CT tables |
 | 13 | Inverter AC Power | bargauge East/West → CT tables |
-| 46 | Daily PV DC Power Heatmap | **EXCEPTION — see D-05** |
 | 801 | Power Profile | Production series → CT tables |
 | 905 | 🔢 Calculated Load | East/West hidden targets → CT tables |
 
@@ -82,6 +83,51 @@ Phase 11 migrates solar AC power output queries from the slow-polling `"East Mic
   - Panel 46: Daily PV DC Power Heatmap (uses `pv_power_sensor` DC aggregated)
   - Panels 24/25: East/West Temperature (uses `temperature_sensor`)
   - Panels 26-31: State/Alarm/Fault stats (uses `device_state/alarm/fault_sensor`)
+
+### Recency Window Tightening (NRT Snapshot Panels)
+
+- **D-08:** All snapshot panels querying near-real-time (NRT) CT tables must change their SQL recency window from `now() - INTERVAL '1 minutes'` → `now() - INTERVAL '10 seconds'`. At ~2s CT log intervals, a 10-second window captures ~5 readings for AVG — sufficient for smoothing while being much more responsive than the old 1-minute window.
+
+  **Affected panels (15 total):**
+
+  Pre-existing CT table panels (already on CT tables before Phase 11):
+  | Panel | Title | CT Table(s) |
+  |-------|-------|-------------|
+  | 4 | Grid Power | `grid` |
+  | 5 | Grid Voltage | `grid` |
+  | 10 | 1F Load | `235_floor_1` |
+  | 11 | 2F Load | `235_floor_2`, `236_floor_1` |
+  | 16 | Total House Load | `235_floor_1`, `235_floor_2`, `236_floor_1` |
+  | 19 | Grid Frequency | `grid` |
+  | 902 | 🔢 Grid Import | `grid` |
+  | 903 | 🔢 1F Load | `235_floor_1` |
+  | 904 | 🔢 2F Load | `235_floor_2`, `236_floor_1` |
+  | 906 | 🔢 Total Load | `235_floor_1`, `235_floor_2`, `236_floor_1` |
+
+  Newly migrated in this phase (will be on CT tables after D-04 migration):
+  | Panel | Title | CT Table(s) |
+  |-------|-------|-------------|
+  | 1 | Solar AC Power | `east_microinverter_power`, `west_microinverter_power` |
+  | 9 | ☀️ Solar AC → House | `east_microinverter_power`, `west_microinverter_power` |
+  | 13 | Inverter AC Power | `east_microinverter_power`, `west_microinverter_power` |
+
+  Panels querying BOTH inverter and CT sources (hybrid — only CT targets get 10s window):
+  | Panel | Title | Notes |
+  |-------|-------|-------|
+  | 6 | Self-Consumption | East/West targets move to CT (10s); other targets may stay on inverter |
+  | 905 | 🔢 Calculated Load | East/West targets move to CT (10s); grid/load targets already CT |
+
+- **D-09:** Dashboard-level refresh interval changes from `10s` → `5s`. The faster CT log rate (~2s) means the dashboard can update more frequently. A 5-second refresh balances responsiveness with browser/server load.
+
+  JSON change: `"refresh": "10s"` → `"refresh": "5s"` at dashboard root level.
+
+### Panels Explicitly NOT Getting Window Change
+
+- **D-10:** The following panel categories do NOT get the recency window change:
+  - **Time-series / DATE_BIN panels** (801, 20, 21, 12): These use `WHERE time >= $__timeFrom AND time <= $__timeTo` with DATE_BIN aggregation over the dashboard time range — no `now() - INTERVAL` pattern to change.
+  - **Backfeed panels** (33, 34, 35): Use grid CT table but with time-range queries, not snapshot recency windows.
+  - **Inverter-only snapshot panels** (23, 24, 25, 26-31 with 1-min window; 8, 22, 45 with 5-min window): Stay on inverter measurements at their existing intervals. The inverter logs at ~60s, so a 10-second window would miss data.
+  - **Peak AC Power Today** (panel 7): Uses `MAX()` over the full day range (`$__timeFrom`), not a recency window.
 
 ### Agent's Discretion
 
@@ -126,7 +172,7 @@ Connection: `http://192.168.2.10:8181`, database: `solar`, datasource: `influxdb
 
 ### Current AC Power Query Pattern (to be replaced)
 ```sql
--- Old: inverter measurement, slow ~60s interval
+-- Old: inverter measurement, slow ~60s interval, 1-minute window
 SELECT COALESCE(AVG(power_sensor), 0) AS solar_kw
 FROM "East Microinverter"
 WHERE time >= now() - INTERVAL '1 minutes'
@@ -134,10 +180,23 @@ WHERE time >= now() - INTERVAL '1 minutes'
 
 ### New AC Power Query Pattern
 ```sql
--- New: CT measurement, fast ~2s interval
+-- New: CT measurement, fast ~2s interval, 10-second window
 SELECT COALESCE(AVG(power), 0) AS solar_kw
 FROM east_microinverter_power
+WHERE time >= now() - INTERVAL '10 seconds'
+```
+
+### Pre-existing CT Panel Window Change Pattern
+```sql
+-- Before: CT table with old 1-minute window
+SELECT COALESCE(AVG(power), 0) AS grid_power
+FROM grid
 WHERE time >= now() - INTERVAL '1 minutes'
+
+-- After: same CT table, tightened to 10-second window
+SELECT COALESCE(AVG(power), 0) AS grid_power
+FROM grid
+WHERE time >= now() - INTERVAL '10 seconds'
 ```
 
 Note: CT table names are **unquoted** (no spaces) — `east_microinverter_power`, `west_microinverter_power`. Inverter tables used double-quoted names with spaces: `"East Microinverter"`.
@@ -177,6 +236,7 @@ Note: CT table names are **unquoted** (no spaces) — `east_microinverter_power`
 ### Integration Points
 - All changes are in-place SQL replacements in `rawSql` strings within `solar-pv-monitor.json`
 - Expression math targets are unaffected (they reference `$East + $West` etc.)
+- Dashboard-level `"refresh"` field changes from `"10s"` to `"5s"`
 - No new panels, no gridPos changes, no row additions
 
 </code_context>

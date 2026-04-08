@@ -5,7 +5,7 @@
 
 **Date:** 2026-04-09
 **Phase:** 11-change-table-for-solar-ac-power-output
-**Areas discussed:** Panel migration scope, Energy / today counter, Panels with no CT equivalent
+**Areas discussed:** Panel migration scope, Energy / today counter, Panels with no CT equivalent, Recency window tightening, Dashboard refresh interval
 
 ---
 
@@ -75,3 +75,43 @@
 - CT energy field migration for today's energy — needs multi-day data to verify daily reset behavior
 - air_conditioner table monitoring (from Phase 10 deferred)
 - CT energy for lifetime total production (CT tables have no lifetime counter)
+
+---
+
+## Recency Window for NRT Snapshot Panels
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Keep 1-minute window | All CT snapshot panels stay at `INTERVAL '1 minutes'` | |
+| Tighten to 10 seconds | All CT snapshot panels use `INTERVAL '10 seconds'` | ✓ |
+| Tighten to 5 seconds | Aggressive — may only capture 2-3 readings | |
+
+**User's choice:** Tighten all NRT snapshot panels to `INTERVAL '10 seconds'`. This applies to all 15 snapshot panels querying CT tables (10 pre-existing + 3 newly migrated + 2 hybrid panels). At ~2s CT log intervals, a 10-second window captures ~5 readings for AVG — sufficient for smoothing while being much more responsive than the old 1-minute window.
+
+**Notes:** User added this as a second scope item after the initial CT table migration discussion. The rationale is that since CT tables log at ~2s, a 1-minute window averages over ~30 readings which is unnecessarily stale for real-time monitoring. Time-series panels (801, 20, 21, 12) and backfeed panels (33, 34, 35) are unaffected — they use `$__timeFrom`/`$__timeTo` range queries, not `now() - INTERVAL` recency windows.
+
+---
+
+## Dashboard Refresh Interval
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Keep 10s refresh | Dashboard refreshes every 10 seconds | |
+| Change to 5s refresh | Dashboard refreshes every 5 seconds | ✓ |
+| Change to 2s refresh | Match CT log rate directly | |
+
+**User's choice:** Change dashboard refresh from `10s` → `5s`. The faster CT log rate (~2s) means the dashboard can update more frequently. A 5-second refresh balances responsiveness with browser/server load.
+
+**Notes:** JSON change is simply `"refresh": "10s"` → `"refresh": "5s"` at the dashboard root level.
+
+---
+
+## Inverter-Only Panel Window Treatment
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Tighten inverter panels too | Change 1-min → 10s on inverter panels | |
+| Leave inverter panels unchanged | Keep existing windows on all inverter-querying panels | ✓ |
+| Mixed approach | Tighten some, leave others | |
+
+**User's choice:** Leave all inverter-only snapshot panels (23, 24, 25, 26-31 with 1-min; 8, 22, 45 with 5-min) unchanged. The inverter logs at ~60s intervals, so a 10-second window would frequently miss data and show nulls/zeros.
