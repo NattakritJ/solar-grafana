@@ -66,7 +66,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 8,
         "x": 0,
         "y": 1
       },
@@ -206,8 +206,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 4,
+        "w": 8,
+        "x": 8,
         "y": 1
       },
       "id": 2,
@@ -302,8 +302,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 8,
+        "w": 8,
+        "x": 16,
         "y": 1
       },
       "id": 7,
@@ -334,7 +334,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(MAX(power), 0) AS peak_kw FROM east_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT MAX(power) AS peak_kw FROM east_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -363,7 +363,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(MAX(power), 0) AS peak_kw FROM west_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "rawSql": "SELECT MAX(power) AS peak_kw FROM west_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "B",
           "sql": {
             "columns": [
@@ -394,397 +394,6 @@
         }
       ],
       "title": "Peak AC Power Today",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "efhjej3wub8xsd"
-      },
-      "description": "Current total AC power produced by both inverters",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "green",
-                "value": 1000
-              },
-              {
-                "color": "dark-green",
-                "value": 4000
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 1,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS solar_kw FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS solar_kw FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "datasource": {
-            "name": "Expression",
-            "type": "__expr__",
-            "uid": "__expr__"
-          },
-          "expression": "$A + $B",
-          "refId": "C",
-          "type": "math"
-        }
-      ],
-      "title": "Solar AC Power",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "efhjej3wub8xsd"
-      },
-      "description": "Current power drawn from the grid via smart meter",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-gray",
-                "value": 0
-              },
-              {
-                "color": "light-blue",
-                "value": 1
-              },
-              {
-                "color": "blue",
-                "value": 1000
-              },
-              {
-                "color": "dark-blue",
-                "value": 3000
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT AVG(power) AS grid_kw FROM \"grid\" WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        }
-      ],
-      "title": "Grid Import",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "efhjej3wub8xsd"
-      },
-      "description": "Current household power consumption (CT direct measurement: Floor 1 + Floor 2 + 236 Floor 1)",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-gray",
-                "value": 0
-              },
-              {
-                "color": "light-orange",
-                "value": 1
-              },
-              {
-                "color": "orange",
-                "value": 1000
-              },
-              {
-                "color": "dark-orange",
-                "value": 3000
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 5,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "Floor1",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "Floor2",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": true,
-          "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
-          "refId": "Floor3",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
-        },
-        {
-          "datasource": {
-            "name": "Expression",
-            "type": "__expr__",
-            "uid": "__expr__"
-          },
-          "expression": "$Floor1 + $Floor2 + $Floor3",
-          "refId": "Total",
-          "type": "math"
-        }
-      ],
-      "title": "House Load",
       "type": "stat"
     },
     {
@@ -858,7 +467,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS east_w FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS east_w FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "East"
         },
         {
@@ -868,7 +477,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS west_w FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS west_w FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "West"
         },
         {
@@ -878,7 +487,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Grid"
         },
         {
@@ -1109,7 +718,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(MAX(power), 0) AS solar_kw FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS solar_kw FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1138,7 +747,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS solar_kw FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS solar_kw FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "B",
           "sql": {
             "columns": [
@@ -1243,7 +852,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor1",
           "sql": {
             "columns": [
@@ -1272,7 +881,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor2",
           "sql": {
             "columns": [
@@ -1301,7 +910,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor3",
           "sql": {
             "columns": [
@@ -1512,7 +1121,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"Floor 1 Power\" FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS \"Floor 1 Power\" FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1606,7 +1215,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"Floor 2 Power\" FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS \"Floor 2 Power\" FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1700,7 +1309,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"236 Floor 1 Power\" FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS \"236 Floor 1 Power\" FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1795,7 +1404,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor1_w FROM \"235_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor1",
           "sql": {
             "columns": [
@@ -1824,7 +1433,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor2_w FROM \"235_floor_2\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor2",
           "sql": {
             "columns": [
@@ -1853,7 +1462,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS floor3_w FROM \"236_floor_1\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Floor3",
           "sql": {
             "columns": [
@@ -1958,7 +1567,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS east_w FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS east_w FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "East",
           "sql": {
             "columns": [
@@ -1987,7 +1596,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS west_w FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS west_w FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "West",
           "sql": {
             "columns": [
@@ -2016,7 +1625,7 @@
           "format": "table",
           "hide": true,
           "rawQuery": true,
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS grid_w FROM \"grid\" WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "Grid",
           "sql": {
             "columns": [
@@ -2714,7 +2323,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"East\" FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS \"East\" FROM east_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "East"
         },
         {
@@ -2723,7 +2332,7 @@
             "uid": "efhjej3wub8xsd"
           },
           "format": "table",
-          "rawSql": "SELECT COALESCE(AVG(power), 0) AS \"West\" FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
+          "rawSql": "SELECT AVG(power) AS \"West\" FROM west_microinverter_power WHERE time >= now() - INTERVAL '10 seconds'",
           "refId": "West"
         }
       ],
@@ -7369,6 +6978,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g9",
-  "version": 47,
+  "version": 49,
   "weekStart": ""
 }
