@@ -154,6 +154,7 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260402-x4d | add README.md | 2026-04-02 | 681d76f | [260402-x4d-add-readme-md](./quick/260402-x4d-add-readme-md/) |
+| 260409-b4w | remove COALESCE from 6 always-sending tables (21 queries) | 2026-04-09 | fa67d80 | [260409-b4w-remove-coalesce-from-sql-queries-for-tab](./quick/260409-b4w-remove-coalesce-from-sql-queries-for-tab/) |
 
 ### Blockers/Concerns
 
