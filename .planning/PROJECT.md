@@ -120,6 +120,7 @@ The homeowner's actual tariff is a flat 3.5 THB/kWh — not TOU. The dashboard p
 | [Phase 8] CT direct measurement for House Load (2026-04-02) | Hardware CT meters on both consumer units (Floor 1, Floor 2) give a more accurate house load reading than the derived solar+grid formula | Panels 5 and 10 use `235_floor_1` + `235_floor_2` CT queries; new "Power Distribution" row (900) adds Floor 1, Floor 2, CT Load, and Calculated Load panels for per-floor visibility and reconciliation; Panel 801 Power Profile adds Floor 1/2 time-series |
   | [Phase 9] CT grid meter replaces Smart Meter for grid power/voltage/current (2026-04-04) | Dedicated CT sensor at grid connection point provides more accurate real-time measurement; signed power convention (negative = backfeed) enables proper backfeed visualization | 12 panels migrated from `Smart Meter` to `grid` table; Panel 801 Grid series removes GREATEST() clip; Panels 17/18 (frequency/PF) intentionally preserved on Smart Meter |
   | [Phase 10] AVG windowed aggregates replace all point-in-time queries (2026-04-04) | Each device logs at a different interval (inverters ~10s, CT meters ~2s) — `selector_last`/`LIMIT 1` returned values from different instants, causing cross-device expressions to combine non-contemporaneous readings | 62 `selector_last` → `AVG`, 16 production counters → `MAX`, 6 `ORDER BY DESC LIMIT 1` → `AVG`; 8 categorical `selector_last` (device state/alarm/fault) preserved |
+| [Phase 11] CT tables for solar AC power output (2026-04-09) | CT sensors clamp directly on inverter AC output cables and log at ~2s intervals vs inverter's ~60s polling with stale/repeated values — provides live, accurate power readings | 8 panels migrated from `"East/West Microinverter"` to `east/west_microinverter_power` CT tables; all 28 CT snapshot targets tightened from 1-minute to 10-second recency window; dashboard refresh 10s → 5s |
 
 ## Evolution
 
@@ -139,4 +140,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-04 — Phase 10 complete: all 84 point-in-time SQL queries replaced with AVG/MAX windowed aggregates; cross-device temporal misalignment resolved*
+*Last updated: 2026-04-09 — Phase 11 complete: 8 solar AC panels migrated to CT sensor tables, recency windows tightened to 10s, dashboard refresh 5s*
