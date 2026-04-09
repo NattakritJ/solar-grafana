@@ -168,6 +168,7 @@ None yet.
 
 ## Session Continuity
 
+Last activity: 2026-04-09 - Completed quick task 260409-b4w: remove COALESCE from SQL queries for tables that always send data
 Last session: 2026-04-09T00:23:44.982Z
 Stopped at: Phase 11-01 Task 1 complete, awaiting human-verify checkpoint (Task 2)
 Resume file: None
