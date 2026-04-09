@@ -190,7 +190,7 @@ Plans:
 **Goal:** Migrate 8 panels from slow-polling inverter tables (`"East Microinverter"` / `"West Microinverter"`) to fast CT sensor tables (`east_microinverter_power` / `west_microinverter_power`), tighten recency windows on all CT snapshot panels from 1 minute to 10 seconds, and increase dashboard refresh from 10s to 5s
 **Requirements**: OVER-01, OVER-05, OVER-06, OVER-09, PROD-01, PROD-02, GRID-01
 **Depends on:** Phase 10
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 11-01-PLAN.md — Migrate 8 panels to CT tables, tighten 28 CT recency windows to 10s, set 5s refresh + human verification
+- [x] 11-01-PLAN.md — Migrate 8 panels to CT tables, tighten 28 CT recency windows to 10s, set 5s refresh + human verification

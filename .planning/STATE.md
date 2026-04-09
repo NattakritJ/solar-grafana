@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 11 context gathered
-last_updated: "2026-04-08T23:43:07.726Z"
-last_activity: 2026-04-04
+status: verifying
+stopped_at: Phase 11-01 Task 1 complete, awaiting human-verify checkpoint (Task 2)
+last_updated: "2026-04-09T00:23:44.986Z"
+last_activity: 2026-04-09
 progress:
   total_phases: 12
-  completed_phases: 11
-  total_plans: 18
-  completed_plans: 18
+  completed_phases: 12
+  total_plans: 19
+  completed_plans: 19
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 10 — after-using-dashboard-for-a-while-i-found-a-major-problem-each-device-have-different-log-time-and-almost-all-query-use-desc-limit-1-so-data-coming-to-dashboard-are-not-in-the-same-timeframe-how-can-we-tackle-this-problem
+**Current focus:** Phase 11 — change-table-for-solar-ac-power-output
 
 ## Current Position
 
-Phase: 10
-Plan: Not started
-Status: Executing Phase 10
-Last activity: 2026-04-04
+Phase: 11 (change-table-for-solar-ac-power-output) — EXECUTING
+Plan: 1 of 1
+Status: Phase complete — ready for verification
+Last activity: 2026-04-09
 
 Progress: [██████████] 100%
 
@@ -68,6 +68,7 @@ Progress: [██████████] 100%
 | Phase 06 P01 | 2 | 1 tasks | 1 files |
 | Phase 06-financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate P01 | 22min | 2 tasks | 1 files |
 | Phase 08 P01 | 25min | 3 tasks | 1 files |
+| Phase 11 P01 | 3min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -110,6 +111,7 @@ Recent decisions affecting current work:
 - [Phase 05.1]: Calendar-day boundary for Bangkok timezone: date_trunc('day', now() AT TIME ZONE 'Asia/Bangkok') AT TIME ZONE 'UTC' replaces rolling 24h/1day windows in all 18 today-scoped queries
 - [Phase 06]: Replaced TOU CASE WHEN SQL (5.7982 peak / 2.6369 off-peak + 15 Thai holiday exceptions) with SUM(hourly_kwh * 3.5) flat rate for savings panels 38/39/40 — homeowner's actual tariff is flat 3.5 THB/kWh; removed 4 TOU breakdown panels 41-44
 - [Phase 06]: Flat rate 3.5 THB/kWh replaces TOU CASE WHEN SQL — homeowner's actual tariff is flat; TOU breakdown panels 41-44 removed; Bangkok timezone applied to all three savings boundaries
+- [Phase 11]: Migrated 8 solar AC panels from inverter to CT tables (east/west_microinverter_power); 10s recency window for all CT snapshot panels; 5s dashboard refresh
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -165,6 +167,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-08T23:43:07.718Z
-Stopped at: Phase 11 context gathered
-Resume file: .planning/phases/11-change-table-for-solar-ac-power-output/11-CONTEXT.md
+Last session: 2026-04-09T00:23:44.982Z
+Stopped at: Phase 11-01 Task 1 complete, awaiting human-verify checkpoint (Task 2)
+Resume file: None
