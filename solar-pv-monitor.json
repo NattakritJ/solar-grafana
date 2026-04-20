@@ -6868,7 +6868,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT time, SUM(savings_thb) AS \"Daily Savings\" FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AT TIME ZONE 'UTC' AS time, MAX(today_production_sensor) * 3.5 AS savings_thb FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AT TIME ZONE 'UTC' AS time, MAX(today_production_sensor) * 3.5 AS savings_thb FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
+          "rawSql": "SELECT time, SUM(savings_thb) AS \"Daily Savings\" FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AT TIME ZONE 'UTC' AS time, MAX(today_production_sensor) * 3.5 AS savings_thb FROM \"East Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AT TIME ZONE 'UTC' AS time, MAX(today_production_sensor) * 3.5 AS savings_thb FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AT TIME ZONE 'UTC' AS time, MAX(today_production_sensor) * 3.5 AS savings_thb FROM \"West Microinverter 2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
           "refId": "A"
         }
       ],
