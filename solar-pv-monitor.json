@@ -65,8 +65,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 8,
+        "h": 3,
+        "w": 7,
         "x": 0,
         "y": 1
       },
@@ -147,13 +147,42 @@
           }
         },
         {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(MAX(total_production_sensor), 0) AS lifetime_kwh_west_2 FROM \"West Microinverter 2\"",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
           "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A + $B",
-          "refId": "C",
+          "expression": "$A + $B + $C",
+          "refId": "D",
           "type": "math"
         }
       ],
@@ -205,9 +234,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
+        "h": 3,
+        "w": 7,
+        "x": 7,
         "y": 1
       },
       "id": 2,
@@ -250,12 +279,22 @@
         },
         {
           "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "hide": true,
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) AS today_kwh FROM \"West Microinverter 2\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "refId": "C"
+        },
+        {
+          "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A + $B",
-          "refId": "C",
+          "expression": "$A + $B + $C",
+          "refId": "D",
           "type": "math"
         }
       ],
@@ -301,9 +340,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 16,
+        "h": 3,
+        "w": 5,
+        "x": 14,
         "y": 1
       },
       "id": 7,
@@ -332,7 +371,6 @@
           },
           "editorMode": "code",
           "format": "table",
-          "hide": true,
           "rawQuery": true,
           "rawSql": "SELECT MAX(power) AS peak_kw FROM east_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "A",
@@ -352,7 +390,73 @@
               }
             ]
           }
+        }
+      ],
+      "title": "Peak East AC Power Today",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "Maximum combined inverter AC output reached today",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.001
+              },
+              {
+                "color": "green",
+                "value": 1
+              },
+              {
+                "color": "dark-green",
+                "value": 4
+              }
+            ]
+          },
+          "unit": "watt"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 907,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
         {
           "dataset": "iox",
           "datasource": {
@@ -361,7 +465,6 @@
           },
           "editorMode": "code",
           "format": "table",
-          "hide": true,
           "rawQuery": true,
           "rawSql": "SELECT MAX(power) AS peak_kw FROM west_microinverter_power WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
           "refId": "B",
@@ -381,19 +484,9 @@
               }
             ]
           }
-        },
-        {
-          "datasource": {
-            "name": "Expression",
-            "type": "__expr__",
-            "uid": "__expr__"
-          },
-          "expression": "$A + $B",
-          "refId": "C",
-          "type": "math"
         }
       ],
-      "title": "Peak AC Power Today",
+      "title": "Peak West AC Power Today",
       "type": "stat"
     },
     {
@@ -437,10 +530,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 12,
         "x": 0,
-        "y": 5
+        "y": 4
       },
       "id": 6,
       "options": {
@@ -563,10 +656,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 12,
         "x": 12,
-        "y": 5
+        "y": 4
       },
       "id": 8,
       "options": {
@@ -688,7 +781,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 7
       },
       "id": 9,
       "options": {
@@ -822,7 +915,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 9
+        "y": 7
       },
       "id": 10,
       "options": {
@@ -985,7 +1078,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 9
+        "y": 7
       },
       "id": 11,
       "options": {
@@ -1043,7 +1136,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 10
       },
       "id": 900,
       "panels": [],
@@ -1092,7 +1185,7 @@
         "h": 3,
         "w": 5,
         "x": 0,
-        "y": 13
+        "y": 11
       },
       "id": 902,
       "options": {
@@ -1186,7 +1279,7 @@
         "h": 3,
         "w": 5,
         "x": 5,
-        "y": 13
+        "y": 11
       },
       "id": 903,
       "options": {
@@ -1280,7 +1373,7 @@
         "h": 3,
         "w": 5,
         "x": 10,
-        "y": 13
+        "y": 11
       },
       "id": 906,
       "options": {
@@ -1374,7 +1467,7 @@
         "h": 3,
         "w": 5,
         "x": 15,
-        "y": 13
+        "y": 11
       },
       "id": 904,
       "options": {
@@ -1537,7 +1630,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 13
+        "y": 11
       },
       "id": 905,
       "options": {
@@ -1664,7 +1757,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 14
       },
       "id": 800,
       "panels": [],
@@ -1788,6 +1881,17 @@
                   "fixedColor": "red",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
               }
             ]
           },
@@ -1803,6 +1907,17 @@
                   "fixedColor": "purple",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
               }
             ]
           },
@@ -1818,6 +1933,17 @@
                   "fixedColor": "yellow",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
               }
             ]
           }
@@ -1827,7 +1953,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 15
       },
       "id": 801,
       "options": {
@@ -1884,6 +2010,34 @@
           "rawQuery": true,
           "rawSql": "SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS \"Grid\" FROM \"grid\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
           "refId": "Grid",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT time, SUM(pw) AS \"Load\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"235_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"236_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
+          "refId": "Load",
           "sql": {
             "columns": [
               {
@@ -1984,34 +2138,6 @@
               }
             ]
           }
-        },
-        {
-          "dataset": "iox",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "efhjej3wub8xsd"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "rawQuery": true,
-          "rawSql": "SELECT time, SUM(pw) AS \"Load\" FROM (SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"235_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"235_floor_2\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 UNION ALL SELECT DATE_BIN(INTERVAL '5 minutes', time) AS time, AVG(power) AS pw FROM \"236_floor_1\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1) GROUP BY time ORDER BY time",
-          "refId": "Load",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ]
-          }
         }
       ],
       "title": "Power Profile",
@@ -2023,7 +2149,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 27
       },
       "id": 200,
       "panels": [],
@@ -2130,6 +2256,25 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 10
+              }
+            ]
           }
         ]
       },
@@ -2137,7 +2282,7 @@
         "h": 10,
         "w": 16,
         "x": 0,
-        "y": 30
+        "y": 28
       },
       "id": 12,
       "options": {
@@ -2213,6 +2358,32 @@
         }
       ],
       "title": "Solar AC Production",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Total",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "East"
+                }
+              },
+              "right": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "West"
+                }
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -2290,7 +2461,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 28
       },
       "id": 13,
       "options": {
@@ -2403,15 +2574,15 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 35
+        "y": 33
       },
       "id": 14,
       "options": {
         "displayLabels": ["percent"],
         "legend": {
           "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
+          "placement": "bottom",
+          "showLegend": false,
           "values": ["value", "percent"]
         },
         "pieType": "donut",
@@ -2540,6 +2711,21 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -2547,14 +2733,14 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 38
       },
       "id": 15,
       "options": {
         "barRadius": 0,
-        "barWidth": 0.7,
+        "barWidth": 0.8,
         "fullHighlight": false,
-        "groupWidth": 0.7,
+        "groupWidth": 0.5,
         "legend": {
           "calcs": ["sum"],
           "displayMode": "list",
@@ -2562,8 +2748,8 @@
           "showLegend": true
         },
         "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "normal",
+        "showValue": "never",
+        "stacking": "none",
         "tooltip": {
           "hideZeros": false,
           "mode": "multi",
@@ -2604,16 +2790,63 @@
           }
         },
         {
+          "dataset": "iox",
           "datasource": {
             "type": "influxdb",
             "uid": "efhjej3wub8xsd"
           },
+          "editorMode": "code",
           "format": "table",
+          "rawQuery": true,
           "rawSql": "SELECT date_trunc('day', time) AS time, MAX(today_production_sensor) AS \"West\" FROM \"West Microinverter\" WHERE time >= $__timeFrom AND time <= $__timeTo GROUP BY 1 ORDER BY 1",
-          "refId": "West"
+          "refId": "West",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH DailyMax AS (\n    SELECT \n        date_trunc('day', time) AS time, \n        MAX(today_production_sensor) AS production \n    FROM \"East Microinverter\" \n    WHERE time >= $__timeFrom AND time <= $__timeTo \n    GROUP BY 1\n\n    UNION ALL\n\n    SELECT \n        date_trunc('day', time) AS time, \n        MAX(today_production_sensor) AS production \n    FROM \"West Microinverter\" \n    WHERE time >= $__timeFrom AND time <= $__timeTo \n    GROUP BY 1\n)\nSELECT \n    time, \n    SUM(production) AS \"Total\"\nFROM DailyMax\nGROUP BY 1\nORDER BY 1;",
+          "refId": "Total",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
         }
       ],
-      "timeFrom": "90d",
+      "timeFrom": "30d",
       "title": "Daily Energy",
       "transformations": [
         {
@@ -2649,7 +2882,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 48
+        "y": 46
       },
       "id": 46,
       "options": {
@@ -2661,7 +2894,10 @@
           },
           "yBuckets": {
             "mode": "size",
-            "value": ""
+            "scale": {
+              "type": "linear"
+            },
+            "value": "200"
           }
         },
         "cellGap": 1,
@@ -2671,7 +2907,7 @@
         "color": {
           "exponent": 0.5,
           "fill": "dark-side",
-          "max": 5.24,
+          "max": 10,
           "min": 0,
           "mode": "scheme",
           "reverse": false,
@@ -2772,7 +3008,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 54
       },
       "id": 400,
       "panels": [],
@@ -2824,7 +3060,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 57
+        "y": 55
       },
       "id": 16,
       "options": {
@@ -2922,7 +3158,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 57
+        "y": 55
       },
       "id": 17,
       "options": {
@@ -2997,7 +3233,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 57
+        "y": 55
       },
       "id": 18,
       "options": {
@@ -3068,7 +3304,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 57
+        "y": 55
       },
       "id": 19,
       "options": {
@@ -3218,7 +3454,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 59
       },
       "id": 20,
       "options": {
@@ -3425,7 +3661,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 59
       },
       "id": 21,
       "options": {
@@ -3509,7 +3745,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 69
+        "y": 67
       },
       "id": 300,
       "panels": [],
@@ -3681,7 +3917,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 70
+        "y": 68
       },
       "id": 22,
       "options": {
@@ -3987,7 +4223,7 @@
         "h": 8,
         "w": 14,
         "x": 0,
-        "y": 80
+        "y": 78
       },
       "id": 45,
       "options": {
@@ -5420,7 +5656,7 @@
         "h": 8,
         "w": 10,
         "x": 14,
-        "y": 80
+        "y": 78
       },
       "id": 23,
       "options": {
@@ -5523,7 +5759,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 88
+        "y": 86
       },
       "id": 500,
       "panels": [],
@@ -5569,7 +5805,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 89
+        "y": 87
       },
       "id": 24,
       "options": {
@@ -5639,7 +5875,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 89
+        "y": 87
       },
       "id": 25,
       "options": {
@@ -5735,7 +5971,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 89
+        "y": 87
       },
       "id": 26,
       "options": {
@@ -5782,19 +6018,11 @@
           "mappings": [
             {
               "options": {
-                "0": {
-                  "color": "green",
-                  "text": "Normal"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
                 "match": "null",
                 "result": {
-                  "color": "dark-gray",
-                  "text": "N/A"
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
                 }
               },
               "type": "special"
@@ -5820,7 +6048,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 89
+        "y": 87
       },
       "id": 27,
       "options": {
@@ -5868,7 +6096,7 @@
             {
               "options": {
                 "0": {
-                  "color": "green",
+                  "index": 1,
                   "text": "Normal"
                 }
               },
@@ -5878,8 +6106,9 @@
               "options": {
                 "match": "null",
                 "result": {
-                  "color": "dark-gray",
-                  "text": "N/A"
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
                 }
               },
               "type": "special"
@@ -5905,7 +6134,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 89
+        "y": 87
       },
       "id": 28,
       "options": {
@@ -6003,7 +6232,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 92
+        "y": 90
       },
       "id": 29,
       "options": {
@@ -6050,19 +6279,11 @@
           "mappings": [
             {
               "options": {
-                "0": {
-                  "color": "green",
-                  "text": "Normal"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
                 "match": "null",
                 "result": {
-                  "color": "dark-gray",
-                  "text": "N/A"
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
                 }
               },
               "type": "special"
@@ -6088,7 +6309,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 92
+        "y": 90
       },
       "id": 30,
       "options": {
@@ -6135,19 +6356,11 @@
           "mappings": [
             {
               "options": {
-                "0": {
-                  "color": "green",
-                  "text": "Normal"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
                 "match": "null",
                 "result": {
-                  "color": "dark-gray",
-                  "text": "N/A"
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
                 }
               },
               "type": "special"
@@ -6173,7 +6386,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 92
+        "y": 90
       },
       "id": 31,
       "options": {
@@ -6212,7 +6425,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 95
+        "y": 93
       },
       "id": 600,
       "panels": [],
@@ -6257,7 +6470,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 96
+        "y": 94
       },
       "id": 38,
       "options": {
@@ -6318,12 +6531,22 @@
         },
         {
           "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "hide": true,
+          "rawSql": "SELECT COALESCE(MAX(today_production_sensor), 0) * 3.5 AS savings_thb FROM \"West Microinverter 2\" WHERE time >= date_trunc('day', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC'",
+          "refId": "C"
+        },
+        {
+          "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A + $B",
-          "refId": "C",
+          "expression": "$A + $B + $C",
+          "refId": "D",
           "type": "math"
         }
       ],
@@ -6368,7 +6591,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 96
+        "y": 94
       },
       "id": 39,
       "options": {
@@ -6410,12 +6633,22 @@
         },
         {
           "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "hide": true,
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter 2\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "refId": "C"
+        },
+        {
+          "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A + $B",
-          "refId": "C",
+          "expression": "$A + $B + $C",
+          "refId": "D",
           "type": "math"
         }
       ],
@@ -6460,7 +6693,7 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 96
+        "y": 94
       },
       "id": 40,
       "options": {
@@ -6502,12 +6735,22 @@
         },
         {
           "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "hide": true,
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter 2\" WHERE time >= date_trunc('year', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "refId": "C"
+        },
+        {
+          "datasource": {
             "name": "Expression",
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A + $B",
-          "refId": "C",
+          "expression": "$A + $B + $C",
+          "refId": "D",
           "type": "math"
         }
       ],
@@ -6531,32 +6774,16 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.8,
-            "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 80,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -6606,21 +6833,30 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 100
+        "y": 98
       },
       "id": 41,
       "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
         "tooltip": {
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
-        }
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
       "pluginVersion": "12.4.2",
       "targets": [
@@ -6638,7 +6874,7 @@
       ],
       "timeFrom": "90d",
       "title": "Daily Savings Trend",
-      "type": "timeseries"
+      "type": "barchart"
     },
     {
       "collapsed": false,
@@ -6646,7 +6882,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 108
+        "y": 106
       },
       "id": 700,
       "panels": [],
@@ -6695,7 +6931,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 109
+        "y": 107
       },
       "id": 33,
       "options": {
@@ -6771,7 +7007,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 109
+        "y": 107
       },
       "id": 34,
       "options": {
@@ -6915,7 +7151,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 109
+        "y": 107
       },
       "id": 35,
       "options": {
@@ -6978,6 +7214,6 @@
   "timezone": "Asia/Bangkok",
   "title": "Solar PV Monitor",
   "uid": "towt7g9",
-  "version": 49,
+  "version": 66,
   "weekStart": ""
 }
