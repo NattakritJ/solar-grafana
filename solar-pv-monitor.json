@@ -78,7 +78,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -247,7 +249,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -353,7 +357,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -447,7 +453,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -543,7 +551,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -669,7 +679,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -791,7 +803,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -925,7 +939,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1088,7 +1104,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1195,7 +1213,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1289,7 +1309,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1383,7 +1405,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1477,7 +1501,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1640,7 +1666,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1889,7 +1917,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -1911,7 +1942,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -1941,7 +1975,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -1958,7 +1995,11 @@
       "id": 801,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -2287,7 +2328,11 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": ["mean", "max", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2478,7 +2523,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2578,16 +2625,23 @@
       },
       "id": 14,
       "options": {
-        "displayLabels": ["percent"],
+        "displayLabels": [
+          "percent"
+        ],
         "legend": {
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": false,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": true
         },
@@ -2630,7 +2684,9 @@
           "options": {
             "includeTimeField": false,
             "mode": "seriesToRows",
-            "reducers": ["sum"]
+            "reducers": [
+              "sum"
+            ]
           }
         }
       ],
@@ -2742,7 +2798,9 @@
         "fullHighlight": false,
         "groupWidth": 0.5,
         "legend": {
-          "calcs": ["sum"],
+          "calcs": [
+            "sum"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2919,7 +2977,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-9
+          "le": 1E-9
         },
         "legend": {
           "show": true
@@ -3070,7 +3128,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3168,7 +3228,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3243,7 +3305,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3314,7 +3378,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -3459,7 +3525,11 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3666,7 +3736,11 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": ["mean", "min", "max"],
+          "calcs": [
+            "mean",
+            "min",
+            "max"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3910,6 +3984,66 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West2 PV1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5794F2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West2 PV2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5794F2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West2 PV3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5794F2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "West2 PV4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5794F2",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -3934,7 +4068,9 @@
         "namePlacement": "auto",
         "orientation": "vertical",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -4151,6 +4287,118 @@
           "rawQuery": true,
           "rawSql": "SELECT COALESCE(AVG(pv4_power_sensor), 0) AS \"West PV4\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '5 minutes'",
           "refId": "WestPV4",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv1_power_sensor), 0) AS \"West2 PV1\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "West2PV1",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv2_power_sensor), 0) AS \"West2 PV2\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "West2PV2",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv3_power_sensor), 0) AS \"West2 PV3\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "West2PV3",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv4_power_sensor), 0) AS \"West2 PV4\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "West2PV4",
           "sql": {
             "columns": [
               {
@@ -5742,6 +5990,42 @@
           "format": "table",
           "rawSql": "SELECT\n  'West PV4' AS \"Panel\",\n  COALESCE(AVG(pv4_power_sensor), 0) AS \"Power (W)\",\n  COALESCE(AVG(pv4_voltage_sensor), 0) AS \"Voltage (V)\",\n  COALESCE(AVG(pv4_current_sensor), 0) AS \"Current (A)\",\n  COALESCE(MAX(today_production_4_sensor), 0) AS \"Today (kWh)\",\n  COALESCE(MAX(total_production_4_sensor), 0) AS \"Total (kWh)\"\nFROM \"West Microinverter\"\nWHERE time >= now() - INTERVAL '1 minutes'",
           "refId": "WestPV4"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT\n  'West2 PV1' AS \"Panel\",\n  COALESCE(AVG(pv1_power_sensor), 0) AS \"Power (W)\",\n  COALESCE(AVG(pv1_voltage_sensor), 0) AS \"Voltage (V)\",\n  COALESCE(AVG(pv1_current_sensor), 0) AS \"Current (A)\",\n  COALESCE(MAX(today_production_1_sensor), 0) AS \"Today (kWh)\",\n  COALESCE(MAX(total_production_1_sensor), 0) AS \"Total (kWh)\"\nFROM \"West Microinverter 2\"\nWHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "West2PV1"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT\n  'West2 PV2' AS \"Panel\",\n  COALESCE(AVG(pv2_power_sensor), 0) AS \"Power (W)\",\n  COALESCE(AVG(pv2_voltage_sensor), 0) AS \"Voltage (V)\",\n  COALESCE(AVG(pv2_current_sensor), 0) AS \"Current (A)\",\n  COALESCE(MAX(today_production_2_sensor), 0) AS \"Today (kWh)\",\n  COALESCE(MAX(total_production_2_sensor), 0) AS \"Total (kWh)\"\nFROM \"West Microinverter 2\"\nWHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "West2PV2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT\n  'West2 PV3' AS \"Panel\",\n  COALESCE(AVG(pv3_power_sensor), 0) AS \"Power (W)\",\n  COALESCE(AVG(pv3_voltage_sensor), 0) AS \"Voltage (V)\",\n  COALESCE(AVG(pv3_current_sensor), 0) AS \"Current (A)\",\n  COALESCE(MAX(today_production_3_sensor), 0) AS \"Today (kWh)\",\n  COALESCE(MAX(total_production_3_sensor), 0) AS \"Total (kWh)\"\nFROM \"West Microinverter 2\"\nWHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "West2PV3"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT\n  'West2 PV4' AS \"Panel\",\n  COALESCE(AVG(pv4_power_sensor), 0) AS \"Power (W)\",\n  COALESCE(AVG(pv4_voltage_sensor), 0) AS \"Voltage (V)\",\n  COALESCE(AVG(pv4_current_sensor), 0) AS \"Current (A)\",\n  COALESCE(MAX(today_production_4_sensor), 0) AS \"Today (kWh)\",\n  COALESCE(MAX(total_production_4_sensor), 0) AS \"Total (kWh)\"\nFROM \"West Microinverter 2\"\nWHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "West2PV4"
         }
       ],
       "title": "Module Detail",
@@ -5813,7 +6097,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5883,7 +6169,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -5981,7 +6269,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -6058,7 +6348,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -6144,7 +6436,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6242,7 +6536,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/.*/",
           "values": false
         },
@@ -6319,7 +6615,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6396,7 +6694,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6420,12 +6720,342 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "West Microinverter 2 operating temperature",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 80,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 40
+              },
+              {
+                "color": "red",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 93
+      },
+      "id": 908,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT COALESCE(AVG(temperature_sensor), 0) AS \"Temperature\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "A"
+        }
+      ],
+      "title": "West 2 Temperature",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "West Microinverter 2 operating state",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-gray",
+                  "index": 4,
+                  "text": "Offline"
+                },
+                "1": {
+                  "color": "#EAB839",
+                  "index": 3,
+                  "text": "Standby"
+                },
+                "3": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Fault"
+                },
+                "Normal": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "Producing"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "dark-gray",
+                  "index": 0,
+                  "text": "Offline"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-gray",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 93
+      },
+      "id": 909,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT COALESCE(selector_last(device_state_sensor, time)['value'], 'Offline') AS state FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "A"
+        }
+      ],
+      "title": "West 2 State",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "West Microinverter 2 alarm status",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 93
+      },
+      "id": 910,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT COALESCE(selector_last(device_alarm_sensor, time)['value'], 0) AS alarm FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "A"
+        }
+      ],
+      "title": "West 2 Alarm",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "efhjej3wub8xsd"
+      },
+      "description": "West Microinverter 2 fault status",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Normal"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 93
+      },
+      "id": 911,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "format": "table",
+          "rawSql": "SELECT COALESCE(selector_last(device_fault_sensor, time)['value'], 0) AS fault FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '1 minutes'",
+          "refId": "A"
+        }
+      ],
+      "title": "West 2 Fault",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 93
+        "y": 99
       },
       "id": 600,
       "panels": [],
@@ -6470,7 +7100,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 94
+        "y": 100
       },
       "id": 38,
       "options": {
@@ -6480,7 +7110,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6591,7 +7223,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 94
+        "y": 100
       },
       "id": 39,
       "options": {
@@ -6601,7 +7233,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6693,7 +7327,7 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 94
+        "y": 100
       },
       "id": 40,
       "options": {
@@ -6703,7 +7337,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -6833,7 +7469,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 98
+        "y": 104
       },
       "id": 41,
       "options": {
@@ -6882,7 +7518,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 106
+        "y": 112
       },
       "id": 700,
       "panels": [],
@@ -6931,7 +7567,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 107
+        "y": 113
       },
       "id": 33,
       "options": {
@@ -6941,7 +7577,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -7007,7 +7645,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 107
+        "y": 113
       },
       "id": 34,
       "options": {
@@ -7017,7 +7655,9 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -7151,7 +7791,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 107
+        "y": 113
       },
       "id": 35,
       "options": {
@@ -7202,7 +7842,11 @@
   "preload": false,
   "refresh": "5s",
   "schemaVersion": 42,
-  "tags": ["solar", "energy", "influxdb"],
+  "tags": [
+    "solar",
+    "energy",
+    "influxdb"
+  ],
   "templating": {
     "list": []
   },
