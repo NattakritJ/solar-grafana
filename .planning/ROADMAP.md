@@ -96,7 +96,16 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation & Overview Stats | 2/2 | Complete | 2026-03-30 |
 | 2. Production Charts & Grid Monitoring | 2/2 | Complete | 2026-03-30 |
 | 3. Module-Level Detail, Inverter Health & Event Log | 3/3 | Complete | 2026-03-30 |
-| 4. Financial Savings, Canvas Layout & Polish | 3/3 | Complete   | 2026-03-30 |
+| 4. Financial Savings, Canvas Layout & Polish | 3/3 | Complete | 2026-03-30 |
+| 5. Server-side expressions migration | 2/2 | Complete | 2026-04-09 |
+| 5.1. Bangkok timezone "Today" fix | 1/1 | Complete | 2026-04-09 |
+| 6. Fixed savings rate (3.5 THB) | 1/1 | Complete | 2026-04-09 |
+| 7. Stale data sunset fix | 1/1 | Complete | 2026-04-09 |
+| 8. CT Meter house load & floor distribution | 1/1 | Complete | 2026-04-09 |
+| 9. CT Meter grid migration | 1/1 | Complete | 2026-04-09 |
+| 10. Temporal alignment (selector_last -> AVG) | 1/1 | Complete | 2026-04-09 |
+| 11. CT Meter solar migration & 5s refresh | 1/1 | Complete | 2026-04-09 |
+| 12. Add West Microinverter 2 | 2/2 | Complete | 2026-04-20 |
 
 ## Post-v1 Dashboard Changes (2026-04-01)
 
@@ -183,7 +192,7 @@ Plans:
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 10-01-PLAN.md — Replace 84 selector_last/LIMIT 1 queries with AVG/MAX aggregates + human verification
+- [x] 10-01-PLAN.md — Replace 84 selector_last/LIMIT 1 queries with AVG/MAX aggregates + human verification
 
 ### Phase 11: Change table for solar AC power output
 
@@ -200,8 +209,8 @@ Plans:
 **Goal:** Integrate West Microinverter 2 into dashboard for DC-level monitoring, module details, and aggregated production stats, while keeping AC/CT panels unchanged.
 **Depends on:** Phase 11
 **Requirements**: OVER-02, PROD-02, MODL-01, MODL-04, HLTH-01, FINC-02
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 12-01-PLAN.md — Update aggregated KPIs and Daily Savings Trend chart
-- [ ] 12-02-PLAN.md — Add device-specific health panels, update module-level DC metrics and canvas roof layout
+- [x] 12-01-PLAN.md — Update aggregated KPIs and Daily Savings Trend chart
+- [x] 12-02-PLAN.md — Add device-specific health panels, update module-level DC metrics and canvas roof layout

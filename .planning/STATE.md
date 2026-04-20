@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 11-01 Task 1 complete, awaiting human-verify checkpoint (Task 2)
-last_updated: "2026-04-09T00:39:15.299Z"
-last_activity: 2026-04-09
+status: completed
+stopped_at: Completed 12-02-PLAN.md
+last_updated: "2026-04-20T02:10:00.000Z"
+last_activity: 2026-04-20
 progress:
-  total_phases: 12
-  completed_phases: 12
-  total_plans: 19
-  completed_plans: 19
+  total_phases: 13
+  completed_phases: 13
+  total_plans: 21
+  completed_plans: 21
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** At a glance, the homeowner can see how much solar energy is being produced, how much the house is consuming, and how much money is being saved — down to the individual panel level.
-**Current focus:** Phase 11 — change-table-for-solar-ac-power-output
+**Current focus:** Phase 12 — add-new-microinverter-to-dashboard
 
 ## Current Position
 
-Phase: 11
-Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-04-09
+Phase: 12
+Plan: 02
+Status: Completed
+Last activity: 2026-04-20
 
 Progress: [██████████] 100%
 
@@ -69,6 +69,8 @@ Progress: [██████████] 100%
 | Phase 06-financial-savings-rework-use-fixed-rate-3-5-thb-kwh-instead-of-tou-rate P01 | 22min | 2 tasks | 1 files |
 | Phase 08 P01 | 25min | 3 tasks | 1 files |
 | Phase 11 P01 | 3min | 1 tasks | 1 files |
+| Phase 12 P01 | 15m | 2 tasks | 1 files |
+| Phase 12 P02 | 15m | 3 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -112,6 +114,8 @@ Recent decisions affecting current work:
 - [Phase 06]: Replaced TOU CASE WHEN SQL (5.7982 peak / 2.6369 off-peak + 15 Thai holiday exceptions) with SUM(hourly_kwh * 3.5) flat rate for savings panels 38/39/40 — homeowner's actual tariff is flat 3.5 THB/kWh; removed 4 TOU breakdown panels 41-44
 - [Phase 06]: Flat rate 3.5 THB/kWh replaces TOU CASE WHEN SQL — homeowner's actual tariff is flat; TOU breakdown panels 41-44 removed; Bangkok timezone applied to all three savings boundaries
 - [Phase 11]: Migrated 8 solar AC panels from inverter to CT tables (east/west_microinverter_power); 10s recency window for all CT snapshot panels; 5s dashboard refresh
+- Used $A + $B + $C Expression pattern for all aggregated KPI panels (702, 2, 38, 39, 40)
+- Extended UNION ALL chain in Panel 41 (Daily Savings Trend) to include the third microinverter
 
 ### Post-v1 Edits Applied (2026-04-01)
 
@@ -136,6 +140,7 @@ The following decisions were recorded after the Phase 07 completion to reflect m
 
 ### Roadmap Evolution
 
+- Phase 12 added: add new microinverter to dashboard
 - Phase 5 added: Fix all panel in dashboard that still use transformation to calcuate to use expression instead. For example, look at Self-Consumption or 🏠 House Load panel that use Expression.
 - Phase 5.1 inserted after Phase 5: Fix how to get "Today" data. Currently, it use WHERE time >= now() - INTERVAL '24 hours' which meaning last 24 hours not "Today". "Today" should mean from the beginning of the current day at 00:00 to now. (URGENT)
 - Phase 6 added: Financial Savings rework: use fixed rate (3.5 THB/kWh) instead of TOU rate
@@ -169,6 +174,6 @@ None yet.
 ## Session Continuity
 
 Last activity: 2026-04-09 - Completed quick task 260409-b4w: remove COALESCE from SQL queries for tables that always send data
-Last session: 2026-04-09T00:23:44.982Z
-Stopped at: Phase 11-01 Task 1 complete, awaiting human-verify checkpoint (Task 2)
+Last session: 2026-04-20T01:53:12.258Z
+Stopped at: Completed 12-01-PLAN.md
 Resume file: None
