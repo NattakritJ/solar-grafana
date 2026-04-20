@@ -5453,6 +5453,486 @@
                 "width": 150
               },
               "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#cccccc"
+                },
+                "size": 14,
+                "text": {
+                  "fixed": "West Slope 2"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west_label_2",
+              "placement": {
+                "height": 60,
+                "left": 10,
+                "top": 315,
+                "width": 100
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "West2 PV2",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "transparent"
+                },
+                "size": 12,
+                "text": {
+                  "fixed": ""
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv2_bg",
+              "placement": {
+                "height": 90,
+                "left": 120,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 13,
+                "text": {
+                  "fixed": "West2 PV2"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv2_name",
+              "placement": {
+                "height": 38,
+                "left": 120,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffdd57"
+                },
+                "size": 13,
+                "text": {
+                  "field": "West2 PV2",
+                  "fixed": "-- W",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv2_watts",
+              "placement": {
+                "height": 38,
+                "left": 120,
+                "top": 344,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "West2 PV1",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "transparent"
+                },
+                "size": 12,
+                "text": {
+                  "fixed": ""
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv1_bg",
+              "placement": {
+                "height": 90,
+                "left": 290,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 13,
+                "text": {
+                  "fixed": "West2 PV1"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv1_name",
+              "placement": {
+                "height": 38,
+                "left": 290,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffdd57"
+                },
+                "size": 13,
+                "text": {
+                  "field": "West2 PV1",
+                  "fixed": "-- W",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv1_watts",
+              "placement": {
+                "height": 38,
+                "left": 290,
+                "top": 344,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "West2 PV4",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "transparent"
+                },
+                "size": 12,
+                "text": {
+                  "fixed": ""
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv4_bg",
+              "placement": {
+                "height": 90,
+                "left": 460,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 13,
+                "text": {
+                  "fixed": "West2 PV4"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv4_name",
+              "placement": {
+                "height": 38,
+                "left": 460,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffdd57"
+                },
+                "size": 13,
+                "text": {
+                  "field": "West2 PV4",
+                  "fixed": "-- W",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv4_watts",
+              "placement": {
+                "height": 38,
+                "left": 460,
+                "top": 344,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "West2 PV3",
+                  "fixed": "#1a1a2e"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "#444444"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "transparent"
+                },
+                "size": 12,
+                "text": {
+                  "fixed": ""
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv3_bg",
+              "placement": {
+                "height": 90,
+                "left": 630,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 13,
+                "text": {
+                  "fixed": "West2 PV3"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv3_name",
+              "placement": {
+                "height": 38,
+                "left": 630,
+                "top": 300,
+                "width": 150
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffdd57"
+                },
+                "size": 13,
+                "text": {
+                  "field": "West2 PV3",
+                  "fixed": "-- W",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "west2_pv3_watts",
+              "placement": {
+                "height": 38,
+                "left": 630,
+                "top": 344,
+                "width": 150
+              },
+              "type": "rectangle"
             }
           ],
           "name": "root",
@@ -5681,6 +6161,118 @@
           "rawQuery": true,
           "rawSql": "SELECT COALESCE(AVG(pv4_power_sensor), 0) AS \"West PV4\" FROM \"West Microinverter\" WHERE time >= now() - INTERVAL '5 minutes'",
           "refId": "H",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv1_power_sensor), 0) AS \"West2 PV1\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "I",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv2_power_sensor), 0) AS \"West2 PV2\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "J",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv3_power_sensor), 0) AS \"West2 PV3\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "K",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "efhjej3wub8xsd"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(pv4_power_sensor), 0) AS \"West2 PV4\" FROM \"West Microinverter 2\" WHERE time >= now() - INTERVAL '5 minutes'",
+          "refId": "L",
           "sql": {
             "columns": [
               {
