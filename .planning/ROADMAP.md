@@ -194,3 +194,14 @@ Plans:
 
 Plans:
 - [x] 11-01-PLAN.md — Migrate 8 panels to CT tables, tighten 28 CT recency windows to 10s, set 5s refresh + human verification
+
+### Phase 12: add new microinverter to dashboard
+
+**Goal:** Integrate West Microinverter 2 into dashboard for DC-level monitoring, module details, and aggregated production stats, while keeping AC/CT panels unchanged.
+**Depends on:** Phase 11
+**Requirements**: OVER-02, PROD-02, MODL-01, MODL-04, HLTH-01, FINC-02
+**Plans:** 2 plans
+
+Plans:
+- [ ] 12-01-PLAN.md — Update aggregated KPIs and Daily Savings Trend chart
+- [ ] 12-02-PLAN.md — Add device-specific health panels, update module-level DC metrics and canvas roof layout
