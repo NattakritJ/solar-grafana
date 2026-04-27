@@ -7782,7 +7782,7 @@
         "type": "influxdb",
         "uid": "efhjej3wub8xsd"
       },
-      "description": "Month-to-date estimated savings from solar production using a Bangkok calendar month at a fixed rate of 3.5 THB/kWh",
+      "description": "Estimated savings for the current billing cycle (14th to 13th) at a fixed rate of 3.5 THB/kWh",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -7844,7 +7844,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"East Microinverter\" WHERE time >= (date_trunc('month', tz(now(), 'Asia/Bangkok') - INTERVAL '13 days') + INTERVAL '13 days') AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "A"
         },
         {
@@ -7854,7 +7854,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter\" WHERE time >= (date_trunc('month', tz(now(), 'Asia/Bangkok') - INTERVAL '13 days') + INTERVAL '13 days') AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "B"
         },
         {
@@ -7864,7 +7864,7 @@
           },
           "format": "table",
           "hide": true,
-          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter 2\" WHERE time >= date_trunc('month', tz(now(), 'Asia/Bangkok')) AT TIME ZONE 'UTC' GROUP BY 1)",
+          "rawSql": "SELECT COALESCE(SUM(daily_kwh * 3.5), 0) AS savings_thb FROM (SELECT date_trunc('day', tz(time, 'Asia/Bangkok')) AS local_day, MAX(today_production_sensor) AS daily_kwh FROM \"West Microinverter 2\" WHERE time >= (date_trunc('month', tz(now(), 'Asia/Bangkok') - INTERVAL '13 days') + INTERVAL '13 days') AT TIME ZONE 'UTC' GROUP BY 1)",
           "refId": "C"
         },
         {
